@@ -24,22 +24,28 @@
   <style>
     :root {
       --bg-canvas: #09090B;
-      --glass-bg: rgba(18, 18, 24, 0.72);
+      --glass-bg: rgba(18, 18, 24, 0.76);
       --glass-border: rgba(255, 255, 255, 0.13);
-      --glass-inner: inset 0 1px 0 0 rgba(255, 255, 255, 0.18), inset 0 -12px 24px -12px rgba(0, 0, 0, 0.65);
-      --input-bg: rgba(24, 24, 32, 0.65);
+      --glass-inner: inset 0 1px 0 0 rgba(255, 255, 255, 0.16), inset 0 -12px 24px -12px rgba(0, 0, 0, 0.65);
+      --input-bg: rgba(24, 24, 32, 0.72);
+      --card-subtle: rgba(255, 255, 255, 0.04);
       --text-main: #F4F4F6;
       --text-muted: #A1A1AA;
+      --accent-heading: #67E8F9;
+      --accent-sub: #FCD34D;
     }
 
     html:not(.dark) {
-      --bg-canvas: #F4F5F8;
-      --glass-bg: rgba(255, 255, 255, 0.82);
-      --glass-border: rgba(15, 23, 42, 0.12);
-      --glass-inner: inset 0 1px 0 0 rgba(255, 255, 255, 0.9), inset 0 -10px 20px -12px rgba(15, 23, 42, 0.08);
-      --input-bg: rgba(255, 255, 255, 0.9);
+      --bg-canvas: #F1F5F9;
+      --glass-bg: rgba(255, 255, 255, 0.92);
+      --glass-border: rgba(148, 163, 184, 0.35);
+      --glass-inner: inset 0 1px 0 0 rgba(255, 255, 255, 1), 0 12px 32px -10px rgba(15, 23, 42, 0.08);
+      --input-bg: #FFFFFF;
+      --card-subtle: #F8FAFC;
       --text-main: #0F172A;
       --text-muted: #475569;
+      --accent-heading: #1D4ED8;
+      --accent-sub: #B45309;
     }
 
     body {
@@ -47,7 +53,7 @@
       color: var(--text-main);
       font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
       overflow-x: hidden;
-      transition: background-color 0.3s ease, color 0.3s ease;
+      transition: background-color 0.25s ease, color 0.25s ease;
     }
 
     .aurora-bg {
@@ -61,13 +67,13 @@
     .aurora-orb {
       position: absolute;
       border-radius: 9999px;
-      filter: blur(110px);
-      opacity: 0.34;
+      filter: blur(115px);
+      opacity: 0.32;
       animation: auroraFloat 18s ease-in-out infinite alternate;
     }
 
     html:not(.dark) .aurora-orb {
-      opacity: 0.22;
+      opacity: 0.14;
     }
 
     .orb-indigo {
@@ -104,30 +110,67 @@
 
     .neo-glass {
       background: var(--glass-bg);
-      backdrop-filter: blur(24px) saturate(150%);
-      -webkit-backdrop-filter: blur(24px) saturate(150%);
+      backdrop-filter: blur(22px) saturate(145%);
+      -webkit-backdrop-filter: blur(22px) saturate(145%);
       border: 1px solid var(--glass-border);
-      box-shadow: var(--glass-inner), 0 24px 60px -15px rgba(0, 0, 0, 0.45);
+      box-shadow: var(--glass-inner), 0 20px 50px -15px rgba(0, 0, 0, 0.35);
+    }
+
+    html:not(.dark) .neo-glass {
+      box-shadow: var(--glass-inner);
+    }
+
+    .subtle-panel {
+      background: var(--card-subtle);
+      border: 1px solid var(--glass-border);
+    }
+
+    .heading-accent {
+      color: var(--accent-heading);
+    }
+
+    .sub-accent {
+      color: var(--accent-sub);
+    }
+
+    .muted-text {
+      color: var(--text-muted);
     }
 
     .glass-input, .glass-select, .glass-textarea {
       background: var(--input-bg);
       border: 1px solid var(--glass-border);
       color: var(--text-main);
-      transition: all 0.22s ease;
+      transition: all 0.2s ease;
+    }
+
+    .glass-input::placeholder, .glass-textarea::placeholder {
+      color: var(--text-muted);
+      opacity: 0.75;
     }
 
     .glass-input:focus, .glass-select:focus, .glass-textarea:focus {
       outline: none;
-      border-color: rgba(34, 211, 238, 0.75);
-      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.22), 0 0 20px rgba(34, 211, 238, 0.22);
+      border-color: #0284c7;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+    }
+
+    .nav-btn-inactive {
+      background: var(--card-subtle);
+      border: 1px solid var(--glass-border);
+      color: var(--text-main);
+    }
+
+    .nav-btn-inactive:hover {
+      border-color: #6366f1;
     }
 
     .cta-shimmer {
       position: relative;
       overflow: hidden;
-      background: linear-gradient(135deg, #4f46e5 0%, #0891b2 55%, #d97706 100%);
-      transition: transform 0.22s ease, box-shadow 0.22s ease;
+      background: linear-gradient(135deg, #4338ca 0%, #0369a1 55%, #b45309 100%);
+      color: #ffffff;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .cta-shimmer::after {
@@ -137,14 +180,14 @@
       left: -120%;
       width: 65%;
       height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.36), transparent);
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.34), transparent);
       transform: skewX(-22deg);
       animation: shimmerSweep 3.8s infinite;
     }
 
     .cta-shimmer:hover {
-      transform: translateY(-1px) scale(1.01);
-      box-shadow: 0 12px 30px -6px rgba(34, 211, 238, 0.45);
+      transform: translateY(-1px);
+      box-shadow: 0 12px 28px -6px rgba(67, 56, 202, 0.45);
     }
 
     @keyframes shimmerSweep {
@@ -177,7 +220,7 @@
     }
   </style>
 </head>
-<body class="min-h-screen relative selection:bg-cyan-500/30 selection:text-cyan-200">
+<body class="min-h-screen relative">
   <div class="aurora-bg" aria-hidden="true">
     <div class="aurora-orb orb-indigo"></div>
     <div class="aurora-orb orb-cyan"></div>
@@ -188,65 +231,60 @@
     <!-- Top Header -->
     <header class="neo-glass rounded-3xl p-4 sm:p-5 mb-6 flex flex-wrap items-center justify-between gap-4">
       <div class="flex items-center gap-3.5">
-        <img id="brand-logo-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%234f46e5'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='26' font-family='sans-serif' font-weight='bold'%3EBA%3C/text%3E%3C/svg%3E" alt="Logo Baitul Arqam" class="w-12 h-12 rounded-2xl object-cover border border-white/20 bg-indigo-950/60" />
+        <img id="brand-logo-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%234f46e5'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='26' font-family='sans-serif' font-weight='bold'%3EBA%3C/text%3E%3C/svg%3E" alt="Logo Baitul Arqam" class="w-12 h-12 rounded-2xl object-cover border border-slate-400/30 bg-indigo-950/60" />
         <div>
-          <div class="inline-flex items-center gap-2 text-[11px] uppercase tracking-widest text-amber-300/90 font-semibold">
+          <div class="inline-flex items-center gap-2 text-[11px] uppercase tracking-widest sub-accent font-bold">
             <span>PPDA • 2026</span>
           </div>
           <h1 class="text-lg sm:text-xl font-extrabold tracking-tight">Baitul Arqam Pegawai 2026</h1>
-          <p class="text-xs opacity-75">Sistem Biodata, Profil Persyarikatan &amp; Cetak CV Peserta</p>
+          <p class="text-xs muted-text">Formulir Pengisian Biodata &amp; Profil Persyarikatan</p>
         </div>
       </div>
 
       <div class="flex flex-wrap items-center gap-2">
-        <label class="cursor-pointer px-3 py-2 rounded-xl text-xs font-semibold border border-white/15 bg-white/5 hover:bg-white/10 transition flex items-center gap-1.5" title="Ganti Logo & Favicon">
-          <span>Upload Logo &amp; Favicon</span>
-          <input type="file" id="logo-upload-input" accept="image/*" class="hidden" onchange="handleBrandLogoUpload(event)" />
-        </label>
-
-        <button type="button" onclick="toggleTheme()" class="px-3 py-2 rounded-xl text-xs font-semibold border border-white/15 bg-white/5 hover:bg-white/10 transition" title="Mode Gelap / Terang">
+        <button type="button" onclick="toggleTheme()" class="nav-btn-inactive px-3.5 py-2 rounded-xl text-xs font-semibold transition">
           <span id="theme-label">Mode Terang</span>
         </button>
 
-        <button type="button" id="tab-btn-form" onclick="switchView('form')" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-indigo-600 text-white shadow-lg shadow-indigo-600/30 transition">
+        <button type="button" id="tab-btn-form" onclick="switchView('form')" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-indigo-600 text-white shadow-md transition">
           Form Peserta
         </button>
 
-        <button type="button" id="tab-btn-admin" onclick="switchView('admin')" class="px-3.5 py-2 rounded-xl text-xs font-semibold border border-white/15 bg-white/5 hover:bg-white/10 transition">
+        <button type="button" id="tab-btn-admin" onclick="switchView('admin')" class="nav-btn-inactive px-3.5 py-2 rounded-xl text-xs font-semibold transition">
           Portal Admin
         </button>
       </div>
     </header>
 
     <!-- Toast Notification -->
-    <div id="toast-box" class="hidden fixed bottom-5 right-5 z-50 neo-glass px-4 py-3 rounded-2xl border border-cyan-400/40 text-xs sm:text-sm font-medium shadow-2xl"></div>
+    <div id="toast-box" class="hidden fixed bottom-5 right-5 z-50 neo-glass px-4 py-3 rounded-2xl border border-indigo-500/40 text-xs sm:text-sm font-semibold shadow-2xl"></div>
 
-    <!-- VIEW 1: FORM PESERTA -->
+    <!-- VIEW 1: FORM PESERTA (HANYA SAMPAI ISI BIODATA & SIMPAN) -->
     <main id="view-form" class="space-y-6">
       <!-- Step Progress Bar -->
-      <section class="neo-glass rounded-3xl p-4 sm:p-6">
+      <section id="form-progress-card" class="neo-glass rounded-3xl p-4 sm:p-6">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
           <div>
-            <p class="text-xs uppercase tracking-wider text-cyan-400 font-bold">Progres Pengisian Biodata</p>
+            <p class="text-xs uppercase tracking-wider heading-accent font-bold">Progres Pengisian Biodata</p>
             <h2 id="step-title" class="text-base sm:text-lg font-bold mt-0.5">Langkah 1 dari 3: Pengisian Biodata &amp; Literasi Al-Qur'an</h2>
           </div>
-          <button type="button" onclick="registerWithPasskey()" class="px-3.5 py-2 rounded-xl text-xs font-semibold border border-amber-400/40 bg-amber-500/10 text-amber-200 hover:bg-amber-500/20 transition self-start sm:self-auto">
+          <button type="button" onclick="registerWithPasskey()" class="px-3.5 py-2 rounded-xl text-xs font-bold border border-amber-500/40 bg-amber-500/15 sub-accent hover:bg-amber-500/25 transition self-start sm:self-auto">
             Daftar Cepat dengan Biometrik / Passkey
           </button>
         </div>
 
         <div class="grid grid-cols-3 gap-2.5">
-          <button type="button" onclick="goToStep(1)" id="step-pill-1" class="p-2.5 rounded-2xl text-left border border-cyan-400/60 bg-cyan-500/15 transition">
-            <div class="text-[11px] font-bold text-cyan-300">STEP 01</div>
+          <button type="button" onclick="goToStep(1)" id="step-pill-1" class="p-2.5 rounded-2xl text-left border border-indigo-500 bg-indigo-500/15 transition">
+            <div class="text-[11px] font-bold heading-accent">STEP 01</div>
             <div class="text-xs font-semibold truncate">Biodata &amp; Al-Qur'an</div>
           </button>
-          <button type="button" onclick="goToStep(2)" id="step-pill-2" class="p-2.5 rounded-2xl text-left border border-white/10 bg-white/5 opacity-75 transition">
-            <div class="text-[11px] font-bold opacity-70">STEP 02</div>
+          <button type="button" onclick="goToStep(2)" id="step-pill-2" class="subtle-panel p-2.5 rounded-2xl text-left opacity-80 transition">
+            <div class="text-[11px] font-bold muted-text">STEP 02</div>
             <div class="text-xs font-semibold truncate">Tentang Muhammadiyah</div>
           </button>
-          <button type="button" onclick="goToStep(3)" id="step-pill-3" class="p-2.5 rounded-2xl text-left border border-white/10 bg-white/5 opacity-75 transition">
-            <div class="text-[11px] font-bold opacity-70">STEP 03</div>
-            <div class="text-xs font-semibold truncate">Foto &amp; Finalisasi</div>
+          <button type="button" onclick="goToStep(3)" id="step-pill-3" class="subtle-panel p-2.5 rounded-2xl text-left opacity-80 transition">
+            <div class="text-[11px] font-bold muted-text">STEP 03</div>
+            <div class="text-xs font-semibold truncate">Upload Foto &amp; Simpan</div>
           </button>
         </div>
       </section>
@@ -254,31 +292,31 @@
       <form id="biodata-form" onsubmit="handleFormSubmit(event)" class="neo-glass rounded-3xl p-5 sm:p-8 space-y-6">
         <!-- STEP 1 -->
         <div id="step-panel-1" class="space-y-5">
-          <div class="border-b border-white/10 pb-3">
-            <h3 class="text-base font-bold text-cyan-300">A. Identitas &amp; Biodata Peserta</h3>
-            <p class="text-xs opacity-70 mt-0.5">Pilih nama lengkap dari daftar peserta atau tulis sendiri bila belum tercantum.</p>
+          <div class="border-b border-slate-400/20 pb-3">
+            <h3 class="text-base font-bold heading-accent">A. Identitas &amp; Biodata Peserta</h3>
+            <p class="text-xs muted-text mt-0.5">Pilih nama lengkap dari daftar peserta atau tulis sendiri bila belum tercantum.</p>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
               <label class="block text-xs font-semibold mb-1.5">Nama Lengkap (Dropdown)</label>
-              <select id="namaDropdown" onchange="handleNamaDropdownChange()" class="glass-select w-full rounded-2xl px-3.5 py-2.5 text-sm">
+              <select id="namaDropdown" onchange="updateAutoFileNameLabel()" class="glass-select w-full rounded-2xl px-3.5 py-2.5 text-sm">
                 <option value="">-- Pilih Nama Peserta --</option>
               </select>
             </div>
 
             <div>
               <label class="block text-xs font-semibold mb-1.5">Tulis Sendiri jika tidak terdapat nama pesertanya</label>
-              <input type="text" id="namaManual" placeholder="Ketik nama lengkap jika tidak ada di daftar..." class="glass-input w-full rounded-2xl px-3.5 py-2.5 text-sm" />
+              <input type="text" id="namaManual" oninput="updateAutoFileNameLabel()" placeholder="Ketik nama lengkap jika tidak ada di daftar..." class="glass-input w-full rounded-2xl px-3.5 py-2.5 text-sm" />
             </div>
           </div>
 
-          <div class="p-3.5 rounded-2xl border border-amber-400/25 bg-amber-500/5 flex flex-col sm:flex-row sm:items-center gap-3">
+          <div class="subtle-panel p-3.5 rounded-2xl flex flex-col sm:flex-row sm:items-center gap-3">
             <label class="inline-flex items-center gap-2 text-xs font-semibold cursor-pointer">
-              <input type="checkbox" id="gantiNamaCheck" onchange="toggleGantiNama()" class="rounded accent-amber-400 w-4 h-4" />
+              <input type="checkbox" id="gantiNamaCheck" onchange="toggleGantiNama()" class="rounded accent-indigo-600 w-4 h-4" />
               <span>Ganti Nama Jika Tidak Sesuai (Tidak Sesuai)</span>
             </label>
-            <input type="text" id="namaKoreksi" disabled placeholder="Isi penulisan nama yang benar..." class="glass-input flex-1 rounded-xl px-3 py-2 text-xs disabled:opacity-40" />
+            <input type="text" id="namaKoreksi" disabled oninput="updateAutoFileNameLabel()" placeholder="Isi penulisan nama yang benar..." class="glass-input flex-1 rounded-xl px-3 py-2 text-xs disabled:opacity-45" />
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -350,8 +388,8 @@
             <textarea id="alamatRumah" rows="2" required placeholder="Alamat lengkap tempat tinggal..." class="glass-textarea w-full rounded-2xl px-3.5 py-2.5 text-sm"></textarea>
           </div>
 
-          <div class="border-t border-white/10 pt-4">
-            <h3 class="text-base font-bold text-amber-300 mb-3">B. Kesiapan &amp; Literasi Al-Qur'an / Buku</h3>
+          <div class="border-t border-slate-400/20 pt-4">
+            <h3 class="text-base font-bold sub-accent mb-3">B. Kesiapan &amp; Literasi Al-Qur'an / Buku</h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               <div>
                 <label class="block text-xs font-semibold mb-1.5">Kesiapan Mengikuti Baitul Arqam</label>
@@ -424,7 +462,7 @@
           </div>
 
           <div class="flex justify-end pt-2">
-            <button type="button" onclick="goToStep(2)" class="cta-shimmer px-6 py-3 rounded-2xl text-sm font-bold text-white">
+            <button type="button" onclick="goToStep(2)" class="cta-shimmer px-6 py-3 rounded-2xl text-sm font-bold">
               Lanjut ke Tentang Muhammadiyah &rarr;
             </button>
           </div>
@@ -432,9 +470,9 @@
 
         <!-- STEP 2 -->
         <div id="step-panel-2" class="hidden space-y-5">
-          <div class="border-b border-white/10 pb-3">
-            <h3 class="text-base font-bold text-cyan-300">Tentang Muhammadiyah</h3>
-            <p class="text-xs opacity-70 mt-0.5">Rekam jejak, keaktifan, serta pandangan terhadap Persyarikatan Muhammadiyah.</p>
+          <div class="border-b border-slate-400/20 pb-3">
+            <h3 class="text-base font-bold heading-accent">Tentang Muhammadiyah</h3>
+            <p class="text-xs muted-text mt-0.5">Rekam jejak, keaktifan, serta pandangan terhadap Persyarikatan Muhammadiyah.</p>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -485,55 +523,54 @@
             </div>
           </div>
 
-          <!-- Multi Checkboxes -->
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div class="p-4 rounded-2xl border border-white/10 bg-white/5 space-y-2">
-              <label class="block text-xs font-bold text-cyan-300">Sumber Mengetahui Informasi Tentang Muhammadiyah (Ceklis Bisa Pilih Banyak)</label>
+            <div class="subtle-panel p-4 rounded-2xl space-y-2">
+              <label class="block text-xs font-bold heading-accent">Sumber Mengetahui Informasi Tentang Muhammadiyah (Ceklis Bisa Pilih Banyak)</label>
               <div id="sumberInfoGroup" class="grid grid-cols-2 gap-2 text-xs">
-                <label class="flex items-center gap-2"><input type="checkbox" value="Keluarga" class="accent-cyan-400" /> Keluarga</label>
-                <label class="flex items-center gap-2"><input type="checkbox" value="Guru / Dosen" class="accent-cyan-400" /> Guru / Dosen</label>
-                <label class="flex items-center gap-2"><input type="checkbox" value="Teman" class="accent-cyan-400" /> Teman</label>
-                <label class="flex items-center gap-2"><input type="checkbox" value="Media Sosial" class="accent-cyan-400" /> Media Sosial</label>
-                <label class="flex items-center gap-2"><input type="checkbox" value="Pengajian / Tabligh" class="accent-cyan-400" /> Pengajian / Tabligh</label>
-                <label class="flex items-center gap-2"><input type="checkbox" value="Kegiatan AUM" class="accent-cyan-400" /> Kegiatan AUM</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Keluarga" class="accent-indigo-600" /> Keluarga</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Guru / Dosen" class="accent-indigo-600" /> Guru / Dosen</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Teman" class="accent-indigo-600" /> Teman</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Media Sosial" class="accent-indigo-600" /> Media Sosial</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Pengajian / Tabligh" class="accent-indigo-600" /> Pengajian / Tabligh</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Kegiatan AUM" class="accent-indigo-600" /> Kegiatan AUM</label>
               </div>
               <input type="text" id="sumberInfoLainnya" placeholder="Lainnya (Tulis Sendiri)..." class="glass-input w-full rounded-xl px-3 py-1.5 text-xs mt-1" />
             </div>
 
-            <div class="p-4 rounded-2xl border border-white/10 bg-white/5 space-y-2">
-              <label class="block text-xs font-bold text-amber-300">Pernah / Aktif Di Ortom Muhammadiyah (Ceklis Bisa Pilih Banyak)</label>
+            <div class="subtle-panel p-4 rounded-2xl space-y-2">
+              <label class="block text-xs font-bold sub-accent">Pernah / Aktif Di Ortom Muhammadiyah (Ceklis Bisa Pilih Banyak)</label>
               <div id="ortomGroup" class="grid grid-cols-2 gap-2 text-xs">
-                <label class="flex items-center gap-2"><input type="checkbox" value="Hizbul Wathan" class="accent-amber-400" /> Hizbul Wathan</label>
-                <label class="flex items-center gap-2"><input type="checkbox" value="IPM" class="accent-amber-400" /> IPM</label>
-                <label class="flex items-center gap-2"><input type="checkbox" value="IMM" class="accent-amber-400" /> IMM</label>
-                <label class="flex items-center gap-2"><input type="checkbox" value="Nasyiatul ‘Aisyiyah" class="accent-amber-400" /> Nasyiatul ‘Aisyiyah</label>
-                <label class="flex items-center gap-2"><input type="checkbox" value="Tapak Suci" class="accent-amber-400" /> Tapak Suci</label>
-                <label class="flex items-center gap-2"><input type="checkbox" value="Tidak Pernah" class="accent-amber-400" /> Tidak Pernah</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Hizbul Wathan" class="accent-amber-600" /> Hizbul Wathan</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="IPM" class="accent-amber-600" /> IPM</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="IMM" class="accent-amber-600" /> IMM</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Nasyiatul ‘Aisyiyah" class="accent-amber-600" /> Nasyiatul ‘Aisyiyah</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Tapak Suci" class="accent-amber-600" /> Tapak Suci</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Tidak Pernah" class="accent-amber-600" /> Tidak Pernah</label>
               </div>
               <input type="text" id="ortomLainnya" placeholder="Lainnya (Tulis Sendiri)..." class="glass-input w-full rounded-xl px-3 py-1.5 text-xs mt-1" />
             </div>
 
-            <div class="p-4 rounded-2xl border border-white/10 bg-white/5 space-y-2">
-              <label class="block text-xs font-bold text-indigo-300">Aktif Di Amal Usaha Muhammadiyah (Ceklis Bisa Pilih Banyak)</label>
+            <div class="subtle-panel p-4 rounded-2xl space-y-2">
+              <label class="block text-xs font-bold heading-accent">Aktif Di Amal Usaha Muhammadiyah (Ceklis Bisa Pilih Banyak)</label>
               <div id="aumAktifGroup" class="grid grid-cols-2 gap-2 text-xs">
-                <label class="flex items-center gap-2"><input type="checkbox" value="Sekolah / Madrasah" class="accent-indigo-400" /> Sekolah / Madrasah</label>
-                <label class="flex items-center gap-2"><input type="checkbox" value="Perguruan Tinggi" class="accent-indigo-400" /> Perguruan Tinggi</label>
-                <label class="flex items-center gap-2"><input type="checkbox" value="Rumah Sakit / Klinik" class="accent-indigo-400" /> Rumah Sakit / Klinik</label>
-                <label class="flex items-center gap-2"><input type="checkbox" value="Panti Asuhan" class="accent-indigo-400" /> Panti Asuhan</label>
-                <label class="flex items-center gap-2"><input type="checkbox" value="Masjid" class="accent-indigo-400" /> Masjid</label>
-                <label class="flex items-center gap-2"><input type="checkbox" value="Koperasi" class="accent-indigo-400" /> Koperasi</label>
-                <label class="flex items-center gap-2"><input type="checkbox" value="Tidak Pernah" class="accent-indigo-400" /> Tidak Pernah</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Sekolah / Madrasah" class="accent-indigo-600" /> Sekolah / Madrasah</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Perguruan Tinggi" class="accent-indigo-600" /> Perguruan Tinggi</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Rumah Sakit / Klinik" class="accent-indigo-600" /> Rumah Sakit / Klinik</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Panti Asuhan" class="accent-indigo-600" /> Panti Asuhan</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Masjid" class="accent-indigo-600" /> Masjid</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Koperasi" class="accent-indigo-600" /> Koperasi</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Tidak Pernah" class="accent-indigo-600" /> Tidak Pernah</label>
               </div>
               <input type="text" id="aumAktifLainnya" placeholder="Lainnya (Tulis Sendiri)..." class="glass-input w-full rounded-xl px-3 py-1.5 text-xs mt-1" />
             </div>
 
-            <div class="p-4 rounded-2xl border border-white/10 bg-white/5 space-y-2">
-              <label class="block text-xs font-bold text-emerald-300">Pelatihan / Training Yang Pernah Diikuti Di Muhammadiyah (Ceklis Bisa Pilih Banyak)</label>
+            <div class="subtle-panel p-4 rounded-2xl space-y-2">
+              <label class="block text-xs font-bold sub-accent">Pelatihan / Training Yang Pernah Diikuti Di Muhammadiyah (Ceklis Bisa Pilih Banyak)</label>
               <div id="pelatihanGroup" class="grid grid-cols-2 gap-2 text-xs">
-                <label class="flex items-center gap-2"><input type="checkbox" value="Latihan Instruktur" class="accent-emerald-400" /> Latihan Instruktur</label>
-                <label class="flex items-center gap-2"><input type="checkbox" value="Pelatihan Kepemimpinan" class="accent-emerald-400" /> Pelatihan Kepemimpinan</label>
-                <label class="flex items-center gap-2"><input type="checkbox" value="Tabligh Training" class="accent-emerald-400" /> Tabligh Training</label>
-                <label class="flex items-center gap-2"><input type="checkbox" value="Belum Pernah Mengikuti" class="accent-emerald-400" /> Belum Pernah Mengikuti</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Latihan Instruktur" class="accent-emerald-600" /> Latihan Instruktur</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Pelatihan Kepemimpinan" class="accent-emerald-600" /> Pelatihan Kepemimpinan</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Tabligh Training" class="accent-emerald-600" /> Tabligh Training</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Belum Pernah Mengikuti" class="accent-emerald-600" /> Belum Pernah Mengikuti</label>
               </div>
               <input type="text" id="pelatihanLainnya" placeholder="Lainnya (Tulis Sendiri)..." class="glass-input w-full rounded-xl px-3 py-1.5 text-xs mt-1" />
             </div>
@@ -551,10 +588,10 @@
           </div>
 
           <div class="flex justify-between pt-2">
-            <button type="button" onclick="goToStep(1)" class="px-5 py-3 rounded-2xl text-xs font-bold border border-white/15 bg-white/5 hover:bg-white/10 transition">
+            <button type="button" onclick="goToStep(1)" class="nav-btn-inactive px-5 py-3 rounded-2xl text-xs font-bold transition">
               &larr; Kembali
             </button>
-            <button type="button" onclick="goToStep(3)" class="cta-shimmer px-6 py-3 rounded-2xl text-sm font-bold text-white">
+            <button type="button" onclick="goToStep(3)" class="cta-shimmer px-6 py-3 rounded-2xl text-sm font-bold">
               Lanjut ke Upload Foto &rarr;
             </button>
           </div>
@@ -562,168 +599,197 @@
 
         <!-- STEP 3 -->
         <div id="step-panel-3" class="hidden space-y-5">
-          <div class="border-b border-white/10 pb-3">
-            <h3 class="text-base font-bold text-cyan-300">Upload Foto Peserta Baitul Arqam Pegawai 2026</h3>
-            <p class="text-xs opacity-70 mt-0.5">Nama file otomatis mengikuti Nama Peserta saat disimpan ke folder Google Drive.</p>
+          <div class="border-b border-slate-400/20 pb-3">
+            <h3 class="text-base font-bold heading-accent">Upload Foto Peserta Baitul Arqam Pegawai 2026</h3>
+            <p class="text-xs muted-text mt-0.5">File foto akan otomatis disimpan ke Google Drive dengan nama lengkap peserta.</p>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-            <div class="p-5 rounded-2xl border border-dashed border-cyan-400/40 bg-white/5 text-center space-y-3">
-              <p class="text-xs font-semibold">Pilih Foto Peserta (JPG / PNG)</p>
+            <div class="subtle-panel p-5 rounded-2xl border-dashed border-2 text-center space-y-3">
+              <p class="text-xs font-bold">Pilih Pas Foto Peserta (JPG / PNG)</p>
               <input type="file" id="fotoPesertaInput" accept="image/*" onchange="handlePesertaPhotoUpload(event)" class="block w-full text-xs file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-indigo-600 file:text-white hover:file:bg-indigo-500 cursor-pointer" />
-              <p id="autoFileNameInfo" class="text-xs text-amber-300 font-medium">Nama file otomatis: Belum dipilih</p>
-              <button type="button" id="downloadRenamedPhotoBtn" onclick="downloadRenamedPhoto()" class="hidden px-4 py-2 rounded-xl text-xs font-bold bg-white/10 hover:bg-white/20 border border-white/15">
-                Unduh Foto dengan Nama Otomatis
-              </button>
+              <p id="autoFileNameInfo" class="text-xs sub-accent font-semibold">Nama file di Drive: Belum dipilih</p>
             </div>
 
-            <div class="flex flex-col items-center justify-center p-4 rounded-2xl border border-white/10 bg-white/5">
-              <img id="fotoPesertaPreview" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='200' viewBox='0 0 160 200'%3E%3Crect width='160' height='200' rx='14' fill='%231e1b4b'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23a5b4fc' font-size='13' font-family='sans-serif'%3EFoto 3x4 / 4x6%3C/text%3E%3C/svg%3E" alt="Pratinjau Foto Peserta" class="w-36 h-44 object-cover rounded-2xl border border-white/20 shadow-lg" />
-              <span class="text-[11px] opacity-70 mt-2">Pratinjau Pas Foto CV / Biodata</span>
+            <div class="subtle-panel flex flex-col items-center justify-center p-4 rounded-2xl">
+              <img id="fotoPesertaPreview" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='200' viewBox='0 0 160 200'%3E%3Crect width='160' height='200' rx='14' fill='%23334155'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23e2e8f0' font-size='13' font-family='sans-serif'%3EFoto 3x4 / 4x6%3C/text%3E%3C/svg%3E" alt="Pratinjau Foto Peserta" class="w-36 h-44 object-cover rounded-2xl border border-slate-400/30 shadow-md" />
+              <span class="text-[11px] muted-text mt-2">Pratinjau Pas Foto Peserta</span>
             </div>
           </div>
 
           <div class="flex flex-wrap justify-between gap-3 pt-4">
-            <button type="button" onclick="goToStep(2)" class="px-5 py-3 rounded-2xl text-xs font-bold border border-white/15 bg-white/5 hover:bg-white/10 transition">
+            <button type="button" onclick="goToStep(2)" class="nav-btn-inactive px-5 py-3 rounded-2xl text-xs font-bold transition">
               &larr; Kembali
             </button>
-            <button type="submit" class="cta-shimmer px-7 py-3 rounded-2xl text-sm font-bold text-white">
-              Simpan &amp; Tampilkan Hasil CV / Biodata
+            <button type="submit" id="submit-biodata-btn" class="cta-shimmer px-7 py-3 rounded-2xl text-sm font-bold">
+              Simpan Biodata Peserta
             </button>
           </div>
         </div>
       </form>
+
+      <!-- KONFIRMASI SETELAH PESERTA SIMPAN (TANPA CETAK) -->
+      <section id="peserta-saved-card" class="hidden neo-glass rounded-3xl p-6 sm:p-8 text-center space-y-4">
+        <div class="w-14 h-14 mx-auto rounded-2xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 text-2xl font-extrabold">
+          ✓
+        </div>
+        <h3 class="text-xl font-extrabold">Biodata &amp; Foto Berhasil Disimpan</h3>
+        <p class="text-xs sm:text-sm muted-text max-w-lg mx-auto">
+          Terima kasih, <strong id="saved-participant-name"></strong>. Data biodata dan pas foto Anda telah tersimpan untuk keperluan Baitul Arqam Pegawai 2026 dan dapat diakses oleh Panitia.
+        </p>
+        <div class="pt-2">
+          <button type="button" onclick="resetFormForNextParticipant()" class="px-5 py-2.5 rounded-2xl text-xs font-bold bg-indigo-600 text-white hover:bg-indigo-500 transition">
+            Isi Biodata Peserta Lainnya
+          </button>
+        </div>
+      </section>
     </main>
 
-    <!-- VIEW 2: PORTAL ADMIN -->
+    <!-- VIEW 2: PORTAL ADMIN / PANITIA -->
     <section id="view-admin" class="hidden space-y-6">
       <div id="admin-login-box" class="neo-glass rounded-3xl p-6 max-w-md mx-auto space-y-4">
-        <h2 class="text-lg font-bold">Akses Portal Admin</h2>
-        <p class="text-xs opacity-75">Masukkan PIN Admin (default: <code class="px-1.5 py-0.5 rounded bg-white/10">2026</code>) untuk mengelola foto admin, data peserta, dan cetak CV.</p>
-        <input type="password" id="admin-pin-input" placeholder="Masukkan PIN Admin..." class="glass-input w-full rounded-2xl px-4 py-2.5 text-sm" />
-        <button type="button" onclick="loginAdmin()" class="cta-shimmer w-full py-3 rounded-2xl text-sm font-bold text-white">
+        <h2 class="text-lg font-bold">Login Portal Panitia / Admin</h2>
+        <p class="text-xs muted-text">Masukkan kata sandi panitia untuk mengelola logo, foto, serta melihat dan mencetak biodata seluruh peserta.</p>
+        <input type="password" id="admin-password-input" onkeydown="if(event.key==='Enter') loginAdmin()" placeholder="Masukkan Password Admin..." class="glass-input w-full rounded-2xl px-4 py-2.5 text-sm" />
+        <button type="button" onclick="loginAdmin()" class="cta-shimmer w-full py-3 rounded-2xl text-sm font-bold">
           Masuk Portal Admin
         </button>
       </div>
 
       <div id="admin-dashboard" class="hidden space-y-6">
-        <!-- Admin Profile & Brand/Drive Config -->
+        <!-- Admin Profile, Brand Logo Drive Upload & Endpoint Config -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div class="neo-glass rounded-3xl p-5 flex items-center gap-4">
-            <img id="admin-avatar-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Crect width='80' height='80' rx='20' fill='%230891b2'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='26' font-family='sans-serif' font-weight='bold'%3EAD%3C/text%3E%3C/svg%3E" alt="Foto Admin" class="w-16 h-16 rounded-2xl object-cover border border-white/20" />
-            <div class="space-y-1.5">
-              <div class="text-sm font-bold">Panitia / Admin Baitul Arqam</div>
-              <label class="inline-block cursor-pointer px-3 py-1.5 rounded-xl text-xs font-semibold bg-cyan-500/20 text-cyan-200 border border-cyan-400/30 hover:bg-cyan-500/30">
-                Upload Foto Admin
-                <input type="file" accept="image/*" class="hidden" onchange="handleAdminPhotoUpload(event)" />
+          <div class="neo-glass rounded-3xl p-5 space-y-4">
+            <div class="flex items-center gap-3.5">
+              <img id="admin-avatar-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Crect width='80' height='80' rx='20' fill='%230369a1'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='26' font-family='sans-serif' font-weight='bold'%3EAD%3C/text%3E%3C/svg%3E" alt="Foto Admin" class="w-14 h-14 rounded-2xl object-cover border border-slate-400/30" />
+              <div class="space-y-1">
+                <div class="text-sm font-bold">Panitia Baitul Arqam</div>
+                <label class="inline-block cursor-pointer px-3 py-1 rounded-xl text-xs font-semibold bg-indigo-600/15 heading-accent border border-indigo-500/30 hover:bg-indigo-600/25">
+                  Upload Foto Admin
+                  <input type="file" accept="image/*" class="hidden" onchange="handleAdminPhotoUpload(event)" />
+                </label>
+              </div>
+            </div>
+
+            <div class="border-t border-slate-400/20 pt-3 flex items-center justify-between gap-2">
+              <div>
+                <div class="text-xs font-bold">Logo &amp; Favicon Aplikasi</div>
+                <div class="text-[11px] muted-text">Tersimpan permanen di Drive</div>
+              </div>
+              <label class="cursor-pointer px-3 py-2 rounded-xl text-xs font-bold bg-amber-500/20 sub-accent border border-amber-500/30 hover:bg-amber-500/30">
+                Upload Logo
+                <input type="file" accept="image/*" class="hidden" onchange="handleBrandLogoUpload(event)" />
               </label>
             </div>
           </div>
 
           <div class="neo-glass rounded-3xl p-5 lg:col-span-2 space-y-3">
-            <div class="flex items-center justify-between">
-              <span class="text-xs font-bold text-cyan-300 uppercase">Integrasi Google Sheets &amp; Google Drive</span>
-              <button type="button" onclick="syncFromAppsScript()" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-indigo-600 text-white hover:bg-indigo-500">
-                Sinkronkan Data Sheets
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <span class="text-xs font-bold heading-accent uppercase">Sinkronisasi Google Sheets &amp; Google Drive</span>
+              <button type="button" onclick="syncFromAppsScript()" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-indigo-600 text-white hover:bg-indigo-500">
+                Muat Ulang Data &amp; Logo dari Drive
               </button>
             </div>
             <div class="flex flex-col sm:flex-row gap-2">
               <input type="url" id="apps-script-url" placeholder="Tempelkan Web App URL Google Apps Script di sini..." class="glass-input flex-1 rounded-xl px-3.5 py-2 text-xs" onchange="saveScriptUrl()" />
-              <button type="button" onclick="saveScriptUrl()" class="px-4 py-2 rounded-xl text-xs font-bold border border-white/15 bg-white/10 hover:bg-white/20">
+              <button type="button" onclick="saveScriptUrl()" class="nav-btn-inactive px-4 py-2 rounded-xl text-xs font-bold">
                 Simpan URL
               </button>
             </div>
-            <div class="text-[11px] opacity-70 truncate">
-              Sheet ID: <code>1KhgZH2Dwt8AWM87TotTeU1V5jt6YUCxlLf9WchVAIUk</code> • Folder ID: <code>17xox_rEM6n9WPCLYXWKLlYwn6rIIjOTI</code>
-            </div>
+            <p class="text-[11px] muted-text">
+              Logo yang diunggah panitia dan foto peserta otomatis tersimpan ke Google Drive sehingga dapat diakses dari perangkat mana saja.
+            </p>
           </div>
         </div>
 
-        <!-- Participant Table & Admin Photo Upload per Row -->
+        <!-- Participant Table & Print CV -->
         <div class="neo-glass rounded-3xl p-5 space-y-4">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-            <h3 class="text-base font-bold">Daftar Data Peserta &amp; Cetak CV / Biodata (<span id="admin-count">0</span>)</h3>
-            <input type="text" id="admin-search" oninput="renderAdminTable()" placeholder="Cari nama, jabatan, atau status..." class="glass-input rounded-xl px-3.5 py-2 text-xs w-full sm:w-64" />
+            <h3 class="text-base font-bold">Data Seluruh Peserta Tersimpan (<span id="admin-count">0</span>)</h3>
+            <input type="text" id="admin-search" oninput="renderAdminTable()" placeholder="Cari nama, jabatan, atau nomor HP..." class="glass-input rounded-xl px-3.5 py-2 text-xs w-full sm:w-64" />
           </div>
 
           <div class="overflow-x-auto">
             <table class="w-full text-left border-collapse text-xs">
               <thead>
-                <tr class="border-b border-white/15 text-cyan-300">
+                <tr class="border-b border-slate-400/25 heading-accent">
                   <th class="py-2.5 px-3">Foto</th>
                   <th class="py-2.5 px-3">Nama Lengkap</th>
                   <th class="py-2.5 px-3">Jabatan AUM</th>
                   <th class="py-2.5 px-3">No. HP/WA</th>
-                  <th class="py-2.5 px-3">Aksi Admin</th>
+                  <th class="py-2.5 px-3">Aksi Panitia</th>
                 </tr>
               </thead>
-              <tbody id="admin-table-body" class="divide-y divide-white/10"></tbody>
+              <tbody id="admin-table-body" class="divide-y divide-slate-400/15"></tbody>
             </table>
           </div>
         </div>
       </div>
-    </section>
 
-    <!-- CV / BIODATA PRINTABLE VIEW -->
-    <section id="cv-print-area" class="hidden mt-8 rounded-3xl bg-white text-slate-900 p-6 sm:p-10 shadow-2xl border border-slate-200">
-      <div class="no-print flex flex-wrap items-center justify-between gap-3 pb-4 mb-6 border-b border-slate-200">
-        <span class="text-xs font-bold text-indigo-700 uppercase">Pratinjau Dokumen CV / Biodata Resmi (Siap Cetak A4 / PDF)</span>
-        <div class="flex items-center gap-2">
-          <button type="button" onclick="window.print()" class="px-4 py-2 rounded-xl text-xs font-bold bg-indigo-600 text-white hover:bg-indigo-500">
-            Cetak / Simpan PDF
-          </button>
-          <button type="button" onclick="closeCvPreview()" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-200 text-slate-800 hover:bg-slate-300">
-            Tutup Pratinjau
-          </button>
-        </div>
-      </div>
-
-      <!-- Kop Dokumen -->
-      <div class="flex items-center justify-between gap-4 border-b-2 border-slate-800 pb-4 mb-6">
-        <div class="flex items-center gap-4">
-          <img id="cv-logo-img" src="" alt="Logo Instansi" class="w-16 h-16 object-contain rounded-xl border border-slate-200 p-1" />
-          <div>
-            <div class="text-[11px] font-bold tracking-widest uppercase text-indigo-700">Curriculum Vitae &amp; Biodata Peserta</div>
-            <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">BAITUL ARQAM PEGAWAI 2026</h2>
-            <p class="text-xs text-slate-600">Pimpinan Daerah Muhammadiyah / Amal Usaha Muhammadiyah</p>
+      <!-- CV / BIODATA PRINTABLE VIEW (KHUSUS PANITIA / ADMIN) -->
+      <div id="cv-print-area" class="hidden rounded-3xl bg-white text-slate-900 p-6 sm:p-10 shadow-2xl border border-slate-200">
+        <div class="no-print flex flex-wrap items-center justify-between gap-3 pb-4 mb-6 border-b border-slate-200">
+          <span class="text-xs font-bold text-indigo-700 uppercase">Dokumen CV / Biodata Lengkap Peserta (Siap Cetak A4)</span>
+          <div class="flex items-center gap-2">
+            <button type="button" onclick="window.print()" class="px-4 py-2 rounded-xl text-xs font-bold bg-indigo-600 text-white hover:bg-indigo-500">
+              Cetak / Simpan PDF
+            </button>
+            <button type="button" onclick="closeCvPreview()" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-200 text-slate-800 hover:bg-slate-300">
+              Tutup Pratinjau
+            </button>
           </div>
         </div>
-      </div>
 
-      <!-- Identitas & Pas Foto -->
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
-        <div class="md:col-span-1 flex flex-col items-center">
-          <img id="cv-photo-img" src="" alt="Foto Peserta" class="w-36 h-48 object-cover rounded-xl border-2 border-slate-300 shadow-sm" />
-          <span id="cv-photo-caption" class="text-[11px] text-slate-500 mt-1.5 text-center"></span>
+        <!-- Kop Dokumen -->
+        <div class="flex items-center justify-between gap-4 border-b-2 border-slate-800 pb-4 mb-6">
+          <div class="flex items-center gap-4">
+            <img id="cv-logo-img" src="" alt="Logo Instansi" class="w-16 h-16 object-contain rounded-xl border border-slate-200 p-1" />
+            <div>
+              <div class="text-[11px] font-bold tracking-widest uppercase text-indigo-700">Curriculum Vitae &amp; Biodata Peserta</div>
+              <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">BAITUL ARQAM PEGAWAI 2026</h2>
+              <p class="text-xs text-slate-600">Pimpinan Daerah Muhammadiyah / Amal Usaha Muhammadiyah</p>
+            </div>
+          </div>
         </div>
 
-        <div class="md:col-span-3">
-          <h3 class="text-sm font-extrabold uppercase tracking-wider text-indigo-800 border-b border-slate-200 pb-1 mb-3">I. Biodata &amp; Literasi Al-Qur'an</h3>
-          <dl id="cv-biodata-list" class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-xs"></dl>
-        </div>
-      </div>
+        <!-- Identitas & Pas Foto -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+          <div class="md:col-span-1 flex flex-col items-center">
+            <img id="cv-photo-img" src="" alt="Foto Peserta" class="w-36 h-48 object-cover rounded-xl border-2 border-slate-300 shadow-sm" />
+            <span id="cv-photo-caption" class="text-[11px] text-slate-500 mt-1.5 text-center"></span>
+          </div>
 
-      <!-- Tentang Muhammadiyah -->
-      <div class="mb-6">
-        <h3 class="text-sm font-extrabold uppercase tracking-wider text-indigo-800 border-b border-slate-200 pb-1 mb-3">II. Rekam Jejak &amp; Pandangan Tentang Muhammadiyah</h3>
-        <dl id="cv-muhammadiyah-list" class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-xs"></dl>
-      </div>
-
-      <!-- Harapan & Kontribusi -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
-        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
-          <div class="font-bold text-slate-800 mb-1">Harapan Terhadap Muhammadiyah</div>
-          <p id="cv-harapan" class="text-slate-700 whitespace-pre-line"></p>
+          <div class="md:col-span-3">
+            <h3 class="text-sm font-extrabold uppercase tracking-wider text-indigo-800 border-b border-slate-200 pb-1 mb-3">I. Biodata &amp; Literasi Al-Qur'an</h3>
+            <dl id="cv-biodata-list" class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-xs"></dl>
+          </div>
         </div>
-        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
-          <div class="font-bold text-slate-800 mb-1">Kontribusi di Persyarikatan Muhammadiyah</div>
-          <p id="cv-kontribusi" class="text-slate-700 whitespace-pre-line"></p>
+
+        <!-- Tentang Muhammadiyah -->
+        <div class="mb-6">
+          <h3 class="text-sm font-extrabold uppercase tracking-wider text-indigo-800 border-b border-slate-200 pb-1 mb-3">II. Rekam Jejak &amp; Pandangan Tentang Muhammadiyah</h3>
+          <dl id="cv-muhammadiyah-list" class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-xs"></dl>
+        </div>
+
+        <!-- Harapan & Kontribusi -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <div class="font-bold text-slate-800 mb-1">Harapan Terhadap Muhammadiyah</div>
+            <p id="cv-harapan" class="text-slate-700 whitespace-pre-line"></p>
+          </div>
+          <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+            <div class="font-bold text-slate-800 mb-1">Kontribusi di Persyarikatan Muhammadiyah</div>
+            <p id="cv-kontribusi" class="text-slate-700 whitespace-pre-line"></p>
+          </div>
         </div>
       </div>
     </section>
   </div>
 
   <script>
+    // Tempelkan Web App URL Apps Script Anda di bawah ini agar semua pengguna otomatis terhubung
+    const DEFAULT_APPS_SCRIPT_URL = '';
+
     const PARTICIPANT_NAMES = [
       "Abid Daffa Khairullah, S.Pd.",
       "Aceng Tasmanuddin, S.Pd.",
@@ -793,15 +859,21 @@
       "Yunita Sulistiani, S.Pd."
     ];
 
-    const STORAGE_KEY_RECORDS = 'ba2026_participants_v1';
-    const STORAGE_KEY_LOGO = 'ba2026_brand_logo_v1';
-    const STORAGE_KEY_ADMIN_PHOTO = 'ba2026_admin_photo_v1';
-    const STORAGE_KEY_SCRIPT_URL = 'ba2026_apps_script_url_v1';
+    const STORAGE_KEY_RECORDS = 'ba2026_participants_v2';
+    const STORAGE_KEY_LOGO = 'ba2026_brand_logo_v2';
+    const STORAGE_KEY_ADMIN_PHOTO = 'ba2026_admin_photo_v2';
+    const STORAGE_KEY_SCRIPT_URL = 'ba2026_apps_script_url_v2';
 
     let currentPesertaPhotoBase64 = '';
     let currentPesertaPhotoMime = 'image/jpeg';
 
-    function initApp() {
+    function getScriptUrl() {
+      const inputEl = document.getElementById('apps-script-url');
+      const fromInput = inputEl ? inputEl.value.trim() : '';
+      return fromInput || localStorage.getItem(STORAGE_KEY_SCRIPT_URL) || DEFAULT_APPS_SCRIPT_URL;
+    }
+
+    async function initApp() {
       const selectEl = document.getElementById('namaDropdown');
       PARTICIPANT_NAMES.forEach((name) => {
         const opt = document.createElement('option');
@@ -818,11 +890,15 @@
         document.getElementById('admin-avatar-img').src = savedAdminPhoto;
       }
 
-      const savedUrl = localStorage.getItem(STORAGE_KEY_SCRIPT_URL) || '';
+      const savedUrl = localStorage.getItem(STORAGE_KEY_SCRIPT_URL) || DEFAULT_APPS_SCRIPT_URL;
       document.getElementById('apps-script-url').value = savedUrl;
 
       goToStep(1);
       renderAdminTable();
+
+      if (savedUrl) {
+        await fetchRemoteConfigAndData(savedUrl, true);
+      }
     }
 
     function showToast(msg) {
@@ -830,7 +906,7 @@
       box.textContent = msg;
       box.classList.remove('hidden');
       clearTimeout(window._toastTimer);
-      window._toastTimer = setTimeout(() => box.classList.add('hidden'), 3400);
+      window._toastTimer = setTimeout(() => box.classList.add('hidden'), 3600);
     }
 
     function toggleTheme() {
@@ -840,20 +916,44 @@
       document.getElementById('theme-label').textContent = isDark ? 'Mode Terang' : 'Mode Gelap';
     }
 
-    function applyBrandLogo(dataUrl) {
-      document.getElementById('brand-logo-img').src = dataUrl;
-      document.getElementById('cv-logo-img').src = dataUrl;
-      document.getElementById('dynamic-favicon').href = dataUrl;
+    function applyBrandLogo(urlOrData) {
+      if (!urlOrData) return;
+      document.getElementById('brand-logo-img').src = urlOrData;
+      document.getElementById('cv-logo-img').src = urlOrData;
+      document.getElementById('dynamic-favicon').href = urlOrData;
     }
 
     function handleBrandLogoUpload(e) {
       const file = e.target.files && e.target.files[0];
       if (!file) return;
       const reader = new FileReader();
-      reader.onload = () => {
-        localStorage.setItem(STORAGE_KEY_LOGO, reader.result);
-        applyBrandLogo(reader.result);
-        showToast('Logo & Favicon berhasil diperbarui.');
+      reader.onload = async () => {
+        const dataUrl = reader.result;
+        localStorage.setItem(STORAGE_KEY_LOGO, dataUrl);
+        applyBrandLogo(dataUrl);
+
+        const scriptUrl = getScriptUrl();
+        if (scriptUrl) {
+          try {
+            showToast('Mengunggah logo ke Google Drive...');
+            await fetch(scriptUrl, {
+              method: 'POST',
+              mode: 'no-cors',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                action: 'saveLogo',
+                fileName: 'LOGO_BAITUL_ARQAM_2026',
+                mimeType: file.type || 'image/png',
+                photoBase64: dataUrl,
+              }),
+            });
+            showToast('Logo tersimpan di Google Drive & tampil di semua perangkat.');
+          } catch (err) {
+            showToast('Logo tersimpan lokal. Gagal kirim ke Drive.');
+          }
+        } else {
+          showToast('Logo & Favicon diperbarui. Isi Web App URL agar tersimpan di Drive.');
+        }
       };
       reader.readAsDataURL(file);
     }
@@ -874,11 +974,11 @@
       document.getElementById('view-form').classList.toggle('hidden', view !== 'form');
       document.getElementById('view-admin').classList.toggle('hidden', view !== 'admin');
       document.getElementById('tab-btn-form').className = view === 'form'
-        ? 'px-3.5 py-2 rounded-xl text-xs font-bold bg-indigo-600 text-white shadow-lg shadow-indigo-600/30 transition'
-        : 'px-3.5 py-2 rounded-xl text-xs font-semibold border border-white/15 bg-white/5 hover:bg-white/10 transition';
+        ? 'px-3.5 py-2 rounded-xl text-xs font-bold bg-indigo-600 text-white shadow-md transition'
+        : 'nav-btn-inactive px-3.5 py-2 rounded-xl text-xs font-semibold transition';
       document.getElementById('tab-btn-admin').className = view === 'admin'
-        ? 'px-3.5 py-2 rounded-xl text-xs font-bold bg-indigo-600 text-white shadow-lg shadow-indigo-600/30 transition'
-        : 'px-3.5 py-2 rounded-xl text-xs font-semibold border border-white/15 bg-white/5 hover:bg-white/10 transition';
+        ? 'px-3.5 py-2 rounded-xl text-xs font-bold bg-indigo-600 text-white shadow-md transition'
+        : 'nav-btn-inactive px-3.5 py-2 rounded-xl text-xs font-semibold transition';
     }
 
     function goToStep(step) {
@@ -886,13 +986,13 @@
         document.getElementById(`step-panel-${s}`).classList.toggle('hidden', s !== step);
         const pill = document.getElementById(`step-pill-${s}`);
         pill.className = s === step
-          ? 'p-2.5 rounded-2xl text-left border border-cyan-400/60 bg-cyan-500/15 transition'
-          : 'p-2.5 rounded-2xl text-left border border-white/10 bg-white/5 opacity-75 transition';
+          ? 'p-2.5 rounded-2xl text-left border border-indigo-500 bg-indigo-500/15 transition'
+          : 'subtle-panel p-2.5 rounded-2xl text-left opacity-80 transition';
       });
       const titles = {
         1: 'Langkah 1 dari 3: Pengisian Biodata & Literasi Al-Qur\'an',
         2: 'Langkah 2 dari 3: Tentang Muhammadiyah',
-        3: 'Langkah 3 dari 3: Upload Foto & Finalisasi',
+        3: 'Langkah 3 dari 3: Upload Foto & Simpan',
       };
       document.getElementById('step-title').textContent = titles[step];
       updateAutoFileNameLabel();
@@ -903,10 +1003,6 @@
       const input = document.getElementById('namaKoreksi');
       input.disabled = !checked;
       if (!checked) input.value = '';
-      updateAutoFileNameLabel();
-    }
-
-    function handleNamaDropdownChange() {
       updateAutoFileNameLabel();
     }
 
@@ -934,10 +1030,14 @@
       return drop || 'Peserta_Baitul_Arqam';
     }
 
+    function sanitizeDriveFileName(name) {
+      return String(name).trim().replace(/[\\/:*?"<>|]/g, '_').replace(/\s+/g, '_');
+    }
+
     function updateAutoFileNameLabel() {
-      const cleanName = getActiveParticipantName().replace(/[\\/:*?"<>|]/g, '_').replace(/\s+/g, '_');
+      const cleanName = sanitizeDriveFileName(getActiveParticipantName());
       const ext = currentPesertaPhotoMime.includes('png') ? '.png' : '.jpg';
-      document.getElementById('autoFileNameInfo').textContent = `Nama file otomatis: ${cleanName}${ext}`;
+      document.getElementById('autoFileNameInfo').textContent = `Nama file otomatis di Drive: ${cleanName}${ext}`;
     }
 
     function handlePesertaPhotoUpload(e) {
@@ -948,20 +1048,9 @@
       reader.onload = () => {
         currentPesertaPhotoBase64 = reader.result;
         document.getElementById('fotoPesertaPreview').src = reader.result;
-        document.getElementById('downloadRenamedPhotoBtn').classList.remove('hidden');
         updateAutoFileNameLabel();
       };
       reader.readAsDataURL(file);
-    }
-
-    function downloadRenamedPhoto() {
-      if (!currentPesertaPhotoBase64) return;
-      const cleanName = getActiveParticipantName().replace(/[\\/:*?"<>|]/g, '_').replace(/\s+/g, '_');
-      const ext = currentPesertaPhotoMime.includes('png') ? 'png' : 'jpg';
-      const link = document.createElement('a');
-      link.href = currentPesertaPhotoBase64;
-      link.download = `${cleanName}.${ext}`;
-      link.click();
     }
 
     async function registerWithPasskey() {
@@ -980,11 +1069,7 @@
           publicKey: {
             challenge,
             rp: { name: 'Baitul Arqam Pegawai 2026' },
-            user: {
-              id: userId,
-              name: name,
-              displayName: name,
-            },
+            user: { id: userId, name: name, displayName: name },
             pubKeyCredParams: [{ alg: -7, type: 'public-key' }, { alg: -257, type: 'public-key' }],
             authenticatorSelection: { userVerification: 'preferred' },
             timeout: 60000,
@@ -1028,7 +1113,7 @@
     async function handleFormSubmit(e) {
       e.preventDefault();
       const namaLengkap = getActiveParticipantName();
-      const cleanName = namaLengkap.replace(/[\\/:*?"<>|]/g, '_').replace(/\s+/g, '_');
+      const cleanName = sanitizeDriveFileName(namaLengkap);
 
       const record = {
         timestamp: new Date().toLocaleString('id-ID'),
@@ -1078,7 +1163,7 @@
       saveRecords(records);
       renderAdminTable();
 
-      const scriptUrl = (document.getElementById('apps-script-url').value || localStorage.getItem(STORAGE_KEY_SCRIPT_URL) || '').trim();
+      const scriptUrl = getScriptUrl();
       if (scriptUrl) {
         try {
           await fetch(scriptUrl, {
@@ -1088,47 +1173,72 @@
             body: JSON.stringify({
               action: 'save',
               ...record,
+              fileName: cleanName,
               photoBase64: currentPesertaPhotoBase64,
             }),
           });
-          showToast('Data & foto dikirim ke Google Sheets & Google Drive.');
+          showToast('Biodata & foto berhasil dikirim ke Google Drive & Sheets.');
         } catch (err) {
-          showToast('Tersimpan lokal. Periksa koneksi / URL Apps Script.');
+          showToast('Biodata tersimpan lokal.');
         }
       } else {
-        showToast('Biodata tersimpan. CV siap dilihat & dicetak.');
+        showToast('Biodata berhasil disimpan.');
       }
 
-      openCvPreview(record);
+      // Peserta hanya sampai simpan biodata (tidak menampilkan cetak CV)
+      document.getElementById('biodata-form').classList.add('hidden');
+      document.getElementById('form-progress-card').classList.add('hidden');
+      document.getElementById('saved-participant-name').textContent = namaLengkap;
+      document.getElementById('peserta-saved-card').classList.remove('hidden');
+    }
+
+    function resetFormForNextParticipant() {
+      document.getElementById('biodata-form').reset();
+      currentPesertaPhotoBase64 = '';
+      document.getElementById('fotoPesertaPreview').src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='200' viewBox='0 0 160 200'%3E%3Crect width='160' height='200' rx='14' fill='%23334155'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23e2e8f0' font-size='13' font-family='sans-serif'%3EFoto 3x4 / 4x6%3C/text%3E%3C/svg%3E";
+      document.getElementById('peserta-saved-card').classList.add('hidden');
+      document.getElementById('biodata-form').classList.remove('hidden');
+      document.getElementById('form-progress-card').classList.remove('hidden');
+      goToStep(1);
     }
 
     function loginAdmin() {
-      const pin = document.getElementById('admin-pin-input').value.trim();
-      if (pin === '2026') {
+      const pwd = document.getElementById('admin-password-input').value.trim();
+      if (pwd === 'PanitiaBA2026') {
         document.getElementById('admin-login-box').classList.add('hidden');
         document.getElementById('admin-dashboard').classList.remove('hidden');
+        document.getElementById('admin-password-input').value = '';
         renderAdminTable();
-        showToast('Berhasil masuk ke Portal Admin.');
+        showToast('Selamat datang di Portal Panitia / Admin.');
       } else {
-        showToast('PIN Admin salah (gunakan 2026).');
+        showToast('Password tidak sesuai.');
       }
     }
 
     function saveScriptUrl() {
       const url = document.getElementById('apps-script-url').value.trim();
       localStorage.setItem(STORAGE_KEY_SCRIPT_URL, url);
-      showToast('URL Google Apps Script disimpan.');
+      showToast('Web App URL disimpan.');
+      if (url) fetchRemoteConfigAndData(url, false);
     }
 
     async function syncFromAppsScript() {
-      const url = (document.getElementById('apps-script-url').value || localStorage.getItem(STORAGE_KEY_SCRIPT_URL) || '').trim();
+      const url = getScriptUrl();
       if (!url) {
         showToast('Masukkan Web App URL Google Apps Script terlebih dahulu.');
         return;
       }
+      await fetchRemoteConfigAndData(url, false);
+    }
+
+    async function fetchRemoteConfigAndData(url, silent) {
       try {
         const res = await fetch(`${url}?action=list`);
         const json = await res.json();
+        if (json.logoUrl) {
+          localStorage.setItem(STORAGE_KEY_LOGO, json.logoUrl);
+          applyBrandLogo(json.logoUrl);
+        }
         if (json.status === 'ok' && Array.isArray(json.data)) {
           const localMap = new Map(getRecords().map((item) => [item.namaLengkap, item]));
           const merged = json.data.map((row) => {
@@ -1139,49 +1249,54 @@
               photoData: row.photoUrl || prev.photoData || '',
             };
           });
-          saveRecords(merged);
-          renderAdminTable();
-          showToast(`Sinkronisasi berhasil (${merged.length} data).`);
+          if (merged.length > 0) {
+            saveRecords(merged);
+            renderAdminTable();
+          }
+          if (!silent) showToast(`Sinkronisasi selesai (${merged.length} peserta).`);
         }
       } catch (err) {
-        showToast('Gagal mengambil data dari Apps Script.');
+        if (!silent) showToast('Gagal terhubung ke Google Apps Script.');
       }
     }
 
     function renderAdminTable() {
       const query = (document.getElementById('admin-search').value || '').toLowerCase();
-      const records = getRecords().filter((r) => {
-        const hay = `${r.namaLengkap} ${r.jabatan} ${r.status} ${r.noHp}`.toLowerCase();
-        return hay.includes(query);
-      });
+      const allRecords = getRecords();
+      const filtered = allRecords
+        .map((r, originalIdx) => ({ r, originalIdx }))
+        .filter(({ r }) => {
+          const hay = `${r.namaLengkap} ${r.jabatan} ${r.status} ${r.noHp}`.toLowerCase();
+          return hay.includes(query);
+        });
 
-      document.getElementById('admin-count').textContent = records.length;
+      document.getElementById('admin-count').textContent = allRecords.length;
       const tbody = document.getElementById('admin-table-body');
       tbody.innerHTML = '';
 
-      if (records.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center opacity-60">Belum ada data peserta tersimpan.</td></tr>`;
+      if (filtered.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center muted-text">Belum ada data peserta tersimpan.</td></tr>`;
         return;
       }
 
-      records.forEach((rec, idx) => {
+      filtered.forEach(({ r: rec, originalIdx }) => {
         const tr = document.createElement('tr');
-        const thumb = rec.photoData || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='48'%3E%3Crect width='40' height='48' rx='6' fill='%23334155'/%3E%3C/svg%3E";
+        const thumb = rec.photoData || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='48'%3E%3Crect width='40' height='48' rx='6' fill='%2364748b'/%3E%3C/svg%3E";
         tr.innerHTML = `
           <td class="py-2.5 px-3">
-            <img src="${thumb}" alt="${rec.namaLengkap}" class="w-10 h-12 rounded-lg object-cover border border-white/15" />
+            <img src="${thumb}" alt="${rec.namaLengkap}" class="w-10 h-12 rounded-lg object-cover border border-slate-400/30" />
           </td>
-          <td class="py-2.5 px-3 font-semibold">${rec.namaLengkap}</td>
+          <td class="py-2.5 px-3 font-bold">${rec.namaLengkap}</td>
           <td class="py-2.5 px-3">${rec.jabatan || '-'}</td>
           <td class="py-2.5 px-3">${rec.noHp || '-'}</td>
           <td class="py-2.5 px-3">
             <div class="flex flex-wrap items-center gap-2">
-              <button type="button" onclick="openCvByIndex(${idx})" class="px-3 py-1.5 rounded-lg bg-cyan-500/20 text-cyan-200 border border-cyan-400/30 hover:bg-cyan-500/30 font-semibold">
+              <button type="button" onclick="openCvByIndex(${originalIdx})" class="px-3 py-1.5 rounded-lg bg-indigo-600 text-white hover:bg-indigo-500 font-semibold">
                 Lihat &amp; Cetak CV
               </button>
-              <label class="cursor-pointer px-3 py-1.5 rounded-lg bg-amber-500/20 text-amber-200 border border-amber-400/30 hover:bg-amber-500/30 font-semibold">
-                Upload Foto
-                <input type="file" accept="image/*" class="hidden" onchange="adminUploadParticipantPhoto(event, ${idx})" />
+              <label class="cursor-pointer px-3 py-1.5 rounded-lg bg-amber-500/20 sub-accent border border-amber-500/30 hover:bg-amber-500/30 font-semibold">
+                Ganti Foto
+                <input type="file" accept="image/*" class="hidden" onchange="adminUploadParticipantPhoto(event, ${originalIdx})" />
               </label>
             </div>
           </td>
@@ -1205,9 +1320,9 @@
         renderAdminTable();
         showToast(`Foto ${target.namaLengkap} diperbarui.`);
 
-        const scriptUrl = (document.getElementById('apps-script-url').value || localStorage.getItem(STORAGE_KEY_SCRIPT_URL) || '').trim();
+        const scriptUrl = getScriptUrl();
         if (scriptUrl) {
-          const cleanName = target.namaLengkap.replace(/[\\/:*?"<>|]/g, '_').replace(/\s+/g, '_');
+          const cleanName = sanitizeDriveFileName(target.namaLengkap);
           try {
             await fetch(scriptUrl, {
               method: 'POST',
