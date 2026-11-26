@@ -372,7 +372,7 @@
               <label class="block text-xs font-semibold mb-1.5">Tanggal Lahir (Klik Tanggal / Manual)</label>
               <div class="flex gap-2">
                 <input type="date" id="tanggalLahirPicker" onchange="syncDateFromPicker()" class="glass-input rounded-2xl px-3 py-2 text-xs" />
-                <input type="text" id="tanggalLahirManual" placeholder="DD-MM-YYYY / manual" class="glass-input flex-1 rounded-2xl px-3.5 py-2.5 text-sm" />
+                <input type="text" id="tanggalLahirManual" placeholder="06 Maret 1987 / 06-03-1987" class="glass-input flex-1 rounded-2xl px-3.5 py-2.5 text-sm" />
               </div>
             </div>
 
@@ -867,15 +867,57 @@
       "Yunita Sulistiani, S.Pd."
     ];
 
-    const STORAGE_KEY_RECORDS = 'ba2026_participants_v6';
-    const STORAGE_KEY_LOGO = 'ba2026_brand_logo_v6';
-    const STORAGE_KEY_ADMIN_PHOTO = 'ba2026_admin_photo_v6';
-    const STORAGE_KEY_SCRIPT_URL = 'ba2026_apps_script_url_v6';
-    const STORAGE_KEY_UI_STATE = 'ba2026_ui_state_v6';
-    const STORAGE_KEY_DRAFT = 'ba2026_form_draft_v6';
+    const STORAGE_KEY_RECORDS = 'ba2026_participants_v7';
+    const STORAGE_KEY_LOGO = 'ba2026_brand_logo_v7';
+    const STORAGE_KEY_ADMIN_PHOTO = 'ba2026_admin_photo_v7';
+    const STORAGE_KEY_SCRIPT_URL = 'ba2026_apps_script_url_v7';
+    const STORAGE_KEY_UI_STATE = 'ba2026_ui_state_v7';
+    const STORAGE_KEY_DRAFT = 'ba2026_form_draft_v7';
 
     let currentPesertaPhotoBase64 = '';
     let currentPesertaPhotoMime = 'image/jpeg';
+
+    function formatTanggalIndonesia(val) {
+      if (!val) return '';
+
+      const bulanIndo = [
+        'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+        'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+      ];
+
+      const str = String(val).trim();
+      if (!str) return '';
+
+      const isoMatch = str.match(/^(\d{4})[\/\-](\d{1,2})[\/\-](\d{1,2})/);
+      if (isoMatch) {
+        const thn = isoMatch[1];
+        const blnIdx = parseInt(isoMatch[2], 10) - 1;
+        const tgl = String(isoMatch[3]).padStart(2, '0');
+        if (blnIdx >= 0 && blnIdx < 12) {
+          return `${tgl} ${bulanIndo[blnIdx]} ${thn}`;
+        }
+      }
+
+      const dmyMatch = str.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{4})$/);
+      if (dmyMatch) {
+        const tgl = String(dmyMatch[1]).padStart(2, '0');
+        const blnIdx = parseInt(dmyMatch[2], 10) - 1;
+        const thn = dmyMatch[3];
+        if (blnIdx >= 0 && blnIdx < 12) {
+          return `${tgl} ${bulanIndo[blnIdx]} ${thn}`;
+        }
+      }
+
+      const parsed = new Date(str);
+      if (!isNaN(parsed.getTime())) {
+        const tgl = String(parsed.getDate()).padStart(2, '0');
+        const bln = bulanIndo[parsed.getMonth()];
+        const thn = parsed.getFullYear();
+        return `${tgl} ${bln} ${thn}`;
+      }
+
+      return str;
+    }
 
     function compressImageFile(file, maxDim = 600, quality = 0.72) {
       return new Promise((resolve, reject) => {
@@ -1181,8 +1223,7 @@
     function syncDateFromPicker() {
       const val = document.getElementById('tanggalLahirPicker').value;
       if (val) {
-        const parts = val.split('-');
-        document.getElementById('tanggalLahirManual').value = `${parts[2]}-${parts[1]}-${parts[0]}`;
+        document.getElementById('tanggalLahirManual').value = formatTanggalIndonesia(val);
       }
     }
 
@@ -1289,6 +1330,10 @@
       submitBtn.disabled = true;
       submitBtn.textContent = 'Menyimpan...';
 
+      const tglFormatted = formatTanggalIndonesia(
+        document.getElementById('tanggalLahirManual').value.trim() || document.getElementById('tanggalLahirPicker').value
+      );
+
       const record = {
         timestamp: new Date().toLocaleString('id-ID'),
         namaLengkap,
@@ -1299,7 +1344,7 @@
         status: document.getElementById('statusNikah').value,
         jabatan: resolveSelectOrOther('jabatanAum', 'jabatanLainnya'),
         tempatLahir: document.getElementById('tempatLahir').value.trim(),
-        tanggalLahir: document.getElementById('tanggalLahirManual').value.trim() || document.getElementById('tanggalLahirPicker').value,
+        tanggalLahir: tglFormatted,
         alamat: document.getElementById('alamatRumah').value.trim(),
         noHp: document.getElementById('noHp').value.trim(),
         kesiapan: document.getElementById('kesiapan').value,
@@ -1447,6 +1492,7 @@
             mergedMap.set(key, {
               ...prev,
               ...row,
+              tanggalLahir: formatTanggalIndonesia(row.tanggalLahir || prev.tanggalLahir || ''),
               photoData: row.photoUrl || prev.photoData || '',
             });
           });
@@ -1545,13 +1591,15 @@
       document.getElementById('cv-photo-img').src = rec.photoData || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='180'%3E%3Crect width='140' height='180' rx='10' fill='%23e2e8f0'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23475569' font-size='12'%3ETanpa Foto%3C/text%3E%3C/svg%3E";
       document.getElementById('cv-photo-caption').textContent = `${rec.namaLengkap} • ${rec.jabatan || ''}`;
 
+      const tglLahirFix = formatTanggalIndonesia(rec.tanggalLahir) || '-';
+
       const bioRows = [
         ['Nama Lengkap', rec.namaLengkap],
         ['Catatan Nama', rec.catatanNama],
         ['Jenis Kelamin', rec.jenisKelamin],
         ['Status', rec.status],
         ['Jabatan di AUM', rec.jabatan],
-        ['Tempat, Tanggal Lahir', `${rec.tempatLahir || '-'}, ${rec.tanggalLahir || '-'}`],
+        ['Tempat, Tanggal Lahir', `${rec.tempatLahir || '-'}, ${tglLahirFix}`],
         ['Alamat Rumah', rec.alamat],
         ['No. HP / WhatsApp', rec.noHp],
         ['Kesiapan Baitul Arqam', rec.kesiapan],
