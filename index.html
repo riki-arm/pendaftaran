@@ -24,10 +24,10 @@
   <style>
     :root {
       --bg-canvas: #09090B;
-      --glass-bg: rgba(18, 18, 24, 0.76);
+      --glass-bg: rgba(18, 18, 24, 0.78);
       --glass-border: rgba(255, 255, 255, 0.13);
       --glass-inner: inset 0 1px 0 0 rgba(255, 255, 255, 0.16), inset 0 -12px 24px -12px rgba(0, 0, 0, 0.65);
-      --input-bg: rgba(24, 24, 32, 0.72);
+      --input-bg: rgba(24, 24, 32, 0.75);
       --card-subtle: rgba(255, 255, 255, 0.04);
       --text-main: #F4F4F6;
       --text-muted: #A1A1AA;
@@ -37,7 +37,7 @@
 
     html:not(.dark) {
       --bg-canvas: #F1F5F9;
-      --glass-bg: rgba(255, 255, 255, 0.92);
+      --glass-bg: rgba(255, 255, 255, 0.94);
       --glass-border: rgba(148, 163, 184, 0.35);
       --glass-inner: inset 0 1px 0 0 rgba(255, 255, 255, 1), 0 12px 32px -10px rgba(15, 23, 42, 0.08);
       --input-bg: #FFFFFF;
@@ -261,7 +261,6 @@
 
     <!-- VIEW 1: FORM PESERTA (HANYA SAMPAI ISI BIODATA & SIMPAN) -->
     <main id="view-form" class="space-y-6">
-      <!-- Step Progress Bar -->
       <section id="form-progress-card" class="neo-glass rounded-3xl p-4 sm:p-6">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
           <div>
@@ -289,7 +288,7 @@
         </div>
       </section>
 
-      <form id="biodata-form" onsubmit="handleFormSubmit(event)" class="neo-glass rounded-3xl p-5 sm:p-8 space-y-6">
+      <form id="biodata-form" onsubmit="handleFormSubmit(event)" oninput="saveFormDraft()" onchange="saveFormDraft()" class="neo-glass rounded-3xl p-5 sm:p-8 space-y-6">
         <!-- STEP 1 -->
         <div id="step-panel-1" class="space-y-5">
           <div class="border-b border-slate-400/20 pb-3">
@@ -608,7 +607,7 @@
             <div class="subtle-panel p-5 rounded-2xl border-dashed border-2 text-center space-y-3">
               <p class="text-xs font-bold">Pilih Pas Foto Peserta (JPG / PNG)</p>
               <input type="file" id="fotoPesertaInput" accept="image/*" onchange="handlePesertaPhotoUpload(event)" class="block w-full text-xs file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-indigo-600 file:text-white hover:file:bg-indigo-500 cursor-pointer" />
-              <p id="autoFileNameInfo" class="text-xs sub-accent font-semibold">Nama file di Drive: Belum dipilih</p>
+              <p id="autoFileNameInfo" class="text-xs sub-accent font-semibold">Nama file otomatis di Drive: Belum dipilih</p>
             </div>
 
             <div class="subtle-panel flex flex-col items-center justify-center p-4 rounded-2xl">
@@ -635,7 +634,7 @@
         </div>
         <h3 class="text-xl font-extrabold">Biodata &amp; Foto Berhasil Disimpan</h3>
         <p class="text-xs sm:text-sm muted-text max-w-lg mx-auto">
-          Terima kasih, <strong id="saved-participant-name"></strong>. Data biodata dan pas foto Anda telah tersimpan untuk keperluan Baitul Arqam Pegawai 2026 dan dapat diakses oleh Panitia.
+          Terima kasih, <strong id="saved-participant-name"></strong>. Data biodata dan pas foto Anda telah tersimpan ke Google Drive &amp; Spreadsheet untuk keperluan Baitul Arqam Pegawai 2026.
         </p>
         <div class="pt-2">
           <button type="button" onclick="resetFormForNextParticipant()" class="px-5 py-2.5 rounded-2xl text-xs font-bold bg-indigo-600 text-white hover:bg-indigo-500 transition">
@@ -649,7 +648,7 @@
     <section id="view-admin" class="hidden space-y-6">
       <div id="admin-login-box" class="neo-glass rounded-3xl p-6 max-w-md mx-auto space-y-4">
         <h2 class="text-lg font-bold">Login Portal Panitia / Admin</h2>
-        <p class="text-xs muted-text">Masukkan kata sandi panitia untuk mengelola logo, foto, serta melihat dan mencetak biodata seluruh peserta.</p>
+        <p class="text-xs muted-text">Masukkan kata sandi panitia untuk mengelola logo, foto admin, serta melihat dan mencetak biodata seluruh peserta.</p>
         <input type="password" id="admin-password-input" onkeydown="if(event.key==='Enter') loginAdmin()" placeholder="Masukkan Password Admin..." class="glass-input w-full rounded-2xl px-4 py-2.5 text-sm" />
         <button type="button" onclick="loginAdmin()" class="cta-shimmer w-full py-3 rounded-2xl text-sm font-bold">
           Masuk Portal Admin
@@ -665,7 +664,7 @@
               <div class="space-y-1">
                 <div class="text-sm font-bold">Panitia Baitul Arqam</div>
                 <label class="inline-block cursor-pointer px-3 py-1 rounded-xl text-xs font-semibold bg-indigo-600/15 heading-accent border border-indigo-500/30 hover:bg-indigo-600/25">
-                  Upload Foto Admin
+                  Upload Foto Admin ke Drive
                   <input type="file" accept="image/*" class="hidden" onchange="handleAdminPhotoUpload(event)" />
                 </label>
               </div>
@@ -677,7 +676,7 @@
                 <div class="text-[11px] muted-text">Tersimpan permanen di Drive</div>
               </div>
               <label class="cursor-pointer px-3 py-2 rounded-xl text-xs font-bold bg-amber-500/20 sub-accent border border-amber-500/30 hover:bg-amber-500/30">
-                Upload Logo
+                Upload Logo ke Drive
                 <input type="file" accept="image/*" class="hidden" onchange="handleBrandLogoUpload(event)" />
               </label>
             </div>
@@ -686,18 +685,23 @@
           <div class="neo-glass rounded-3xl p-5 lg:col-span-2 space-y-3">
             <div class="flex flex-wrap items-center justify-between gap-2">
               <span class="text-xs font-bold heading-accent uppercase">Sinkronisasi Google Sheets &amp; Google Drive</span>
-              <button type="button" onclick="syncFromAppsScript()" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-indigo-600 text-white hover:bg-indigo-500">
-                Muat Ulang Data &amp; Logo dari Drive
-              </button>
+              <div class="flex items-center gap-2">
+                <button type="button" onclick="syncFromAppsScript()" class="px-3.5 py-1.5 rounded-xl text-xs font-bold bg-indigo-600 text-white hover:bg-indigo-500">
+                  Muat Ulang Data &amp; Logo
+                </button>
+                <button type="button" onclick="logoutAdmin()" class="nav-btn-inactive px-3 py-1.5 rounded-xl text-xs font-semibold">
+                  Keluar Admin
+                </button>
+              </div>
             </div>
             <div class="flex flex-col sm:flex-row gap-2">
-              <input type="url" id="apps-script-url" placeholder="Tempelkan Web App URL Google Apps Script di sini..." class="glass-input flex-1 rounded-xl px-3.5 py-2 text-xs" onchange="saveScriptUrl()" />
+              <input type="url" id="apps-script-url" placeholder="Web App URL Google Apps Script..." class="glass-input flex-1 rounded-xl px-3.5 py-2 text-xs" onchange="saveScriptUrl()" />
               <button type="button" onclick="saveScriptUrl()" class="nav-btn-inactive px-4 py-2 rounded-xl text-xs font-bold">
                 Simpan URL
               </button>
             </div>
             <p class="text-[11px] muted-text">
-              Logo yang diunggah panitia dan foto peserta otomatis tersimpan ke Google Drive sehingga dapat diakses dari perangkat mana saja.
+              Status Koneksi: <span id="sync-status-label" class="font-semibold heading-accent">Siap terhubung ke Google Drive &amp; Sheets</span>
             </p>
           </div>
         </div>
@@ -740,7 +744,6 @@
           </div>
         </div>
 
-        <!-- Kop Dokumen -->
         <div class="flex items-center justify-between gap-4 border-b-2 border-slate-800 pb-4 mb-6">
           <div class="flex items-center gap-4">
             <img id="cv-logo-img" src="" alt="Logo Instansi" class="w-16 h-16 object-contain rounded-xl border border-slate-200 p-1" />
@@ -752,7 +755,6 @@
           </div>
         </div>
 
-        <!-- Identitas & Pas Foto -->
         <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
           <div class="md:col-span-1 flex flex-col items-center">
             <img id="cv-photo-img" src="" alt="Foto Peserta" class="w-36 h-48 object-cover rounded-xl border-2 border-slate-300 shadow-sm" />
@@ -765,13 +767,11 @@
           </div>
         </div>
 
-        <!-- Tentang Muhammadiyah -->
         <div class="mb-6">
           <h3 class="text-sm font-extrabold uppercase tracking-wider text-indigo-800 border-b border-slate-200 pb-1 mb-3">II. Rekam Jejak &amp; Pandangan Tentang Muhammadiyah</h3>
           <dl id="cv-muhammadiyah-list" class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-xs"></dl>
         </div>
 
-        <!-- Harapan & Kontribusi -->
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
           <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
             <div class="font-bold text-slate-800 mb-1">Harapan Terhadap Muhammadiyah</div>
@@ -787,7 +787,6 @@
   </div>
 
   <script>
-    // Tempelkan Web App URL Apps Script Anda di bawah ini agar semua pengguna otomatis terhubung
     const DEFAULT_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyb1Or3qXKaKe8SYimT5gvPovho2_EJJcfKx8U8_0Y7LM2xtpT5HY1JZ3GdNhbnFxMc/exec';
 
     const PARTICIPANT_NAMES = [
@@ -859,10 +858,12 @@
       "Yunita Sulistiani, S.Pd."
     ];
 
-    const STORAGE_KEY_RECORDS = 'ba2026_participants_v2';
-    const STORAGE_KEY_LOGO = 'ba2026_brand_logo_v2';
-    const STORAGE_KEY_ADMIN_PHOTO = 'ba2026_admin_photo_v2';
-    const STORAGE_KEY_SCRIPT_URL = 'ba2026_apps_script_url_v2';
+    const STORAGE_KEY_RECORDS = 'ba2026_participants_v3';
+    const STORAGE_KEY_LOGO = 'ba2026_brand_logo_v3';
+    const STORAGE_KEY_ADMIN_PHOTO = 'ba2026_admin_photo_v3';
+    const STORAGE_KEY_SCRIPT_URL = 'ba2026_apps_script_url_v3';
+    const STORAGE_KEY_UI_STATE = 'ba2026_ui_state_v3';
+    const STORAGE_KEY_DRAFT = 'ba2026_form_draft_v3';
 
     let currentPesertaPhotoBase64 = '';
     let currentPesertaPhotoMime = 'image/jpeg';
@@ -873,6 +874,19 @@
       return fromInput || localStorage.getItem(STORAGE_KEY_SCRIPT_URL) || DEFAULT_APPS_SCRIPT_URL;
     }
 
+    function getUiState() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY_UI_STATE) || '{}');
+      } catch (e) {
+        return {};
+      }
+    }
+
+    function saveUiState(patch) {
+      const next = { ...getUiState(), ...patch };
+      localStorage.setItem(STORAGE_KEY_UI_STATE, JSON.stringify(next));
+    }
+
     async function initApp() {
       const selectEl = document.getElementById('namaDropdown');
       PARTICIPANT_NAMES.forEach((name) => {
@@ -881,6 +895,14 @@
         opt.textContent = name;
         selectEl.appendChild(opt);
       });
+
+      const uiState = getUiState();
+
+      // Pulihkan Tema (Dark / Light) saat reload
+      if (uiState.theme === 'light') {
+        document.documentElement.classList.remove('dark');
+        document.getElementById('theme-label').textContent = 'Mode Gelap';
+      }
 
       const savedLogo = localStorage.getItem(STORAGE_KEY_LOGO);
       if (savedLogo) applyBrandLogo(savedLogo);
@@ -893,7 +915,17 @@
       const savedUrl = localStorage.getItem(STORAGE_KEY_SCRIPT_URL) || DEFAULT_APPS_SCRIPT_URL;
       document.getElementById('apps-script-url').value = savedUrl;
 
-      goToStep(1);
+      // Pulihkan draf form peserta & langkah terakhir saat reload
+      restoreFormDraft();
+      goToStep(uiState.step || 1, false);
+
+      // Pulihkan tab aktif & sesi login admin saat reload
+      if (uiState.adminLoggedIn) {
+        document.getElementById('admin-login-box').classList.add('hidden');
+        document.getElementById('admin-dashboard').classList.remove('hidden');
+      }
+      switchView(uiState.view || 'form', false);
+
       renderAdminTable();
 
       if (savedUrl) {
@@ -914,6 +946,7 @@
       html.classList.toggle('dark');
       const isDark = html.classList.contains('dark');
       document.getElementById('theme-label').textContent = isDark ? 'Mode Terang' : 'Mode Gelap';
+      saveUiState({ theme: isDark ? 'dark' : 'light' });
     }
 
     function applyBrandLogo(urlOrData) {
@@ -921,6 +954,19 @@
       document.getElementById('brand-logo-img').src = urlOrData;
       document.getElementById('cv-logo-img').src = urlOrData;
       document.getElementById('dynamic-favicon').href = urlOrData;
+    }
+
+    async function postToAppsScript(payload) {
+      const scriptUrl = getScriptUrl();
+      if (!scriptUrl) throw new Error('URL Apps Script belum diatur.');
+      const res = await fetch(scriptUrl, {
+        method: 'POST',
+        redirect: 'follow',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload),
+      });
+      const text = await res.text();
+      return JSON.parse(text);
     }
 
     function handleBrandLogoUpload(e) {
@@ -932,27 +978,21 @@
         localStorage.setItem(STORAGE_KEY_LOGO, dataUrl);
         applyBrandLogo(dataUrl);
 
-        const scriptUrl = getScriptUrl();
-        if (scriptUrl) {
-          try {
-            showToast('Mengunggah logo ke Google Drive...');
-            await fetch(scriptUrl, {
-              method: 'POST',
-              mode: 'no-cors',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                action: 'saveLogo',
-                fileName: 'LOGO_BAITUL_ARQAM_2026',
-                mimeType: file.type || 'image/png',
-                photoBase64: dataUrl,
-              }),
-            });
-            showToast('Logo tersimpan di Google Drive & tampil di semua perangkat.');
-          } catch (err) {
-            showToast('Logo tersimpan lokal. Gagal kirim ke Drive.');
+        try {
+          showToast('Mengunggah logo ke folder Drive...');
+          const json = await postToAppsScript({
+            action: 'saveLogo',
+            fileName: 'LOGO_BAITUL_ARQAM_2026',
+            mimeType: file.type || 'image/png',
+            photoBase64: dataUrl,
+          });
+          if (json && json.logoUrl) {
+            localStorage.setItem(STORAGE_KEY_LOGO, json.logoUrl);
+            applyBrandLogo(json.logoUrl);
           }
-        } else {
-          showToast('Logo & Favicon diperbarui. Isi Web App URL agar tersimpan di Drive.');
+          showToast('Logo berhasil tersimpan di Google Drive.');
+        } catch (err) {
+          showToast('Logo tersimpan lokal. Pastikan Web App Apps Script sudah di-deploy versi terbaru.');
         }
       };
       reader.readAsDataURL(file);
@@ -962,15 +1002,32 @@
       const file = e.target.files && e.target.files[0];
       if (!file) return;
       const reader = new FileReader();
-      reader.onload = () => {
-        localStorage.setItem(STORAGE_KEY_ADMIN_PHOTO, reader.result);
-        document.getElementById('admin-avatar-img').src = reader.result;
-        showToast('Foto profil admin berhasil disimpan.');
+      reader.onload = async () => {
+        const dataUrl = reader.result;
+        localStorage.setItem(STORAGE_KEY_ADMIN_PHOTO, dataUrl);
+        document.getElementById('admin-avatar-img').src = dataUrl;
+
+        try {
+          showToast('Mengunggah foto admin ke folder Drive...');
+          const json = await postToAppsScript({
+            action: 'saveAdminPhoto',
+            fileName: 'FOTO_ADMIN_BAITUL_ARQAM_2026',
+            mimeType: file.type || 'image/jpeg',
+            photoBase64: dataUrl,
+          });
+          if (json && json.adminPhotoUrl) {
+            localStorage.setItem(STORAGE_KEY_ADMIN_PHOTO, json.adminPhotoUrl);
+            document.getElementById('admin-avatar-img').src = json.adminPhotoUrl;
+          }
+          showToast('Foto admin tersimpan di folder Google Drive.');
+        } catch (err) {
+          showToast('Foto admin tersimpan lokal. Pastikan Apps Script sudah di-deploy ulang.');
+        }
       };
       reader.readAsDataURL(file);
     }
 
-    function switchView(view) {
+    function switchView(view, persist = true) {
       document.getElementById('view-form').classList.toggle('hidden', view !== 'form');
       document.getElementById('view-admin').classList.toggle('hidden', view !== 'admin');
       document.getElementById('tab-btn-form').className = view === 'form'
@@ -979,9 +1036,10 @@
       document.getElementById('tab-btn-admin').className = view === 'admin'
         ? 'px-3.5 py-2 rounded-xl text-xs font-bold bg-indigo-600 text-white shadow-md transition'
         : 'nav-btn-inactive px-3.5 py-2 rounded-xl text-xs font-semibold transition';
+      if (persist) saveUiState({ view });
     }
 
-    function goToStep(step) {
+    function goToStep(step, persist = true) {
       [1, 2, 3].forEach((s) => {
         document.getElementById(`step-panel-${s}`).classList.toggle('hidden', s !== step);
         const pill = document.getElementById(`step-pill-${s}`);
@@ -994,8 +1052,74 @@
         2: 'Langkah 2 dari 3: Tentang Muhammadiyah',
         3: 'Langkah 3 dari 3: Upload Foto & Simpan',
       };
-      document.getElementById('step-title').textContent = titles[step];
+      document.getElementById('step-title').textContent = titles[step] || titles[1];
       updateAutoFileNameLabel();
+      if (persist) saveUiState({ step });
+    }
+
+    function saveFormDraft() {
+      const fields = [
+        'namaDropdown', 'namaManual', 'namaKoreksi', 'jenisKelamin', 'statusNikah',
+        'jabatanAum', 'jabatanLainnya', 'tempatLahir', 'tanggalLahirPicker', 'tanggalLahirManual',
+        'noHp', 'alamatRumah', 'kesiapan', 'bacaQuran', 'pahamQuran', 'aktivitasQuran',
+        'aktivitasQuranLainnya', 'koleksiBuku', 'koleksiBukuLainnya', 'waktuBacaBuku',
+        'waktuBacaBukuLainnya', 'backgroundKeluarga', 'backgroundKeluargaLainnya',
+        'memilikiNktam', 'langgananMajalah', 'telahAktif', 'telahAktifLainnya',
+        'tokohBerpengaruh', 'sumberInfoLainnya', 'ortomLainnya', 'aumAktifLainnya',
+        'pelatihanLainnya', 'harapanMuhammadiyah', 'kontribusiMuhammadiyah'
+      ];
+      const draft = {
+        values: {},
+        gantiNamaCheck: document.getElementById('gantiNamaCheck').checked,
+        checks: {
+          sumberInfoGroup: collectChecked('sumberInfoGroup', ''),
+          ortomGroup: collectChecked('ortomGroup', ''),
+          aumAktifGroup: collectChecked('aumAktifGroup', ''),
+          pelatihanGroup: collectChecked('pelatihanGroup', ''),
+        }
+      };
+      fields.forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) draft.values[id] = el.value;
+      });
+      localStorage.setItem(STORAGE_KEY_DRAFT, JSON.stringify(draft));
+    }
+
+    function restoreFormDraft() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY_DRAFT);
+        if (!raw) return;
+        const draft = JSON.parse(raw);
+        if (draft.values) {
+          Object.entries(draft.values).forEach(([id, val]) => {
+            const el = document.getElementById(id);
+            if (el && val !== undefined) el.value = val;
+          });
+        }
+        if (draft.gantiNamaCheck) {
+          document.getElementById('gantiNamaCheck').checked = true;
+          toggleGantiNama();
+        }
+        ['jabatanAum', 'aktivitasQuran', 'koleksiBuku', 'waktuBacaBuku', 'backgroundKeluarga', 'telahAktif'].forEach((selId) => {
+          const map = {
+            jabatanAum: 'jabatanLainnya',
+            aktivitasQuran: 'aktivitasQuranLainnya',
+            koleksiBuku: 'koleksiBukuLainnya',
+            waktuBacaBuku: 'waktuBacaBukuLainnya',
+            backgroundKeluarga: 'backgroundKeluargaLainnya',
+            telahAktif: 'telahAktifLainnya',
+          };
+          toggleOtherInput(selId, map[selId]);
+        });
+        if (draft.checks) {
+          Object.entries(draft.checks).forEach(([groupId, arr]) => {
+            if (!Array.isArray(arr)) return;
+            document.querySelectorAll(`#${groupId} input[type="checkbox"]`).forEach((cb) => {
+              cb.checked = arr.includes(cb.value);
+            });
+          });
+        }
+      } catch (e) {}
     }
 
     function toggleGantiNama() {
@@ -1085,8 +1209,10 @@
 
     function collectChecked(groupId, otherInputId) {
       const boxes = Array.from(document.querySelectorAll(`#${groupId} input[type="checkbox"]:checked`)).map((el) => el.value);
-      const otherVal = document.getElementById(otherInputId).value.trim();
-      if (otherVal) boxes.push(otherVal);
+      if (otherInputId) {
+        const otherVal = document.getElementById(otherInputId).value.trim();
+        if (otherVal) boxes.push(otherVal);
+      }
       return boxes;
     }
 
@@ -1114,6 +1240,9 @@
       e.preventDefault();
       const namaLengkap = getActiveParticipantName();
       const cleanName = sanitizeDriveFileName(namaLengkap);
+      const submitBtn = document.getElementById('submit-biodata-btn');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Menyimpan ke Drive & Sheets...';
 
       const record = {
         timestamp: new Date().toLocaleString('id-ID'),
@@ -1150,6 +1279,21 @@
         mimeType: currentPesertaPhotoMime,
       };
 
+      try {
+        const resJson = await postToAppsScript({
+          action: 'save',
+          ...record,
+          fileName: cleanName,
+          photoBase64: currentPesertaPhotoBase64,
+        });
+        if (resJson && resJson.photoUrl) {
+          record.photoData = resJson.photoUrl;
+        }
+        showToast('Biodata & foto berhasil tersimpan di Google Drive & Sheets.');
+      } catch (err) {
+        showToast('Biodata tersimpan lokal.');
+      }
+
       const records = getRecords();
       const existingIdx = records.findIndex((r) => r.namaLengkap === record.namaLengkap);
       if (existingIdx >= 0) {
@@ -1161,31 +1305,13 @@
         records.push(record);
       }
       saveRecords(records);
+      localStorage.removeItem(STORAGE_KEY_DRAFT);
+      saveUiState({ step: 1 });
       renderAdminTable();
 
-      const scriptUrl = getScriptUrl();
-      if (scriptUrl) {
-        try {
-          await fetch(scriptUrl, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              action: 'save',
-              ...record,
-              fileName: cleanName,
-              photoBase64: currentPesertaPhotoBase64,
-            }),
-          });
-          showToast('Biodata & foto berhasil dikirim ke Google Drive & Sheets.');
-        } catch (err) {
-          showToast('Biodata tersimpan lokal.');
-        }
-      } else {
-        showToast('Biodata berhasil disimpan.');
-      }
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Simpan Biodata Peserta';
 
-      // Peserta hanya sampai simpan biodata (tidak menampilkan cetak CV)
       document.getElementById('biodata-form').classList.add('hidden');
       document.getElementById('form-progress-card').classList.add('hidden');
       document.getElementById('saved-participant-name').textContent = namaLengkap;
@@ -1194,6 +1320,7 @@
 
     function resetFormForNextParticipant() {
       document.getElementById('biodata-form').reset();
+      localStorage.removeItem(STORAGE_KEY_DRAFT);
       currentPesertaPhotoBase64 = '';
       document.getElementById('fotoPesertaPreview').src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='200' viewBox='0 0 160 200'%3E%3Crect width='160' height='200' rx='14' fill='%23334155'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23e2e8f0' font-size='13' font-family='sans-serif'%3EFoto 3x4 / 4x6%3C/text%3E%3C/svg%3E";
       document.getElementById('peserta-saved-card').classList.add('hidden');
@@ -1208,11 +1335,21 @@
         document.getElementById('admin-login-box').classList.add('hidden');
         document.getElementById('admin-dashboard').classList.remove('hidden');
         document.getElementById('admin-password-input').value = '';
+        saveUiState({ adminLoggedIn: true, view: 'admin' });
         renderAdminTable();
+        syncFromAppsScript();
         showToast('Selamat datang di Portal Panitia / Admin.');
       } else {
         showToast('Password tidak sesuai.');
       }
+    }
+
+    function logoutAdmin() {
+      saveUiState({ adminLoggedIn: false });
+      document.getElementById('admin-dashboard').classList.add('hidden');
+      document.getElementById('admin-login-box').classList.remove('hidden');
+      closeCvPreview();
+      showToast('Sesi admin ditutup.');
     }
 
     function saveScriptUrl() {
@@ -1232,12 +1369,25 @@
     }
 
     async function fetchRemoteConfigAndData(url, silent) {
+      const statusLabel = document.getElementById('sync-status-label');
+      if (statusLabel) statusLabel.textContent = 'Menghubungkan ke Google Apps Script...';
       try {
-        const res = await fetch(`${url}?action=list`);
-        const json = await res.json();
+        const separator = url.includes('?') ? '&' : '?';
+        const res = await fetch(`${url}${separator}action=list&t=${Date.now()}`, {
+          method: 'GET',
+          redirect: 'follow',
+          cache: 'no-store',
+        });
+        const text = await res.text();
+        const json = JSON.parse(text);
+
         if (json.logoUrl) {
           localStorage.setItem(STORAGE_KEY_LOGO, json.logoUrl);
           applyBrandLogo(json.logoUrl);
+        }
+        if (json.adminPhotoUrl) {
+          localStorage.setItem(STORAGE_KEY_ADMIN_PHOTO, json.adminPhotoUrl);
+          document.getElementById('admin-avatar-img').src = json.adminPhotoUrl;
         }
         if (json.status === 'ok' && Array.isArray(json.data)) {
           const localMap = new Map(getRecords().map((item) => [item.namaLengkap, item]));
@@ -1249,14 +1399,14 @@
               photoData: row.photoUrl || prev.photoData || '',
             };
           });
-          if (merged.length > 0) {
-            saveRecords(merged);
-            renderAdminTable();
-          }
-          if (!silent) showToast(`Sinkronisasi selesai (${merged.length} peserta).`);
+          saveRecords(merged);
+          renderAdminTable();
+          if (statusLabel) statusLabel.textContent = `Terhubung (${merged.length} data peserta dimuat)`;
+          if (!silent) showToast(`Sinkronisasi berhasil (${merged.length} peserta).`);
         }
       } catch (err) {
-        if (!silent) showToast('Gagal terhubung ke Google Apps Script.');
+        if (statusLabel) statusLabel.textContent = 'Gagal terhubung — pastikan Deployment Apps Script aksesnya "Anyone"';
+        if (!silent) showToast('Gagal terhubung ke Google Apps Script. Cek izin akses Deployment (Anyone).');
       }
     }
 
@@ -1318,25 +1468,26 @@
         records[idx] = target;
         saveRecords(records);
         renderAdminTable();
-        showToast(`Foto ${target.namaLengkap} diperbarui.`);
+        showToast(`Mengunggah foto ${target.namaLengkap} ke Drive...`);
 
-        const scriptUrl = getScriptUrl();
-        if (scriptUrl) {
-          const cleanName = sanitizeDriveFileName(target.namaLengkap);
-          try {
-            await fetch(scriptUrl, {
-              method: 'POST',
-              mode: 'no-cors',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({
-                action: 'updatePhoto',
-                namaLengkap: target.namaLengkap,
-                fileName: cleanName,
-                mimeType: file.type || 'image/jpeg',
-                photoBase64: reader.result,
-              }),
-            });
-          } catch (err) {}
+        const cleanName = sanitizeDriveFileName(target.namaLengkap);
+        try {
+          const json = await postToAppsScript({
+            action: 'updatePhoto',
+            namaLengkap: target.namaLengkap,
+            fileName: cleanName,
+            mimeType: file.type || 'image/jpeg',
+            photoBase64: reader.result,
+          });
+          if (json && json.photoUrl) {
+            target.photoData = json.photoUrl;
+            records[idx] = target;
+            saveRecords(records);
+            renderAdminTable();
+          }
+          showToast(`Foto ${target.namaLengkap} tersimpan di Google Drive.`);
+        } catch (err) {
+          showToast(`Foto ${target.namaLengkap} diperbarui lokal.`);
         }
       };
       reader.readAsDataURL(file);
