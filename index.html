@@ -259,7 +259,7 @@
     <!-- Toast Notification -->
     <div id="toast-box" class="hidden fixed bottom-5 right-5 z-50 neo-glass px-4 py-3 rounded-2xl border border-indigo-500/40 text-xs sm:text-sm font-semibold shadow-2xl"></div>
 
-    <!-- VIEW 1: FORM PESERTA (HANYA SAMPAI ISI BIODATA & SIMPAN) -->
+    <!-- VIEW 1: FORM PESERTA -->
     <main id="view-form" class="space-y-6">
       <section id="form-progress-card" class="neo-glass rounded-3xl p-4 sm:p-6">
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
@@ -298,7 +298,7 @@
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <label class="block text-xs font-semibold mb-1.5">Nama Lengkap (Dropdown)</label>
+              <label class="block text-xs font-semibold mb-1.5">Nama Lengkap</label>
               <select id="namaDropdown" onchange="updateAutoFileNameLabel()" class="glass-select w-full rounded-2xl px-3.5 py-2.5 text-sm">
                 <option value="">-- Pilih Nama Peserta --</option>
               </select>
@@ -322,7 +322,7 @@
             <div>
               <label class="block text-xs font-semibold mb-1.5">Jenis Kelamin</label>
               <select id="jenisKelamin" required class="glass-select w-full rounded-2xl px-3.5 py-2.5 text-sm">
-                <option value="">-- Pilih --</option>
+                <option value="">-- Pilih Jenis Kelamin --</option>
                 <option value="Laki-Laki">Laki-Laki</option>
                 <option value="Perempuan">Perempuan</option>
               </select>
@@ -331,7 +331,7 @@
             <div>
               <label class="block text-xs font-semibold mb-1.5">Status</label>
               <select id="statusNikah" required class="glass-select w-full rounded-2xl px-3.5 py-2.5 text-sm">
-                <option value="">-- Pilih --</option>
+                <option value="">-- Pilih Status --</option>
                 <option value="Belum Menikah">Belum Menikah</option>
                 <option value="Menikah">Menikah</option>
                 <option value="Duda">Duda</option>
@@ -342,7 +342,7 @@
             <div>
               <label class="block text-xs font-semibold mb-1.5">Jabatan di AUM / Jabatan Pekerjaan</label>
               <select id="jabatanAum" onchange="toggleOtherInput('jabatanAum', 'jabatanLainnya')" class="glass-select w-full rounded-2xl px-3.5 py-2.5 text-sm">
-                <option value="">-- Pilih Jabatan --</option>
+                <option value="">-- Pilih Jabatan di AUM --</option>
                 <option value="Guru">Guru</option>
                 <option value="Musyrif/ah">Musyrif/ah</option>
                 <option value="Murafiq/ah">Murafiq/ah</option>
@@ -393,6 +393,7 @@
               <div>
                 <label class="block text-xs font-semibold mb-1.5">Kesiapan Mengikuti Baitul Arqam</label>
                 <select id="kesiapan" class="glass-select w-full rounded-2xl px-3.5 py-2.5 text-sm">
+                  <option value="">-- Pilih Kesiapan --</option>
                   <option value="Sangat Siap">Sangat Siap</option>
                   <option value="Siap">Siap</option>
                   <option value="Cukup Siap">Cukup Siap</option>
@@ -403,6 +404,7 @@
               <div>
                 <label class="block text-xs font-semibold mb-1.5">Kemampuan Tentang Membaca Al-Quran</label>
                 <select id="bacaQuran" class="glass-select w-full rounded-2xl px-3.5 py-2.5 text-sm">
+                  <option value="">-- Pilih Kemampuan Membaca --</option>
                   <option value="Sangat Lancar">Sangat Lancar</option>
                   <option value="Lancar">Lancar</option>
                   <option value="Cukup">Cukup</option>
@@ -414,6 +416,7 @@
               <div>
                 <label class="block text-xs font-semibold mb-1.5">Kemampuan Memahami Bacaan Al-Qur’an</label>
                 <select id="pahamQuran" class="glass-select w-full rounded-2xl px-3.5 py-2.5 text-sm">
+                  <option value="">-- Pilih Kemampuan Memahami --</option>
                   <option value="Sangat Baik">Sangat Baik</option>
                   <option value="Baik">Baik</option>
                   <option value="Cukup">Cukup</option>
@@ -425,6 +428,7 @@
               <div>
                 <label class="block text-xs font-semibold mb-1.5">Aktifitas Membaca Al-Qur’an Dalam Sehari</label>
                 <select id="aktivitasQuran" onchange="toggleOtherInput('aktivitasQuran', 'aktivitasQuranLainnya')" class="glass-select w-full rounded-2xl px-3.5 py-2.5 text-sm">
+                  <option value="">-- Pilih Aktifitas Membaca --</option>
                   <option value="Tidak Pernah">Tidak Pernah</option>
                   <option value="Kurang dari 1 Halaman">Kurang dari 1 Halaman</option>
                   <option value="1 - 2 Halaman">1 - 2 Halaman</option>
@@ -437,6 +441,7 @@
               <div>
                 <label class="block text-xs font-semibold mb-1.5">Jumlah Koleksi Buku Agama</label>
                 <select id="koleksiBuku" onchange="toggleOtherInput('koleksiBuku', 'koleksiBukuLainnya')" class="glass-select w-full rounded-2xl px-3.5 py-2.5 text-sm">
+                  <option value="">-- Pilih Koleksi Buku Agama --</option>
                   <option value="Tidak Ada">Tidak Ada</option>
                   <option value="1 - 5 Buku">1 - 5 Buku</option>
                   <option value="6 - 10 Buku">6 - 10 Buku</option>
@@ -449,6 +454,7 @@
               <div>
                 <label class="block text-xs font-semibold mb-1.5">Waktu Yang Diluangkan Untuk Membaca Buku Per Hari</label>
                 <select id="waktuBacaBuku" onchange="toggleOtherInput('waktuBacaBuku', 'waktuBacaBukuLainnya')" class="glass-select w-full rounded-2xl px-3.5 py-2.5 text-sm">
+                  <option value="">-- Pilih Waktu Baca Buku --</option>
                   <option value="Tidak Membaca">Tidak Membaca</option>
                   <option value="Kurang dari 15 Menit">Kurang dari 15 Menit</option>
                   <option value="15 - 30 Menit">15 - 30 Menit</option>
@@ -478,6 +484,7 @@
             <div>
               <label class="block text-xs font-semibold mb-1.5">Background Keluarga</label>
               <select id="backgroundKeluarga" onchange="toggleOtherInput('backgroundKeluarga', 'backgroundKeluargaLainnya')" class="glass-select w-full rounded-2xl px-3.5 py-2.5 text-sm">
+                <option value="">-- Pilih Background Keluarga --</option>
                 <option value="Muhammadiyah">Muhammadiyah</option>
                 <option value="Persis">Persis</option>
                 <option value="Nahdlatul Ulama">Nahdlatul Ulama</option>
@@ -489,6 +496,7 @@
             <div>
               <label class="block text-xs font-semibold mb-1.5">Memiliki NKTAM (Nomor Kartu Tanda Anggota Muhammadiyah)</label>
               <select id="memilikiNktam" class="glass-select w-full rounded-2xl px-3.5 py-2.5 text-sm">
+                <option value="">-- Pilih Kepemilikan NKTAM --</option>
                 <option value="Ya">Ya</option>
                 <option value="Tidak">Tidak</option>
               </select>
@@ -497,6 +505,7 @@
             <div>
               <label class="block text-xs font-semibold mb-1.5">Apakah Berlangganan Majalah Suara Muhammadiyah / Aisyiyah</label>
               <select id="langgananMajalah" class="glass-select w-full rounded-2xl px-3.5 py-2.5 text-sm">
+                <option value="">-- Pilih Langganan Majalah --</option>
                 <option value="Ya, Suara Muhammadiyah">Ya, Suara Muhammadiyah</option>
                 <option value="Ya, Suara Aisyiyah">Ya, Suara Aisyiyah</option>
                 <option value="Ya, Keduanya">Ya, Keduanya</option>
@@ -507,6 +516,7 @@
             <div>
               <label class="block text-xs font-semibold mb-1.5">Telah Aktif Di Muhammadiyah</label>
               <select id="telahAktif" onchange="toggleOtherInput('telahAktif', 'telahAktifLainnya')" class="glass-select w-full rounded-2xl px-3.5 py-2.5 text-sm">
+                <option value="">-- Pilih Lama Aktif --</option>
                 <option value="Tidak Pernah">Tidak Pernah</option>
                 <option value="Kurang dari 1 Tahun">Kurang dari 1 Tahun</option>
                 <option value="1 - 2 Tahun">1 - 2 Tahun</option>
@@ -627,7 +637,7 @@
         </div>
       </form>
 
-      <!-- KONFIRMASI SETELAH PESERTA SIMPAN (TANPA CETAK) -->
+      <!-- KONFIRMASI SETELAH PESERTA SIMPAN -->
       <section id="peserta-saved-card" class="hidden neo-glass rounded-3xl p-6 sm:p-8 text-center space-y-4">
         <div class="w-14 h-14 mx-auto rounded-2xl bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 text-2xl font-extrabold">
           ✓
@@ -656,7 +666,6 @@
       </div>
 
       <div id="admin-dashboard" class="hidden space-y-6">
-        <!-- Admin Profile, Brand Logo Drive Upload & Endpoint Config -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div class="neo-glass rounded-3xl p-5 space-y-4">
             <div class="flex items-center gap-3.5">
@@ -730,7 +739,7 @@
         </div>
       </div>
 
-      <!-- CV / BIODATA PRINTABLE VIEW (KHUSUS PANITIA / ADMIN) -->
+      <!-- CV / BIODATA PRINTABLE VIEW -->
       <div id="cv-print-area" class="hidden rounded-3xl bg-white text-slate-900 p-6 sm:p-10 shadow-2xl border border-slate-200">
         <div class="no-print flex flex-wrap items-center justify-between gap-3 pb-4 mb-6 border-b border-slate-200">
           <span class="text-xs font-bold text-indigo-700 uppercase">Dokumen CV / Biodata Lengkap Peserta (Siap Cetak A4)</span>
@@ -858,12 +867,12 @@
       "Yunita Sulistiani, S.Pd."
     ];
 
-    const STORAGE_KEY_RECORDS = 'ba2026_participants_v3';
-    const STORAGE_KEY_LOGO = 'ba2026_brand_logo_v3';
-    const STORAGE_KEY_ADMIN_PHOTO = 'ba2026_admin_photo_v3';
-    const STORAGE_KEY_SCRIPT_URL = 'ba2026_apps_script_url_v3';
-    const STORAGE_KEY_UI_STATE = 'ba2026_ui_state_v3';
-    const STORAGE_KEY_DRAFT = 'ba2026_form_draft_v3';
+    const STORAGE_KEY_RECORDS = 'ba2026_participants_v4';
+    const STORAGE_KEY_LOGO = 'ba2026_brand_logo_v4';
+    const STORAGE_KEY_ADMIN_PHOTO = 'ba2026_admin_photo_v4';
+    const STORAGE_KEY_SCRIPT_URL = 'ba2026_apps_script_url_v4';
+    const STORAGE_KEY_UI_STATE = 'ba2026_ui_state_v4';
+    const STORAGE_KEY_DRAFT = 'ba2026_form_draft_v4';
 
     let currentPesertaPhotoBase64 = '';
     let currentPesertaPhotoMime = 'image/jpeg';
@@ -887,6 +896,12 @@
       localStorage.setItem(STORAGE_KEY_UI_STATE, JSON.stringify(next));
     }
 
+    function resetAllDropdownsToPlaceholder() {
+      document.querySelectorAll('select.glass-select').forEach((sel) => {
+        sel.selectedIndex = 0;
+      });
+    }
+
     async function initApp() {
       const selectEl = document.getElementById('namaDropdown');
       PARTICIPANT_NAMES.forEach((name) => {
@@ -896,9 +911,10 @@
         selectEl.appendChild(opt);
       });
 
+      resetAllDropdownsToPlaceholder();
+
       const uiState = getUiState();
 
-      // Pulihkan Tema (Dark / Light) saat reload
       if (uiState.theme === 'light') {
         document.documentElement.classList.remove('dark');
         document.getElementById('theme-label').textContent = 'Mode Gelap';
@@ -915,11 +931,9 @@
       const savedUrl = localStorage.getItem(STORAGE_KEY_SCRIPT_URL) || DEFAULT_APPS_SCRIPT_URL;
       document.getElementById('apps-script-url').value = savedUrl;
 
-      // Pulihkan draf form peserta & langkah terakhir saat reload
       restoreFormDraft();
       goToStep(uiState.step || 1, false);
 
-      // Pulihkan tab aktif & sesi login admin saat reload
       if (uiState.adminLoggedIn) {
         document.getElementById('admin-login-box').classList.add('hidden');
         document.getElementById('admin-dashboard').classList.remove('hidden');
@@ -990,7 +1004,7 @@
             localStorage.setItem(STORAGE_KEY_LOGO, json.logoUrl);
             applyBrandLogo(json.logoUrl);
           }
-          showToast('Logo berhasil tersimpan di Google Drive.');
+          showToast('Logo tersimpan di Drive & siap tampil di perangkat lain.');
         } catch (err) {
           showToast('Logo tersimpan lokal. Pastikan Web App Apps Script sudah di-deploy versi terbaru.');
         }
@@ -1019,7 +1033,7 @@
             localStorage.setItem(STORAGE_KEY_ADMIN_PHOTO, json.adminPhotoUrl);
             document.getElementById('admin-avatar-img').src = json.adminPhotoUrl;
           }
-          showToast('Foto admin tersimpan di folder Google Drive.');
+          showToast('Foto admin tersimpan di Drive & siap tampil di perangkat lain.');
         } catch (err) {
           showToast('Foto admin tersimpan lokal. Pastikan Apps Script sudah di-deploy ulang.');
         }
@@ -1320,6 +1334,7 @@
 
     function resetFormForNextParticipant() {
       document.getElementById('biodata-form').reset();
+      resetAllDropdownsToPlaceholder();
       localStorage.removeItem(STORAGE_KEY_DRAFT);
       currentPesertaPhotoBase64 = '';
       document.getElementById('fotoPesertaPreview').src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='200' viewBox='0 0 160 200'%3E%3Crect width='160' height='200' rx='14' fill='%23334155'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23e2e8f0' font-size='13' font-family='sans-serif'%3EFoto 3x4 / 4x6%3C/text%3E%3C/svg%3E";
