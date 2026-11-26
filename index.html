@@ -1078,7 +1078,7 @@
         const tgl = String(parsed.getDate()).padStart(2, '0');
         const bln = bulanIndo[parsed.getMonth()];
         const thn = parsed.getFullYear();
-        return `${tgl} ${bln} ${thn}`;
+        return `${tgl} ${bulanIndo[bln]} ${thn}`;
       }
 
       return str;
@@ -1216,7 +1216,6 @@
       const res = await fetch(scriptUrl, {
         method: 'POST',
         redirect: 'follow',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify(payload),
       });
       const text = await res.text();
@@ -1243,7 +1242,7 @@
           showToast('Error Drive: ' + (json.message || 'Gagal simpan logo'));
         }
       } catch (err) {
-        showToast('Gagal terhubung ke Apps Script. Pastikan sudah Deploy New Version.');
+        showToast('Gagal terhubung ke Apps Script: ' + err.message);
       }
     }
 
@@ -1267,7 +1266,7 @@
           showToast('Error Drive: ' + (json.message || 'Gagal simpan foto admin'));
         }
       } catch (err) {
-        showToast('Gagal terhubung ke Apps Script. Pastikan sudah Deploy New Version.');
+        showToast('Gagal terhubung ke Apps Script: ' + err.message);
       }
     }
 
@@ -1571,7 +1570,7 @@
           showToast('Gagal menyimpan ke Sheets: ' + (resJson.message || 'Cek deployment Apps Script'));
         }
       } catch (err) {
-        showToast('Gagal terhubung ke server Sheets. Pastikan Code.gs sudah di-deploy New Version.');
+        showToast('Gagal terhubung ke server Sheets: ' + err.message);
       }
     }
 
@@ -1635,7 +1634,6 @@
         const res = await fetch(`${url}${separator}action=list&t=${Date.now()}`, {
           method: 'GET',
           redirect: 'follow',
-          cache: 'no-store',
         });
         const text = await res.text();
         const json = JSON.parse(text);
@@ -1662,8 +1660,8 @@
           if (!silent) showToast(`Sinkronisasi berhasil (${merged.length} peserta di Sheets).`);
         }
       } catch (err) {
-        if (statusLabel) statusLabel.textContent = 'Gagal terhubung — pastikan Deployment Apps Script "New version" & "Anyone"';
-        if (!silent) showToast('Gagal terhubung ke Google Apps Script.');
+        if (statusLabel) statusLabel.textContent = `Gagal terhubung (${err.message})`;
+        if (!silent) showToast('Gagal terhubung: ' + err.message);
       }
     }
 
@@ -1844,7 +1842,7 @@
           showToast('Gagal update di Sheets: ' + (resJson.message || 'Cek deployment'));
         }
       } catch (err) {
-        showToast('Gagal terhubung ke server Apps Script.');
+        showToast('Gagal terhubung ke server Apps Script: ' + err.message);
       }
     }
 
@@ -1875,7 +1873,7 @@
           showToast('Gagal hapus di Sheets: ' + (resJson.message || 'Cek deployment'));
         }
       } catch (err) {
-        showToast('Gagal terhubung ke server Apps Script.');
+        showToast('Gagal terhubung ke server Apps Script: ' + err.message);
       }
     }
 
