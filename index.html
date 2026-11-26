@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Baitul Arqam Pegawai 2026 — Pendaftaran & Biodata</title>
+  <link id="dynamic-favicon" rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%234f46e5'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='28' font-family='sans-serif' font-weight='bold'%3EBA%3C/text%3E%3C/svg%3E" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    :root {
+      --bg-canvas: #09090B;
+      --glass-bg: rgba(18, 18, 24, 0.72);
+      --glass-border: rgba(255, 255, 255, 0.13);
+      --glass-inner: inset 0 1px 0 0 rgba(255, 255, 255, 0.18), inset 0 -12px 24px -12px rgba(0, 0, 0, 0.65);
+      --input-bg: rgba(24, 24, 32, 0.65);
+      --text-main: #F4F4F6;
+      --text-muted: #A1A1AA;
+    }
+
+    html:not(.dark) {
+      --bg-canvas: #F4F5F8;
+      --glass-bg: rgba(255, 255, 255, 0.82);
+      --glass-border: rgba(15, 23, 42, 0.12);
+      --glass-inner: inset 0 1px 0 0 rgba(255, 255, 255, 0.9), inset 0 -10px 20px -12px rgba(15, 23, 42, 0.08);
+      --input-bg: rgba(255, 255, 255, 0.9);
+      --text-main: #0F172A;
+      --text-muted: #475569;
+    }
+
+    body {
+      background-color: var(--bg-canvas);
+      color: var(--text-main);
+      font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+      overflow-x: hidden;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .aurora-bg {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .aurora-orb {
+      position: absolute;
+      border-radius: 9999px;
+      filter: blur(110px);
+      opacity: 0.34;
+      animation: auroraFloat 18s ease-in-out infinite alternate;
+    }
+
+    html:not(.dark) .aurora-orb {
+      opacity: 0.22;
+    }
+
+    .orb-indigo {
+      width: 540px;
+      height: 540px;
+      top: -120px;
+      left: -100px;
+      background: radial-gradient(circle, #6366f1, transparent 70%);
+    }
+
+    .orb-cyan {
+      width: 480px;
+      height: 480px;
+      top: 25%;
+      right: -120px;
+      background: radial-gradient(circle, #06b6d4, transparent 70%);
+      animation-delay: -6s;
+    }
+
+    .orb-champagne {
+      width: 520px;
+      height: 520px;
+      bottom: -160px;
+      left: 25%;
+      background: radial-gradient(circle, #eab308, #f59e0b 45%, transparent 72%);
+      animation-delay: -11s;
+    }
+
+    @keyframes auroraFloat {
+      0% { transform: translate(0px, 0px) scale(1); }
+      50% { transform: translate(35px, -28px) scale(1.06); }
+      100% { transform: translate(-25px, 24px) scale(0.96); }
+    }
+
+    .neo-glass {
+      background: var(--glass-bg);
+      backdrop-filter: blur(24px) saturate(150%);
+      -webkit-backdrop-filter: blur(24px) saturate(150%);
+      border: 1px solid var(--glass-border);
+      box-shadow: var(--glass-inner), 0 24px 60px -15px rgba(0, 0, 0, 0.45);
+    }
+
+    .glass-input, .glass-select, .glass-textarea {
+      background: var(--input-bg);
+      border: 1px solid var(--glass-border);
+      color: var(--text-main);
+      transition: all 0.22s ease;
+    }
+
+    .glass-input:focus, .glass-select:focus, .glass-textarea:focus {
+      outline: none;
+      border-color: rgba(34, 211, 238, 0.75);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.22), 0 0 20px rgba(34, 211, 238, 0.22);
+    }
+
+    .cta-shimmer {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #4f46e5 0%, #0891b2 55%, #d97706 100%);
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+
+    .cta-shimmer::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -120%;
+      width: 65%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.36), transparent);
+      transform: skewX(-22deg);
+      animation: shimmerSweep 3.8s infinite;
+    }
+
+    .cta-shimmer:hover {
+      transform: translateY(-1px) scale(1.01);
+      box-shadow: 0 12px 30px -6px rgba(34, 211, 238, 0.45);
+    }
+
+    @keyframes shimmerSweep {
+      0% { left: -120%; }
+      55%, 100% { left: 160%; }
+    }
+
+    @media print {
+      body * {
+        visibility: hidden !important;
+      }
+      #cv-print-area, #cv-print-area * {
+        visibility: visible !important;
+      }
+      #cv-print-area {
+        position: fixed !important;
+        left: 0 !important;
+        top: 0 !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 18px !important;
+        background: #ffffff !important;
+        color: #111827 !important;
+        box-shadow: none !important;
+        border: none !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="min-h-screen relative selection:bg-cyan-500/30 selection:text-cyan-200">
+  <div class="aurora-bg" aria-hidden="true">
+    <div class="aurora-orb orb-indigo"></div>
+    <div class="aurora-orb orb-cyan"></div>
+    <div class="aurora-orb orb-champagne"></div>
+  </div>
+
+  <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 py-6">
+    <!-- Top Header -->
+    <header class="neo-glass rounded-3xl p-4 sm:p-5 mb-6 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3.5">
+        <img id="brand-logo-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%234f46e5'/%3E%3Ctext x='50%25' y='55%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='26' font-family='sans-serif' font-weight='bold'%3EBA%3C/text%3E%3C/svg%3E" alt="Logo Baitul Arqam" class="w-12 h-12 rounded-2xl object-cover border border-white/20 bg-indigo-950/60" />
+        <div>
+          <div class="inline-flex items-center gap-2 text-[11px] uppercase tracking-widest text-amber-300/90 font-semibold">
+            <span>PPDA • 2026</span>
+          </div>
+          <h1 class="text-lg sm:text-xl font-extrabold tracking-tight">Baitul Arqam Pegawai 2026</h1>
+          <p class="text-xs opacity-75">Sistem Biodata, Profil Persyarikatan &amp; Cetak CV Peserta</p>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2">
+        <label class="cursor-pointer px-3 py-2 rounded-xl text-xs font-semibold border border-white/15 bg-white/5 hover:bg-white/10 transition flex items-center gap-1.5" title="Ganti Logo & Favicon">
+          <span>Upload Logo &amp; Favicon</span>
+          <input type="file" id="logo-upload-input" accept="image/*" class="hidden" onchange="handleBrandLogoUpload(event)" />
+        </label>
+
+        <button type="button" onclick="toggleTheme()" class="px-3 py-2 rounded-xl text-xs font-semibold border border-white/15 bg-white/5 hover:bg-white/10 transition" title="Mode Gelap / Terang">
+          <span id="theme-label">Mode Terang</span>
+        </button>
+
+        <button type="button" id="tab-btn-form" onclick="switchView('form')" class="px-3.5 py-2 rounded-xl text-xs font-bold bg-indigo-600 text-white shadow-lg shadow-indigo-600/30 transition">
+          Form Peserta
+        </button>
+
+        <button type="button" id="tab-btn-admin" onclick="switchView('admin')" class="px-3.5 py-2 rounded-xl text-xs font-semibold border border-white/15 bg-white/5 hover:bg-white/10 transition">
+          Portal Admin
+        </button>
+      </div>
+    </header>
+
+    <!-- Toast Notification -->
+    <div id="toast-box" class="hidden fixed bottom-5 right-5 z-50 neo-glass px-4 py-3 rounded-2xl border border-cyan-400/40 text-xs sm:text-sm font-medium shadow-2xl"></div>
+
+    <!-- VIEW 1: FORM PESERTA -->
+    <main id="view-form" class="space-y-6">
+      <!-- Step Progress Bar -->
+      <section class="neo-glass rounded-3xl p-4 sm:p-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+          <div>
+            <p class="text-xs uppercase tracking-wider text-cyan-400 font-bold">Progres Pengisian Biodata</p>
+            <h2 id="step-title" class="text-base sm:text-lg font-bold mt-0.5">Langkah 1 dari 3: Pengisian Biodata &amp; Literasi Al-Qur'an</h2>
+          </div>
+          <button type="button" onclick="registerWithPasskey()" class="px-3.5 py-2 rounded-xl text-xs font-semibold border border-amber-400/40 bg-amber-500/10 text-amber-200 hover:bg-amber-500/20 transition self-start sm:self-auto">
+            Daftar Cepat dengan Biometrik / Passkey
+          </button>
+        </div>
+
+        <div class="grid grid-cols-3 gap-2.5">
+          <button type="button" onclick="goToStep(1)" id="step-pill-1" class="p-2.5 rounded-2xl text-left border border-cyan-400/60 bg-cyan-500/15 transition">
+            <div class="text-[11px] font-bold text-cyan-300">STEP 01</div>
+            <div class="text-xs font-semibold truncate">Biodata &amp; Al-Qur'an</div>
+          </button>
+          <button type="button" onclick="goToStep(2)" id="step-pill-2" class="p-2.5 rounded-2xl text-left border border-white/10 bg-white/5 opacity-75 transition">
+            <div class="text-[11px] font-bold opacity-70">STEP 02</div>
+            <div class="text-xs font-semibold truncate">Tentang Muhammadiyah</div>
+          </button>
+          <button type="button" onclick="goToStep(3)" id="step-pill-3" class="p-2.5 rounded-2xl text-left border border-white/10 bg-white/5 opacity-75 transition">
+            <div class="text-[11px] font-bold opacity-70">STEP 03</div>
+            <div class="text-xs font-semibold truncate">Foto &amp; Finalisasi</div>
+          </button>
+        </div>
+      </section>
+
+      <form id="biodata-form" onsubmit="handleFormSubmit(event)" class="neo-glass rounded-3xl p-5 sm:p-8 space-y-6">
+        <!-- STEP 1 -->
+        <div id="step-panel-1" class="space-y-5">
+          <div class="border-b border-white/10 pb-3">
+            <h3 class="text-base font-bold text-cyan-300">A. Identitas &amp; Biodata Peserta</h3>
+            <p class="text-xs opacity-70 mt-0.5">Pilih nama lengkap dari daftar peserta atau tulis sendiri bila belum tercantum.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold mb-1.5">Nama Lengkap (Dropdown)</label>
+              <select id="namaDropdown" onchange="handleNamaDropdownChange()" class="glass-select w-full rounded-2xl px-3.5 py-2.5 text-sm">
+                <option value="">-- Pilih Nama Peserta --</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold mb-1.5">Tulis Sendiri jika tidak terdapat nama pesertanya</label>
+              <input type="text" id="namaManual" placeholder="Ketik nama lengkap jika tidak ada di daftar..." class="glass-input w-full rounded-2xl px-3.5 py-2.5 text-sm" />
+            </div>
+          </div>
+
+          <div class="p-3.5 rounded-2xl border border-amber-400/25 bg-amber-500/5 flex flex-col sm:flex-row sm:items-center gap-3">
+            <label class="inline-flex items-center gap-2 text-xs font-semibold cursor-pointer">
+              <input type="checkbox" id="gantiNamaCheck" onchange="toggleGantiNama()" class="rounded accent-amber-400 w-4 h-4" />
+              <span>Ganti Nama Jika Tidak Sesuai (Tidak Sesuai)</span>
+            </label>
+            <input type="text" id="namaKoreksi" disabled placeholder="Isi penulisan nama yang benar..." class="glass-input flex-1 rounded-xl px-3 py-2 text-xs disabled:opacity-40" />
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div>
+              <label class="block text-xs font-semibold mb-1.5">Jenis Kelamin</label>
+              <select id="jenisKelamin" required class="glass-select w-full rounded-2xl px-3.5 py-2.5 text-sm">
+                <option value="">-- Pilih --</option>
+                <option value="Laki-Laki">Laki-Laki</option>
+                <option value="Perempuan">Perempuan</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold mb-1.5">Status</label>
+              <select id="statusNikah" required class="glass-select w-full rounded-2xl px-3.5 py-2.5 text-sm">
+                <option value="">-- Pilih --</option>
+                <option value="Belum Menikah">Belum Menikah</option>
+                <option value="Menikah">Menikah</option>
+                <option value="Duda">Duda</option>
+                <option value="Janda">Janda</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold mb-1.5">Jabatan di AUM / Jabatan Pekerjaan</label>
+              <select id="jabatanAum" onchange="toggleOtherInput('jabatanAum', 'jabatanLainnya')" class="glass-select w-full rounded-2xl px-3.5 py-2.5 text-sm">
+                <option value="">-- Pilih Jabatan --</option>
+                <option value="Guru">Guru</option>
+                <option value="Musyrif/ah">Musyrif/ah</option>
+                <option value="Murafiq/ah">Murafiq/ah</option>
+                <option value="Staf Keuangan">Staf Keuangan</option>
+                <option value="Staf Kesekretariatan">Staf Kesekretariatan</option>
+                <option value="Staf Baitul Marhhamah">Staf Baitul Marhhamah</option>
+                <option value="Red Guard">Red Guard</option>
+                <option value="Garda">Garda</option>
+                <option value="PMR">PMR</option>
+                <option value="Paskibra">Paskibra</option>
+                <option value="Tapak Suci">Tapak Suci</option>
+                <option value="Panahan">Panahan</option>
+                <option value="Padus">Padus</option>
+                <option value="Marching Band">Marching Band</option>
+                <option value="Futsal">Futsal</option>
+                <option value="Lainnya (Tulis Sendiri)">Lainnya (Tulis Sendiri)</option>
+              </select>
+              <input type="text" id="jabatanLainnya" placeholder="Tulis jabatan lainnya..." class="glass-input hidden w-full rounded-xl px-3 py-2 text-xs mt-2" />
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold mb-1.5">Tempat Lahir (Tulis Sendiri)</label>
+              <input type="text" id="tempatLahir" required placeholder="Contoh: Garut" class="glass-input w-full rounded-2xl px-3.5 py-2.5 text-sm" />
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold mb-1.5">Tanggal Lahir (Klik Tanggal / Manual)</label>
+              <div class="flex gap-2">
+                <input type="date" id="tanggalLahirPicker" onchange="syncDateFromPicker()" class="glass-input rounded-2xl px-3 py-2 text-xs" />
+                <input type="text" id="tanggalLahirManual" placeholder="DD-MM-YYYY / manual" class="glass-input flex-1 rounded-2xl px-3.5 py-2.5 text-sm" />
+              </div>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold mb-1.5">No. HP / WhatsApp (Tulis Sendiri)</label>
+              <input type="tel" id="noHp" required placeholder="08xxxxxxxxxx" class="glass-input w-full rounded-2xl px-3.5 py-2.5 text-sm" />
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold mb-1.5">Alamat Rumah (Tulis Sendiri)</label>
+            <textarea id="alamatRumah" rows="2" required placeholder="Alamat lengkap tempat tinggal..." class="glass-textarea w-full rounded-2xl px-3.5 py-2.5 text-sm"></textarea>
+          </div>
+
+          <div class="border-t border-white/10 pt-4">
+            <h3 class="text-base font-bold text-amber-300 mb-3">B. Kesiapan &amp; Literasi Al-Qur'an / Buku</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div>
+                <label class="block text-xs font-semibold mb-1.5">Kesiapan Mengikuti Baitul Arqam</label>
+                <select id="kesiapan" class="glass-select w-full rounded-2xl px-3.5 py-2.5 text-sm">
+                  <option value="Sangat Siap">Sangat Siap</option>
+                  <option value="Siap">Siap</option>
+                  <option value="Cukup Siap">Cukup Siap</option>
+                  <option value="Tidak Siap">Tidak Siap</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold mb-1.5">Kemampuan Tentang Membaca Al-Quran</label>
+                <select id="bacaQuran" class="glass-select w-full rounded-2xl px-3.5 py-2.5 text-sm">
+                  <option value="Sangat Lancar">Sangat Lancar</option>
+                  <option value="Lancar">Lancar</option>
+                  <option value="Cukup">Cukup</option>
+                  <option value="Masih Terbata-Bata">Masih Terbata-Bata</option>
+                  <option value="Belum Bisa">Belum Bisa</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold mb-1.5">Kemampuan Memahami Bacaan Al-Qur’an</label>
+                <select id="pahamQuran" class="glass-select w-full rounded-2xl px-3.5 py-2.5 text-sm">
+                  <option value="Sangat Baik">Sangat Baik</option>
+                  <option value="Baik">Baik</option>
+                  <option value="Cukup">Cukup</option>
+                  <option value="Kurang">Kurang</option>
+                  <option value="Tidak Memahami">Tidak Memahami</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold mb-1.5">Aktifitas Membaca Al-Qur’an Dalam Sehari</label>
+                <select id="aktivitasQuran" onchange="toggleOtherInput('aktivitasQuran', 'aktivitasQuranLainnya')" class="glass-select w-full rounded-2xl px-3.5 py-2.5 text-sm">
+                  <option value="Tidak Pernah">Tidak Pernah</option>
+                  <option value="Kurang dari 1 Halaman">Kurang dari 1 Halaman</option>
+                  <option value="1 - 2 Halaman">1 - 2 Halaman</option>
+                  <option value="3 - 5 Halaman">3 - 5 Halaman</option>
+                  <option value="Lainnya (Tulis Sendiri)">Lainnya (Tulis Sendiri)</option>
+                </select>
+                <input type="text" id="aktivitasQuranLainnya" placeholder="Tulis kebiasaan membaca Al-Qur'an..." class="glass-input hidden w-full rounded-xl px-3 py-2 text-xs mt-2" />
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold mb-1.5">Jumlah Koleksi Buku Agama</label>
+                <select id="koleksiBuku" onchange="toggleOtherInput('koleksiBuku', 'koleksiBukuLainnya')" class="glass-select w-full rounded-2xl px-3.5 py-2.5 text-sm">
+                  <option value="Tidak Ada">Tidak Ada</option>
+                  <option value="1 - 5 Buku">1 - 5 Buku</option>
+                  <option value="6 - 10 Buku">6 - 10 Buku</option>
+                  <option value="11 - 15 Buku">11 - 15 Buku</option>
+                  <option value="Lainnya (Tulis Sendiri)">Lainnya (Tulis Sendiri)</option>
+                </select>
+                <input type="text" id="koleksiBukuLainnya" placeholder="Tulis jumlah koleksi buku..." class="glass-input hidden w-full rounded-xl px-3 py-2 text-xs mt-2" />
+              </div>
+
+              <div>
+                <label class="block text-xs font-semibold mb-1.5">Waktu Yang Diluangkan Untuk Membaca Buku Per Hari</label>
+                <select id="waktuBacaBuku" onchange="toggleOtherInput('waktuBacaBuku', 'waktuBacaBukuLainnya')" class="glass-select w-full rounded-2xl px-3.5 py-2.5 text-sm">
+                  <option value="Tidak Membaca">Tidak Membaca</option>
+                  <option value="Kurang dari 15 Menit">Kurang dari 15 Menit</option>
+                  <option value="15 - 30 Menit">15 - 30 Menit</option>
+                  <option value="30 - 60 Menit">30 - 60 Menit</option>
+                  <option value="Lainnya (Tulis Sendiri)">Lainnya (Tulis Sendiri)</option>
+                </select>
+                <input type="text" id="waktuBacaBukuLainnya" placeholder="Tulis waktu baca buku per hari..." class="glass-input hidden w-full rounded-xl px-3 py-2 text-xs mt-2" />
+              </div>
+            </div>
+          </div>
+
+          <div class="flex justify-end pt-2">
+            <button type="button" onclick="goToStep(2)" class="cta-shimmer px-6 py-3 rounded-2xl text-sm font-bold text-white">
+              Lanjut ke Tentang Muhammadiyah &rarr;
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 2 -->
+        <div id="step-panel-2" class="hidden space-y-5">
+          <div class="border-b border-white/10 pb-3">
+            <h3 class="text-base font-bold text-cyan-300">Tentang Muhammadiyah</h3>
+            <p class="text-xs opacity-70 mt-0.5">Rekam jejak, keaktifan, serta pandangan terhadap Persyarikatan Muhammadiyah.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div>
+              <label class="block text-xs font-semibold mb-1.5">Background Keluarga</label>
+              <select id="backgroundKeluarga" onchange="toggleOtherInput('backgroundKeluarga', 'backgroundKeluargaLainnya')" class="glass-select w-full rounded-2xl px-3.5 py-2.5 text-sm">
+                <option value="Muhammadiyah">Muhammadiyah</option>
+                <option value="Persis">Persis</option>
+                <option value="Nahdlatul Ulama">Nahdlatul Ulama</option>
+                <option value="Lainnya (Tulis Sendiri)">Lainnya (Tulis Sendiri)</option>
+              </select>
+              <input type="text" id="backgroundKeluargaLainnya" placeholder="Tulis background keluarga..." class="glass-input hidden w-full rounded-xl px-3 py-2 text-xs mt-2" />
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold mb-1.5">Memiliki NKTAM (Nomor Kartu Tanda Anggota Muhammadiyah)</label>
+              <select id="memilikiNktam" class="glass-select w-full rounded-2xl px-3.5 py-2.5 text-sm">
+                <option value="Ya">Ya</option>
+                <option value="Tidak">Tidak</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold mb-1.5">Apakah Berlangganan Majalah Suara Muhammadiyah / Aisyiyah</label>
+              <select id="langgananMajalah" class="glass-select w-full rounded-2xl px-3.5 py-2.5 text-sm">
+                <option value="Ya, Suara Muhammadiyah">Ya, Suara Muhammadiyah</option>
+                <option value="Ya, Suara Aisyiyah">Ya, Suara Aisyiyah</option>
+                <option value="Ya, Keduanya">Ya, Keduanya</option>
+                <option value="Tidak">Tidak</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-xs font-semibold mb-1.5">Telah Aktif Di Muhammadiyah</label>
+              <select id="telahAktif" onchange="toggleOtherInput('telahAktif', 'telahAktifLainnya')" class="glass-select w-full rounded-2xl px-3.5 py-2.5 text-sm">
+                <option value="Tidak Pernah">Tidak Pernah</option>
+                <option value="Kurang dari 1 Tahun">Kurang dari 1 Tahun</option>
+                <option value="1 - 2 Tahun">1 - 2 Tahun</option>
+                <option value="3 - 5 Tahun">3 - 5 Tahun</option>
+                <option value="Lainnya (Tulis Sendiri)">Lainnya (Tulis Sendiri)</option>
+              </select>
+              <input type="text" id="telahAktifLainnya" placeholder="Tulis lama aktif di Muhammadiyah..." class="glass-input hidden w-full rounded-xl px-3 py-2 text-xs mt-2" />
+            </div>
+
+            <div class="md:col-span-2">
+              <label class="block text-xs font-semibold mb-1.5">Siapakah Tokoh Muhammadiyah Yang Paling Berpengaruh Bagi Anda (Tulis Sendiri)</label>
+              <input type="text" id="tokohBerpengaruh" placeholder="Contoh: KH. Ahmad Dahlan, Buya Syafii Ma'arif, dll." class="glass-input w-full rounded-2xl px-3.5 py-2.5 text-sm" />
+            </div>
+          </div>
+
+          <!-- Multi Checkboxes -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="p-4 rounded-2xl border border-white/10 bg-white/5 space-y-2">
+              <label class="block text-xs font-bold text-cyan-300">Sumber Mengetahui Informasi Tentang Muhammadiyah (Ceklis Bisa Pilih Banyak)</label>
+              <div id="sumberInfoGroup" class="grid grid-cols-2 gap-2 text-xs">
+                <label class="flex items-center gap-2"><input type="checkbox" value="Keluarga" class="accent-cyan-400" /> Keluarga</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Guru / Dosen" class="accent-cyan-400" /> Guru / Dosen</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Teman" class="accent-cyan-400" /> Teman</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Media Sosial" class="accent-cyan-400" /> Media Sosial</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Pengajian / Tabligh" class="accent-cyan-400" /> Pengajian / Tabligh</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Kegiatan AUM" class="accent-cyan-400" /> Kegiatan AUM</label>
+              </div>
+              <input type="text" id="sumberInfoLainnya" placeholder="Lainnya (Tulis Sendiri)..." class="glass-input w-full rounded-xl px-3 py-1.5 text-xs mt-1" />
+            </div>
+
+            <div class="p-4 rounded-2xl border border-white/10 bg-white/5 space-y-2">
+              <label class="block text-xs font-bold text-amber-300">Pernah / Aktif Di Ortom Muhammadiyah (Ceklis Bisa Pilih Banyak)</label>
+              <div id="ortomGroup" class="grid grid-cols-2 gap-2 text-xs">
+                <label class="flex items-center gap-2"><input type="checkbox" value="Hizbul Wathan" class="accent-amber-400" /> Hizbul Wathan</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="IPM" class="accent-amber-400" /> IPM</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="IMM" class="accent-amber-400" /> IMM</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Nasyiatul ‘Aisyiyah" class="accent-amber-400" /> Nasyiatul ‘Aisyiyah</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Tapak Suci" class="accent-amber-400" /> Tapak Suci</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Tidak Pernah" class="accent-amber-400" /> Tidak Pernah</label>
+              </div>
+              <input type="text" id="ortomLainnya" placeholder="Lainnya (Tulis Sendiri)..." class="glass-input w-full rounded-xl px-3 py-1.5 text-xs mt-1" />
+            </div>
+
+            <div class="p-4 rounded-2xl border border-white/10 bg-white/5 space-y-2">
+              <label class="block text-xs font-bold text-indigo-300">Aktif Di Amal Usaha Muhammadiyah (Ceklis Bisa Pilih Banyak)</label>
+              <div id="aumAktifGroup" class="grid grid-cols-2 gap-2 text-xs">
+                <label class="flex items-center gap-2"><input type="checkbox" value="Sekolah / Madrasah" class="accent-indigo-400" /> Sekolah / Madrasah</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Perguruan Tinggi" class="accent-indigo-400" /> Perguruan Tinggi</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Rumah Sakit / Klinik" class="accent-indigo-400" /> Rumah Sakit / Klinik</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Panti Asuhan" class="accent-indigo-400" /> Panti Asuhan</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Masjid" class="accent-indigo-400" /> Masjid</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Koperasi" class="accent-indigo-400" /> Koperasi</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Tidak Pernah" class="accent-indigo-400" /> Tidak Pernah</label>
+              </div>
+              <input type="text" id="aumAktifLainnya" placeholder="Lainnya (Tulis Sendiri)..." class="glass-input w-full rounded-xl px-3 py-1.5 text-xs mt-1" />
+            </div>
+
+            <div class="p-4 rounded-2xl border border-white/10 bg-white/5 space-y-2">
+              <label class="block text-xs font-bold text-emerald-300">Pelatihan / Training Yang Pernah Diikuti Di Muhammadiyah (Ceklis Bisa Pilih Banyak)</label>
+              <div id="pelatihanGroup" class="grid grid-cols-2 gap-2 text-xs">
+                <label class="flex items-center gap-2"><input type="checkbox" value="Latihan Instruktur" class="accent-emerald-400" /> Latihan Instruktur</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Pelatihan Kepemimpinan" class="accent-emerald-400" /> Pelatihan Kepemimpinan</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Tabligh Training" class="accent-emerald-400" /> Tabligh Training</label>
+                <label class="flex items-center gap-2"><input type="checkbox" value="Belum Pernah Mengikuti" class="accent-emerald-400" /> Belum Pernah Mengikuti</label>
+              </div>
+              <input type="text" id="pelatihanLainnya" placeholder="Lainnya (Tulis Sendiri)..." class="glass-input w-full rounded-xl px-3 py-1.5 text-xs mt-1" />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-semibold mb-1.5">Apa Harapan Anda Terhadap Muhammadiyah? (Tulis Sendiri)</label>
+              <textarea id="harapanMuhammadiyah" rows="3" placeholder="Tuliskan harapan Anda..." class="glass-textarea w-full rounded-2xl px-3.5 py-2.5 text-sm"></textarea>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold mb-1.5">Kontribusi Apa Yang Dapat Anda Berikan Di Persyarikatan Muhammadiyah? (Tulis Sendiri)</label>
+              <textarea id="kontribusiMuhammadiyah" rows="3" placeholder="Tuliskan kontribusi yang dapat Anda berikan..." class="glass-textarea w-full rounded-2xl px-3.5 py-2.5 text-sm"></textarea>
+            </div>
+          </div>
+
+          <div class="flex justify-between pt-2">
+            <button type="button" onclick="goToStep(1)" class="px-5 py-3 rounded-2xl text-xs font-bold border border-white/15 bg-white/5 hover:bg-white/10 transition">
+              &larr; Kembali
+            </button>
+            <button type="button" onclick="goToStep(3)" class="cta-shimmer px-6 py-3 rounded-2xl text-sm font-bold text-white">
+              Lanjut ke Upload Foto &rarr;
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 3 -->
+        <div id="step-panel-3" class="hidden space-y-5">
+          <div class="border-b border-white/10 pb-3">
+            <h3 class="text-base font-bold text-cyan-300">Upload Foto Peserta Baitul Arqam Pegawai 2026</h3>
+            <p class="text-xs opacity-70 mt-0.5">Nama file otomatis mengikuti Nama Peserta saat disimpan ke folder Google Drive.</p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+            <div class="p-5 rounded-2xl border border-dashed border-cyan-400/40 bg-white/5 text-center space-y-3">
+              <p class="text-xs font-semibold">Pilih Foto Peserta (JPG / PNG)</p>
+              <input type="file" id="fotoPesertaInput" accept="image/*" onchange="handlePesertaPhotoUpload(event)" class="block w-full text-xs file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-indigo-600 file:text-white hover:file:bg-indigo-500 cursor-pointer" />
+              <p id="autoFileNameInfo" class="text-xs text-amber-300 font-medium">Nama file otomatis: Belum dipilih</p>
+              <button type="button" id="downloadRenamedPhotoBtn" onclick="downloadRenamedPhoto()" class="hidden px-4 py-2 rounded-xl text-xs font-bold bg-white/10 hover:bg-white/20 border border-white/15">
+                Unduh Foto dengan Nama Otomatis
+              </button>
+            </div>
+
+            <div class="flex flex-col items-center justify-center p-4 rounded-2xl border border-white/10 bg-white/5">
+              <img id="fotoPesertaPreview" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='200' viewBox='0 0 160 200'%3E%3Crect width='160' height='200' rx='14' fill='%231e1b4b'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23a5b4fc' font-size='13' font-family='sans-serif'%3EFoto 3x4 / 4x6%3C/text%3E%3C/svg%3E" alt="Pratinjau Foto Peserta" class="w-36 h-44 object-cover rounded-2xl border border-white/20 shadow-lg" />
+              <span class="text-[11px] opacity-70 mt-2">Pratinjau Pas Foto CV / Biodata</span>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap justify-between gap-3 pt-4">
+            <button type="button" onclick="goToStep(2)" class="px-5 py-3 rounded-2xl text-xs font-bold border border-white/15 bg-white/5 hover:bg-white/10 transition">
+              &larr; Kembali
+            </button>
+            <button type="submit" class="cta-shimmer px-7 py-3 rounded-2xl text-sm font-bold text-white">
+              Simpan &amp; Tampilkan Hasil CV / Biodata
+            </button>
+          </div>
+        </div>
+      </form>
+    </main>
+
+    <!-- VIEW 2: PORTAL ADMIN -->
+    <section id="view-admin" class="hidden space-y-6">
+      <div id="admin-login-box" class="neo-glass rounded-3xl p-6 max-w-md mx-auto space-y-4">
+        <h2 class="text-lg font-bold">Akses Portal Admin</h2>
+        <p class="text-xs opacity-75">Masukkan PIN Admin (default: <code class="px-1.5 py-0.5 rounded bg-white/10">2026</code>) untuk mengelola foto admin, data peserta, dan cetak CV.</p>
+        <input type="password" id="admin-pin-input" placeholder="Masukkan PIN Admin..." class="glass-input w-full rounded-2xl px-4 py-2.5 text-sm" />
+        <button type="button" onclick="loginAdmin()" class="cta-shimmer w-full py-3 rounded-2xl text-sm font-bold text-white">
+          Masuk Portal Admin
+        </button>
+      </div>
+
+      <div id="admin-dashboard" class="hidden space-y-6">
+        <!-- Admin Profile & Brand/Drive Config -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <div class="neo-glass rounded-3xl p-5 flex items-center gap-4">
+            <img id="admin-avatar-img" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 80 80'%3E%3Crect width='80' height='80' rx='20' fill='%230891b2'/%3E%3Ctext x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' fill='white' font-size='26' font-family='sans-serif' font-weight='bold'%3EAD%3C/text%3E%3C/svg%3E" alt="Foto Admin" class="w-16 h-16 rounded-2xl object-cover border border-white/20" />
+            <div class="space-y-1.5">
+              <div class="text-sm font-bold">Panitia / Admin Baitul Arqam</div>
+              <label class="inline-block cursor-pointer px-3 py-1.5 rounded-xl text-xs font-semibold bg-cyan-500/20 text-cyan-200 border border-cyan-400/30 hover:bg-cyan-500/30">
+                Upload Foto Admin
+                <input type="file" accept="image/*" class="hidden" onchange="handleAdminPhotoUpload(event)" />
+              </label>
+            </div>
+          </div>
+
+          <div class="neo-glass rounded-3xl p-5 lg:col-span-2 space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-bold text-cyan-300 uppercase">Integrasi Google Sheets &amp; Google Drive</span>
+              <button type="button" onclick="syncFromAppsScript()" class="px-3 py-1.5 rounded-xl text-xs font-bold bg-indigo-600 text-white hover:bg-indigo-500">
+                Sinkronkan Data Sheets
+              </button>
+            </div>
+            <div class="flex flex-col sm:flex-row gap-2">
+              <input type="url" id="apps-script-url" placeholder="Tempelkan Web App URL Google Apps Script di sini..." class="glass-input flex-1 rounded-xl px-3.5 py-2 text-xs" onchange="saveScriptUrl()" />
+              <button type="button" onclick="saveScriptUrl()" class="px-4 py-2 rounded-xl text-xs font-bold border border-white/15 bg-white/10 hover:bg-white/20">
+                Simpan URL
+              </button>
+            </div>
+            <div class="text-[11px] opacity-70 truncate">
+              Sheet ID: <code>1KhgZH2Dwt8AWM87TotTeU1V5jt6YUCxlLf9WchVAIUk</code> • Folder ID: <code>17xox_rEM6n9WPCLYXWKLlYwn6rIIjOTI</code>
+            </div>
+          </div>
+        </div>
+
+        <!-- Participant Table & Admin Photo Upload per Row -->
+        <div class="neo-glass rounded-3xl p-5 space-y-4">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <h3 class="text-base font-bold">Daftar Data Peserta &amp; Cetak CV / Biodata (<span id="admin-count">0</span>)</h3>
+            <input type="text" id="admin-search" oninput="renderAdminTable()" placeholder="Cari nama, jabatan, atau status..." class="glass-input rounded-xl px-3.5 py-2 text-xs w-full sm:w-64" />
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr class="border-b border-white/15 text-cyan-300">
+                  <th class="py-2.5 px-3">Foto</th>
+                  <th class="py-2.5 px-3">Nama Lengkap</th>
+                  <th class="py-2.5 px-3">Jabatan AUM</th>
+                  <th class="py-2.5 px-3">No. HP/WA</th>
+                  <th class="py-2.5 px-3">Aksi Admin</th>
+                </tr>
+              </thead>
+              <tbody id="admin-table-body" class="divide-y divide-white/10"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CV / BIODATA PRINTABLE VIEW -->
+    <section id="cv-print-area" class="hidden mt-8 rounded-3xl bg-white text-slate-900 p-6 sm:p-10 shadow-2xl border border-slate-200">
+      <div class="no-print flex flex-wrap items-center justify-between gap-3 pb-4 mb-6 border-b border-slate-200">
+        <span class="text-xs font-bold text-indigo-700 uppercase">Pratinjau Dokumen CV / Biodata Resmi (Siap Cetak A4 / PDF)</span>
+        <div class="flex items-center gap-2">
+          <button type="button" onclick="window.print()" class="px-4 py-2 rounded-xl text-xs font-bold bg-indigo-600 text-white hover:bg-indigo-500">
+            Cetak / Simpan PDF
+          </button>
+          <button type="button" onclick="closeCvPreview()" class="px-4 py-2 rounded-xl text-xs font-bold bg-slate-200 text-slate-800 hover:bg-slate-300">
+            Tutup Pratinjau
+          </button>
+        </div>
+      </div>
+
+      <!-- Kop Dokumen -->
+      <div class="flex items-center justify-between gap-4 border-b-2 border-slate-800 pb-4 mb-6">
+        <div class="flex items-center gap-4">
+          <img id="cv-logo-img" src="" alt="Logo Instansi" class="w-16 h-16 object-contain rounded-xl border border-slate-200 p-1" />
+          <div>
+            <div class="text-[11px] font-bold tracking-widest uppercase text-indigo-700">Curriculum Vitae &amp; Biodata Peserta</div>
+            <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900">BAITUL ARQAM PEGAWAI 2026</h2>
+            <p class="text-xs text-slate-600">Pimpinan Daerah Muhammadiyah / Amal Usaha Muhammadiyah</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Identitas & Pas Foto -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+        <div class="md:col-span-1 flex flex-col items-center">
+          <img id="cv-photo-img" src="" alt="Foto Peserta" class="w-36 h-48 object-cover rounded-xl border-2 border-slate-300 shadow-sm" />
+          <span id="cv-photo-caption" class="text-[11px] text-slate-500 mt-1.5 text-center"></span>
+        </div>
+
+        <div class="md:col-span-3">
+          <h3 class="text-sm font-extrabold uppercase tracking-wider text-indigo-800 border-b border-slate-200 pb-1 mb-3">I. Biodata &amp; Literasi Al-Qur'an</h3>
+          <dl id="cv-biodata-list" class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-xs"></dl>
+        </div>
+      </div>
+
+      <!-- Tentang Muhammadiyah -->
+      <div class="mb-6">
+        <h3 class="text-sm font-extrabold uppercase tracking-wider text-indigo-800 border-b border-slate-200 pb-1 mb-3">II. Rekam Jejak &amp; Pandangan Tentang Muhammadiyah</h3>
+        <dl id="cv-muhammadiyah-list" class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2 text-xs"></dl>
+      </div>
+
+      <!-- Harapan & Kontribusi -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+          <div class="font-bold text-slate-800 mb-1">Harapan Terhadap Muhammadiyah</div>
+          <p id="cv-harapan" class="text-slate-700 whitespace-pre-line"></p>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+          <div class="font-bold text-slate-800 mb-1">Kontribusi di Persyarikatan Muhammadiyah</div>
+          <p id="cv-kontribusi" class="text-slate-700 whitespace-pre-line"></p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const PARTICIPANT_NAMES = [
+      "Abid Daffa Khairullah, S.Pd.",
+      "Aceng Tasmanuddin, S.Pd.",
+      "Agi Muslih",
+      "Agniya Tazkiya, S.Pd.",
+      "Agus Setiawan",
+      "Ai Mindarwati",
+      "Angga Tiana Nugraha, M.Pd.",
+      "Ari Jaenal Bahri, S.Hum.",
+      "Ase Purwanto, K.ka.",
+      "Asti Septiani",
+      "Bagus Hambali",
+      "Bayu Baihaqi Pemana, S.Pd.",
+      "Dandi Purwandi, S.Sos.",
+      "Dani Ramdani, S.Pd.",
+      "Dede Ilyas, S.Pd.",
+      "Dewi Nurjanah Septiany, S.E.",
+      "Dinda Nurul Fazriah, S.E.",
+      "Erias Hayi Sukma, S.Ag.",
+      "Fadil Mahbubilah, S.Sos.",
+      "Fajar Abdussalam, S.Pd.",
+      "Fatwa Andika Zayyin Al Zulfa I, S.H.",
+      "Febriani Siti Barokah",
+      "Giri Alghani Kartiwa, S.Pd.",
+      "Hibban Muttaqin, S.Pd.",
+      "Ian Sudarisman",
+      "Ikeu Munawaroh, S.Pd.",
+      "Iman Saefurrahman",
+      "Luki Alawi, S. Pd.",
+      "M. Fauzi Miftah, S. Pd.",
+      "M. Wildan Aji Firmansyah S.Pd.",
+      "M. Farhan Ma'mun, S.T.",
+      "M. Syariful Ihsan, S.M, C.AHR.",
+      "Maulida Tasa Tsania Tsuraya",
+      "Mega Purnama",
+      "Muhamad Ali, S.Ag.",
+      "Muhamad Bardan Salaman, S.H.",
+      "Muhammad Rifqi Rezatama, S.Pd.",
+      "Mulki Nurfathurrahman Hidayat, S.Sos.",
+      "Nabila Putri Irsalina, S.E.",
+      "Najma Zahra Firstaliya",
+      "Neneng Mulkiyah Rahmawati, S.Pd.",
+      "Nurhayati",
+      "Nurul Aisyah Jamilah",
+      "Rabih Ramadhan, S.Pd.",
+      "Rahmi Rahmawati",
+      "Rani Mulyani, S. Sos.",
+      "Rian Waroihan, S.Pd.",
+      "Rifqi Zaenal",
+      "Risyan Ahmad Fauzi, Lc.",
+      "Rizki Kurniawan, M.Pd.",
+      "Rofifah Qonitatin, S.Hum.",
+      "Sabrina Azzahra",
+      "Salman Alfarizi",
+      "Salsa Nurfitriyani, Lc.",
+      "Salsabila Rabiultsani, S.Ak.",
+      "Shaddiq Amin Muttahid S.Ag.",
+      "Silmi Hanif Firyaal",
+      "Siti Rachma Azzahra",
+      "Sitta Nurul Luthfiyah, S.Pd.",
+      "Sumi arianti",
+      "Tohid Nurhidayat, S,Ag.",
+      "Ulfi Siti Hanifah, S.Pd.",
+      "Utruza Imba Bidara, M.Pd.",
+      "Wandi Abdul Rojak, S.Ag.",
+      "Yeti",
+      "Yunita Sulistiani, S.Pd."
+    ];
+
+    const STORAGE_KEY_RECORDS = 'ba2026_participants_v1';
+    const STORAGE_KEY_LOGO = 'ba2026_brand_logo_v1';
+    const STORAGE_KEY_ADMIN_PHOTO = 'ba2026_admin_photo_v1';
+    const STORAGE_KEY_SCRIPT_URL = 'ba2026_apps_script_url_v1';
+
+    let currentPesertaPhotoBase64 = '';
+    let currentPesertaPhotoMime = 'image/jpeg';
+
+    function initApp() {
+      const selectEl = document.getElementById('namaDropdown');
+      PARTICIPANT_NAMES.forEach((name) => {
+        const opt = document.createElement('option');
+        opt.value = name;
+        opt.textContent = name;
+        selectEl.appendChild(opt);
+      });
+
+      const savedLogo = localStorage.getItem(STORAGE_KEY_LOGO);
+      if (savedLogo) applyBrandLogo(savedLogo);
+
+      const savedAdminPhoto = localStorage.getItem(STORAGE_KEY_ADMIN_PHOTO);
+      if (savedAdminPhoto) {
+        document.getElementById('admin-avatar-img').src = savedAdminPhoto;
+      }
+
+      const savedUrl = localStorage.getItem(STORAGE_KEY_SCRIPT_URL) || '';
+      document.getElementById('apps-script-url').value = savedUrl;
+
+      goToStep(1);
+      renderAdminTable();
+    }
+
+    function showToast(msg) {
+      const box = document.getElementById('toast-box');
+      box.textContent = msg;
+      box.classList.remove('hidden');
+      clearTimeout(window._toastTimer);
+      window._toastTimer = setTimeout(() => box.classList.add('hidden'), 3400);
+    }
+
+    function toggleTheme() {
+      const html = document.documentElement;
+      html.classList.toggle('dark');
+      const isDark = html.classList.contains('dark');
+      document.getElementById('theme-label').textContent = isDark ? 'Mode Terang' : 'Mode Gelap';
+    }
+
+    function applyBrandLogo(dataUrl) {
+      document.getElementById('brand-logo-img').src = dataUrl;
+      document.getElementById('cv-logo-img').src = dataUrl;
+      document.getElementById('dynamic-favicon').href = dataUrl;
+    }
+
+    function handleBrandLogoUpload(e) {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        localStorage.setItem(STORAGE_KEY_LOGO, reader.result);
+        applyBrandLogo(reader.result);
+        showToast('Logo & Favicon berhasil diperbarui.');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function handleAdminPhotoUpload(e) {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        localStorage.setItem(STORAGE_KEY_ADMIN_PHOTO, reader.result);
+        document.getElementById('admin-avatar-img').src = reader.result;
+        showToast('Foto profil admin berhasil disimpan.');
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function switchView(view) {
+      document.getElementById('view-form').classList.toggle('hidden', view !== 'form');
+      document.getElementById('view-admin').classList.toggle('hidden', view !== 'admin');
+      document.getElementById('tab-btn-form').className = view === 'form'
+        ? 'px-3.5 py-2 rounded-xl text-xs font-bold bg-indigo-600 text-white shadow-lg shadow-indigo-600/30 transition'
+        : 'px-3.5 py-2 rounded-xl text-xs font-semibold border border-white/15 bg-white/5 hover:bg-white/10 transition';
+      document.getElementById('tab-btn-admin').className = view === 'admin'
+        ? 'px-3.5 py-2 rounded-xl text-xs font-bold bg-indigo-600 text-white shadow-lg shadow-indigo-600/30 transition'
+        : 'px-3.5 py-2 rounded-xl text-xs font-semibold border border-white/15 bg-white/5 hover:bg-white/10 transition';
+    }
+
+    function goToStep(step) {
+      [1, 2, 3].forEach((s) => {
+        document.getElementById(`step-panel-${s}`).classList.toggle('hidden', s !== step);
+        const pill = document.getElementById(`step-pill-${s}`);
+        pill.className = s === step
+          ? 'p-2.5 rounded-2xl text-left border border-cyan-400/60 bg-cyan-500/15 transition'
+          : 'p-2.5 rounded-2xl text-left border border-white/10 bg-white/5 opacity-75 transition';
+      });
+      const titles = {
+        1: 'Langkah 1 dari 3: Pengisian Biodata & Literasi Al-Qur\'an',
+        2: 'Langkah 2 dari 3: Tentang Muhammadiyah',
+        3: 'Langkah 3 dari 3: Upload Foto & Finalisasi',
+      };
+      document.getElementById('step-title').textContent = titles[step];
+      updateAutoFileNameLabel();
+    }
+
+    function toggleGantiNama() {
+      const checked = document.getElementById('gantiNamaCheck').checked;
+      const input = document.getElementById('namaKoreksi');
+      input.disabled = !checked;
+      if (!checked) input.value = '';
+      updateAutoFileNameLabel();
+    }
+
+    function handleNamaDropdownChange() {
+      updateAutoFileNameLabel();
+    }
+
+    function toggleOtherInput(selectId, inputId) {
+      const val = document.getElementById(selectId).value;
+      const target = document.getElementById(inputId);
+      target.classList.toggle('hidden', val !== 'Lainnya (Tulis Sendiri)');
+    }
+
+    function syncDateFromPicker() {
+      const val = document.getElementById('tanggalLahirPicker').value;
+      if (val) {
+        const parts = val.split('-');
+        document.getElementById('tanggalLahirManual').value = `${parts[2]}-${parts[1]}-${parts[0]}`;
+      }
+    }
+
+    function getActiveParticipantName() {
+      const koreksi = document.getElementById('namaKoreksi').value.trim();
+      const ganti = document.getElementById('gantiNamaCheck').checked;
+      if (ganti && koreksi) return koreksi;
+      const manual = document.getElementById('namaManual').value.trim();
+      if (manual) return manual;
+      const drop = document.getElementById('namaDropdown').value.trim();
+      return drop || 'Peserta_Baitul_Arqam';
+    }
+
+    function updateAutoFileNameLabel() {
+      const cleanName = getActiveParticipantName().replace(/[\\/:*?"<>|]/g, '_').replace(/\s+/g, '_');
+      const ext = currentPesertaPhotoMime.includes('png') ? '.png' : '.jpg';
+      document.getElementById('autoFileNameInfo').textContent = `Nama file otomatis: ${cleanName}${ext}`;
+    }
+
+    function handlePesertaPhotoUpload(e) {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      currentPesertaPhotoMime = file.type || 'image/jpeg';
+      const reader = new FileReader();
+      reader.onload = () => {
+        currentPesertaPhotoBase64 = reader.result;
+        document.getElementById('fotoPesertaPreview').src = reader.result;
+        document.getElementById('downloadRenamedPhotoBtn').classList.remove('hidden');
+        updateAutoFileNameLabel();
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function downloadRenamedPhoto() {
+      if (!currentPesertaPhotoBase64) return;
+      const cleanName = getActiveParticipantName().replace(/[\\/:*?"<>|]/g, '_').replace(/\s+/g, '_');
+      const ext = currentPesertaPhotoMime.includes('png') ? 'png' : 'jpg';
+      const link = document.createElement('a');
+      link.href = currentPesertaPhotoBase64;
+      link.download = `${cleanName}.${ext}`;
+      link.click();
+    }
+
+    async function registerWithPasskey() {
+      const name = getActiveParticipantName();
+      if (!window.PublicKeyCredential || !navigator.credentials) {
+        localStorage.setItem('ba2026_quick_profile', JSON.stringify({ name, savedAt: new Date().toISOString() }));
+        showToast(`Profil cepat tersimpan untuk ${name}.`);
+        return;
+      }
+      try {
+        const challenge = new Uint8Array(16);
+        crypto.getRandomValues(challenge);
+        const userId = new Uint8Array(16);
+        crypto.getRandomValues(userId);
+        await navigator.credentials.create({
+          publicKey: {
+            challenge,
+            rp: { name: 'Baitul Arqam Pegawai 2026' },
+            user: {
+              id: userId,
+              name: name,
+              displayName: name,
+            },
+            pubKeyCredParams: [{ alg: -7, type: 'public-key' }, { alg: -257, type: 'public-key' }],
+            authenticatorSelection: { userVerification: 'preferred' },
+            timeout: 60000,
+          },
+        });
+        localStorage.setItem('ba2026_quick_profile', JSON.stringify({ name, passkey: true }));
+        showToast(`Biometrik / Passkey aktif untuk ${name}.`);
+      } catch (err) {
+        localStorage.setItem('ba2026_quick_profile', JSON.stringify({ name, savedAt: new Date().toISOString() }));
+        showToast(`Mode cepat aktif untuk ${name}.`);
+      }
+    }
+
+    function collectChecked(groupId, otherInputId) {
+      const boxes = Array.from(document.querySelectorAll(`#${groupId} input[type="checkbox"]:checked`)).map((el) => el.value);
+      const otherVal = document.getElementById(otherInputId).value.trim();
+      if (otherVal) boxes.push(otherVal);
+      return boxes;
+    }
+
+    function resolveSelectOrOther(selectId, otherId) {
+      const val = document.getElementById(selectId).value;
+      if (val === 'Lainnya (Tulis Sendiri)') {
+        return document.getElementById(otherId).value.trim() || 'Lainnya';
+      }
+      return val;
+    }
+
+    function getRecords() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY_RECORDS) || '[]');
+      } catch (e) {
+        return [];
+      }
+    }
+
+    function saveRecords(list) {
+      localStorage.setItem(STORAGE_KEY_RECORDS, JSON.stringify(list));
+    }
+
+    async function handleFormSubmit(e) {
+      e.preventDefault();
+      const namaLengkap = getActiveParticipantName();
+      const cleanName = namaLengkap.replace(/[\\/:*?"<>|]/g, '_').replace(/\s+/g, '_');
+
+      const record = {
+        timestamp: new Date().toLocaleString('id-ID'),
+        namaLengkap,
+        catatanNama: document.getElementById('gantiNamaCheck').checked
+          ? `Tidak Sesuai -> ${document.getElementById('namaKoreksi').value.trim()}`
+          : (document.getElementById('namaManual').value.trim() ? 'Nama Ditulis Sendiri' : 'Sesuai Dropdown'),
+        jenisKelamin: document.getElementById('jenisKelamin').value,
+        status: document.getElementById('statusNikah').value,
+        jabatan: resolveSelectOrOther('jabatanAum', 'jabatanLainnya'),
+        tempatLahir: document.getElementById('tempatLahir').value.trim(),
+        tanggalLahir: document.getElementById('tanggalLahirManual').value.trim() || document.getElementById('tanggalLahirPicker').value,
+        alamat: document.getElementById('alamatRumah').value.trim(),
+        noHp: document.getElementById('noHp').value.trim(),
+        kesiapan: document.getElementById('kesiapan').value,
+        bacaQuran: document.getElementById('bacaQuran').value,
+        pahamQuran: document.getElementById('pahamQuran').value,
+        aktivitasQuran: resolveSelectOrOther('aktivitasQuran', 'aktivitasQuranLainnya'),
+        koleksiBuku: resolveSelectOrOther('koleksiBuku', 'koleksiBukuLainnya'),
+        waktuBacaBuku: resolveSelectOrOther('waktuBacaBuku', 'waktuBacaBukuLainnya'),
+        backgroundKeluarga: resolveSelectOrOther('backgroundKeluarga', 'backgroundKeluargaLainnya'),
+        nktam: document.getElementById('memilikiNktam').value,
+        sumberInfo: collectChecked('sumberInfoGroup', 'sumberInfoLainnya'),
+        majalah: document.getElementById('langgananMajalah').value,
+        tokohBerpengaruh: document.getElementById('tokohBerpengaruh').value.trim(),
+        lamaAktif: resolveSelectOrOther('telahAktif', 'telahAktifLainnya'),
+        ortom: collectChecked('ortomGroup', 'ortomLainnya'),
+        aumAktif: collectChecked('aumAktifGroup', 'aumAktifLainnya'),
+        pelatihan: collectChecked('pelatihanGroup', 'pelatihanLainnya'),
+        harapan: document.getElementById('harapanMuhammadiyah').value.trim(),
+        kontribusi: document.getElementById('kontribusiMuhammadiyah').value.trim(),
+        photoData: currentPesertaPhotoBase64 || '',
+        fileName: cleanName,
+        mimeType: currentPesertaPhotoMime,
+      };
+
+      const records = getRecords();
+      const existingIdx = records.findIndex((r) => r.namaLengkap === record.namaLengkap);
+      if (existingIdx >= 0) {
+        if (!record.photoData && records[existingIdx].photoData) {
+          record.photoData = records[existingIdx].photoData;
+        }
+        records[existingIdx] = record;
+      } else {
+        records.push(record);
+      }
+      saveRecords(records);
+      renderAdminTable();
+
+      const scriptUrl = (document.getElementById('apps-script-url').value || localStorage.getItem(STORAGE_KEY_SCRIPT_URL) || '').trim();
+      if (scriptUrl) {
+        try {
+          await fetch(scriptUrl, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              action: 'save',
+              ...record,
+              photoBase64: currentPesertaPhotoBase64,
+            }),
+          });
+          showToast('Data & foto dikirim ke Google Sheets & Google Drive.');
+        } catch (err) {
+          showToast('Tersimpan lokal. Periksa koneksi / URL Apps Script.');
+        }
+      } else {
+        showToast('Biodata tersimpan. CV siap dilihat & dicetak.');
+      }
+
+      openCvPreview(record);
+    }
+
+    function loginAdmin() {
+      const pin = document.getElementById('admin-pin-input').value.trim();
+      if (pin === '2026') {
+        document.getElementById('admin-login-box').classList.add('hidden');
+        document.getElementById('admin-dashboard').classList.remove('hidden');
+        renderAdminTable();
+        showToast('Berhasil masuk ke Portal Admin.');
+      } else {
+        showToast('PIN Admin salah (gunakan 2026).');
+      }
+    }
+
+    function saveScriptUrl() {
+      const url = document.getElementById('apps-script-url').value.trim();
+      localStorage.setItem(STORAGE_KEY_SCRIPT_URL, url);
+      showToast('URL Google Apps Script disimpan.');
+    }
+
+    async function syncFromAppsScript() {
+      const url = (document.getElementById('apps-script-url').value || localStorage.getItem(STORAGE_KEY_SCRIPT_URL) || '').trim();
+      if (!url) {
+        showToast('Masukkan Web App URL Google Apps Script terlebih dahulu.');
+        return;
+      }
+      try {
+        const res = await fetch(`${url}?action=list`);
+        const json = await res.json();
+        if (json.status === 'ok' && Array.isArray(json.data)) {
+          const localMap = new Map(getRecords().map((item) => [item.namaLengkap, item]));
+          const merged = json.data.map((row) => {
+            const prev = localMap.get(row.namaLengkap) || {};
+            return {
+              ...prev,
+              ...row,
+              photoData: row.photoUrl || prev.photoData || '',
+            };
+          });
+          saveRecords(merged);
+          renderAdminTable();
+          showToast(`Sinkronisasi berhasil (${merged.length} data).`);
+        }
+      } catch (err) {
+        showToast('Gagal mengambil data dari Apps Script.');
+      }
+    }
+
+    function renderAdminTable() {
+      const query = (document.getElementById('admin-search').value || '').toLowerCase();
+      const records = getRecords().filter((r) => {
+        const hay = `${r.namaLengkap} ${r.jabatan} ${r.status} ${r.noHp}`.toLowerCase();
+        return hay.includes(query);
+      });
+
+      document.getElementById('admin-count').textContent = records.length;
+      const tbody = document.getElementById('admin-table-body');
+      tbody.innerHTML = '';
+
+      if (records.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="5" class="py-6 text-center opacity-60">Belum ada data peserta tersimpan.</td></tr>`;
+        return;
+      }
+
+      records.forEach((rec, idx) => {
+        const tr = document.createElement('tr');
+        const thumb = rec.photoData || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='48'%3E%3Crect width='40' height='48' rx='6' fill='%23334155'/%3E%3C/svg%3E";
+        tr.innerHTML = `
+          <td class="py-2.5 px-3">
+            <img src="${thumb}" alt="${rec.namaLengkap}" class="w-10 h-12 rounded-lg object-cover border border-white/15" />
+          </td>
+          <td class="py-2.5 px-3 font-semibold">${rec.namaLengkap}</td>
+          <td class="py-2.5 px-3">${rec.jabatan || '-'}</td>
+          <td class="py-2.5 px-3">${rec.noHp || '-'}</td>
+          <td class="py-2.5 px-3">
+            <div class="flex flex-wrap items-center gap-2">
+              <button type="button" onclick="openCvByIndex(${idx})" class="px-3 py-1.5 rounded-lg bg-cyan-500/20 text-cyan-200 border border-cyan-400/30 hover:bg-cyan-500/30 font-semibold">
+                Lihat &amp; Cetak CV
+              </button>
+              <label class="cursor-pointer px-3 py-1.5 rounded-lg bg-amber-500/20 text-amber-200 border border-amber-400/30 hover:bg-amber-500/30 font-semibold">
+                Upload Foto
+                <input type="file" accept="image/*" class="hidden" onchange="adminUploadParticipantPhoto(event, ${idx})" />
+              </label>
+            </div>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function adminUploadParticipantPhoto(e, idx) {
+      const file = e.target.files && e.target.files[0];
+      if (!file) return;
+      const records = getRecords();
+      const target = records[idx];
+      if (!target) return;
+
+      const reader = new FileReader();
+      reader.onload = async () => {
+        target.photoData = reader.result;
+        records[idx] = target;
+        saveRecords(records);
+        renderAdminTable();
+        showToast(`Foto ${target.namaLengkap} diperbarui.`);
+
+        const scriptUrl = (document.getElementById('apps-script-url').value || localStorage.getItem(STORAGE_KEY_SCRIPT_URL) || '').trim();
+        if (scriptUrl) {
+          const cleanName = target.namaLengkap.replace(/[\\/:*?"<>|]/g, '_').replace(/\s+/g, '_');
+          try {
+            await fetch(scriptUrl, {
+              method: 'POST',
+              mode: 'no-cors',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                action: 'updatePhoto',
+                namaLengkap: target.namaLengkap,
+                fileName: cleanName,
+                mimeType: file.type || 'image/jpeg',
+                photoBase64: reader.result,
+              }),
+            });
+          } catch (err) {}
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function openCvByIndex(idx) {
+      const records = getRecords();
+      if (records[idx]) openCvPreview(records[idx]);
+    }
+
+    function openCvPreview(rec) {
+      const savedLogo = localStorage.getItem(STORAGE_KEY_LOGO) || document.getElementById('brand-logo-img').src;
+      document.getElementById('cv-logo-img').src = savedLogo;
+      document.getElementById('cv-photo-img').src = rec.photoData || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='180'%3E%3Crect width='140' height='180' rx='10' fill='%23e2e8f0'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23475569' font-size='12'%3ETanpa Foto%3C/text%3E%3C/svg%3E";
+      document.getElementById('cv-photo-caption').textContent = `${rec.namaLengkap} • ${rec.jabatan || ''}`;
+
+      const bioRows = [
+        ['Nama Lengkap', rec.namaLengkap],
+        ['Catatan Nama', rec.catatanNama],
+        ['Jenis Kelamin', rec.jenisKelamin],
+        ['Status', rec.status],
+        ['Jabatan di AUM', rec.jabatan],
+        ['Tempat, Tanggal Lahir', `${rec.tempatLahir || '-'}, ${rec.tanggalLahir || '-'}`],
+        ['Alamat Rumah', rec.alamat],
+        ['No. HP / WhatsApp', rec.noHp],
+        ['Kesiapan Baitul Arqam', rec.kesiapan],
+        ['Membaca Al-Qur\'an', rec.bacaQuran],
+        ['Memahami Bacaan', rec.pahamQuran],
+        ['Aktivitas Baca Al-Qur\'an / Hari', rec.aktivitasQuran],
+        ['Koleksi Buku Agama', rec.koleksiBuku],
+        ['Waktu Baca Buku / Hari', rec.waktuBacaBuku],
+      ];
+
+      document.getElementById('cv-biodata-list').innerHTML = bioRows.map(([k, v]) => `
+        <div class="border-b border-slate-100 pb-1">
+          <dt class="font-semibold text-slate-500">${k}</dt>
+          <dd class="font-bold text-slate-900">${v || '-'}</dd>
+        </div>
+      `).join('');
+
+      const fmtArr = (val) => Array.isArray(val) ? (val.length ? val.join(', ') : '-') : (val || '-');
+      const muhRows = [
+        ['Background Keluarga', rec.backgroundKeluarga],
+        ['Memiliki NKTAM', rec.nktam],
+        ['Sumber Info Muhammadiyah', fmtArr(rec.sumberInfo)],
+        ['Majalah Suara Muhammadiyah / Aisyiyah', rec.majalah],
+        ['Tokoh Paling Berpengaruh', rec.tokohBerpengaruh],
+        ['Telah Aktif di Muhammadiyah', rec.lamaAktif],
+        ['Ortom Muhammadiyah', fmtArr(rec.ortom)],
+        ['Aktif di AUM', fmtArr(rec.aumAktif)],
+        ['Pelatihan Diikuti', fmtArr(rec.pelatihan)],
+      ];
+
+      document.getElementById('cv-muhammadiyah-list').innerHTML = muhRows.map(([k, v]) => `
+        <div class="border-b border-slate-100 pb-1">
+          <dt class="font-semibold text-slate-500">${k}</dt>
+          <dd class="font-bold text-slate-900">${v}</dd>
+        </div>
+      `).join('');
+
+      document.getElementById('cv-harapan').textContent = rec.harapan || '-';
+      document.getElementById('cv-kontribusi').textContent = rec.kontribusi || '-';
+
+      const area = document.getElementById('cv-print-area');
+      area.classList.remove('hidden');
+      area.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function closeCvPreview() {
+      document.getElementById('cv-print-area').classList.add('hidden');
+    }
+
+    initApp();
+  </script>
+</body>
+</html>
