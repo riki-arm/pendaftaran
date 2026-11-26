@@ -378,7 +378,7 @@
 
             <div>
               <label class="block text-xs font-semibold mb-1.5">No. HP / WhatsApp (Tulis Sendiri)</label>
-              <input type="tel" id="noHp" required placeholder="08xxxxxxxxxx" class="glass-input w-full rounded-2xl px-3.5 py-2.5 text-sm" />
+              <input type="tel" id="noHp" required onblur="formatPhoneInput(this)" placeholder="081234567890" class="glass-input w-full rounded-2xl px-3.5 py-2.5 text-sm" />
             </div>
           </div>
 
@@ -658,7 +658,7 @@
     <section id="view-admin" class="hidden space-y-6">
       <div id="admin-login-box" class="neo-glass rounded-3xl p-6 max-w-md mx-auto space-y-4">
         <h2 class="text-lg font-bold">Login Portal Panitia / Admin</h2>
-        <p class="text-xs muted-text">Masukkan kata sandi panitia untuk mengelola logo, foto admin, serta melihat dan mencetak biodata seluruh peserta.</p>
+        <p class="text-xs muted-text">Masukkan kata sandi panitia untuk mengelola logo, foto admin, serta melihat, mengedit, menghapus, dan mencetak biodata seluruh peserta.</p>
         <input type="password" id="admin-password-input" onkeydown="if(event.key==='Enter') loginAdmin()" placeholder="Masukkan Password Admin..." class="glass-input w-full rounded-2xl px-4 py-2.5 text-sm" />
         <button type="button" onclick="loginAdmin()" class="cta-shimmer w-full py-3 rounded-2xl text-sm font-bold">
           Masuk Portal Admin
@@ -712,6 +712,149 @@
             <p class="text-[11px] muted-text">
               Status Koneksi: <span id="sync-status-label" class="font-semibold heading-accent">Siap terhubung ke Google Drive &amp; Sheets</span>
             </p>
+          </div>
+        </div>
+
+        <!-- PANEL EDIT DATA PESERTA OLEH ADMIN -->
+        <div id="admin-edit-panel" class="hidden neo-glass rounded-3xl p-5 sm:p-6 border border-amber-500/40 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-400/20 pb-3">
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider sub-accent">Mode Edit Panitia</span>
+              <h3 class="text-base font-bold">Edit Biodata &amp; Foto: <span id="edit-target-title" class="heading-accent"></span></h3>
+            </div>
+            <button type="button" onclick="closeAdminEditPanel()" class="nav-btn-inactive px-3.5 py-1.5 rounded-xl text-xs font-bold">
+              Batal
+            </button>
+          </div>
+
+          <input type="hidden" id="edit-record-index" />
+          <input type="hidden" id="edit-original-nama" />
+
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-5 items-start">
+            <div class="flex flex-col items-center gap-2 subtle-panel p-4 rounded-2xl">
+              <img id="edit-photo-preview" src="" alt="Foto Edit" class="w-28 h-36 rounded-xl object-cover border border-slate-400/30" />
+              <label class="cursor-pointer px-3 py-1.5 rounded-xl text-[11px] font-bold bg-amber-500/20 sub-accent border border-amber-500/30 hover:bg-amber-500/30 text-center">
+                Ganti Foto Peserta
+                <input type="file" accept="image/*" class="hidden" onchange="handleEditPhotoChange(event)" />
+              </label>
+            </div>
+
+            <div class="md:col-span-3 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 text-xs">
+              <div>
+                <label class="block font-semibold mb-1">Nama Lengkap</label>
+                <input type="text" id="edit-namaLengkap" class="glass-input w-full rounded-xl px-3 py-2" />
+              </div>
+              <div>
+                <label class="block font-semibold mb-1">Jenis Kelamin</label>
+                <select id="edit-jenisKelamin" class="glass-select w-full rounded-xl px-3 py-2">
+                  <option value="Laki-Laki">Laki-Laki</option>
+                  <option value="Perempuan">Perempuan</option>
+                </select>
+              </div>
+              <div>
+                <label class="block font-semibold mb-1">Status</label>
+                <input type="text" id="edit-status" class="glass-input w-full rounded-xl px-3 py-2" />
+              </div>
+              <div>
+                <label class="block font-semibold mb-1">Jabatan di AUM</label>
+                <input type="text" id="edit-jabatan" class="glass-input w-full rounded-xl px-3 py-2" />
+              </div>
+              <div>
+                <label class="block font-semibold mb-1">Tempat Lahir</label>
+                <input type="text" id="edit-tempatLahir" class="glass-input w-full rounded-xl px-3 py-2" />
+              </div>
+              <div>
+                <label class="block font-semibold mb-1">Tanggal Lahir</label>
+                <input type="text" id="edit-tanggalLahir" placeholder="06 Maret 1987" class="glass-input w-full rounded-xl px-3 py-2" />
+              </div>
+              <div>
+                <label class="block font-semibold mb-1">No. HP / WhatsApp</label>
+                <input type="text" id="edit-noHp" onblur="formatPhoneInput(this)" placeholder="081234567890" class="glass-input w-full rounded-xl px-3 py-2" />
+              </div>
+              <div>
+                <label class="block font-semibold mb-1">Memiliki NKTAM</label>
+                <input type="text" id="edit-nktam" class="glass-input w-full rounded-xl px-3 py-2" />
+              </div>
+              <div>
+                <label class="block font-semibold mb-1">Kesiapan Baitul Arqam</label>
+                <input type="text" id="edit-kesiapan" class="glass-input w-full rounded-xl px-3 py-2" />
+              </div>
+              <div class="sm:col-span-2 lg:col-span-3">
+                <label class="block font-semibold mb-1">Alamat Rumah</label>
+                <input type="text" id="edit-alamat" class="glass-input w-full rounded-xl px-3 py-2" />
+              </div>
+              <div>
+                <label class="block font-semibold mb-1">Membaca Al-Qur'an</label>
+                <input type="text" id="edit-bacaQuran" class="glass-input w-full rounded-xl px-3 py-2" />
+              </div>
+              <div>
+                <label class="block font-semibold mb-1">Memahami Bacaan</label>
+                <input type="text" id="edit-pahamQuran" class="glass-input w-full rounded-xl px-3 py-2" />
+              </div>
+              <div>
+                <label class="block font-semibold mb-1">Aktivitas Baca Al-Qur'an / Hari</label>
+                <input type="text" id="edit-aktivitasQuran" class="glass-input w-full rounded-xl px-3 py-2" />
+              </div>
+              <div>
+                <label class="block font-semibold mb-1">Koleksi Buku Agama</label>
+                <input type="text" id="edit-koleksiBuku" class="glass-input w-full rounded-xl px-3 py-2" />
+              </div>
+              <div>
+                <label class="block font-semibold mb-1">Waktu Baca Buku / Hari</label>
+                <input type="text" id="edit-waktuBacaBuku" class="glass-input w-full rounded-xl px-3 py-2" />
+              </div>
+              <div>
+                <label class="block font-semibold mb-1">Background Keluarga</label>
+                <input type="text" id="edit-backgroundKeluarga" class="glass-input w-full rounded-xl px-3 py-2" />
+              </div>
+              <div>
+                <label class="block font-semibold mb-1">Majalah SM / Aisyiyah</label>
+                <input type="text" id="edit-majalah" class="glass-input w-full rounded-xl px-3 py-2" />
+              </div>
+              <div>
+                <label class="block font-semibold mb-1">Tokoh Paling Berpengaruh</label>
+                <input type="text" id="edit-tokohBerpengaruh" class="glass-input w-full rounded-xl px-3 py-2" />
+              </div>
+              <div>
+                <label class="block font-semibold mb-1">Telah Aktif di Muhammadiyah</label>
+                <input type="text" id="edit-lamaAktif" class="glass-input w-full rounded-xl px-3 py-2" />
+              </div>
+              <div>
+                <label class="block font-semibold mb-1">Sumber Info Muhammadiyah</label>
+                <input type="text" id="edit-sumberInfo" class="glass-input w-full rounded-xl px-3 py-2" />
+              </div>
+              <div>
+                <label class="block font-semibold mb-1">Ortom Muhammadiyah</label>
+                <input type="text" id="edit-ortom" class="glass-input w-full rounded-xl px-3 py-2" />
+              </div>
+              <div>
+                <label class="block font-semibold mb-1">Aktif di AUM</label>
+                <input type="text" id="edit-aumAktif" class="glass-input w-full rounded-xl px-3 py-2" />
+              </div>
+              <div class="sm:col-span-2 lg:col-span-3">
+                <label class="block font-semibold mb-1">Pelatihan Diikuti</label>
+                <input type="text" id="edit-pelatihan" class="glass-input w-full rounded-xl px-3 py-2" />
+              </div>
+              <div class="sm:col-span-2 lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div>
+                  <label class="block font-semibold mb-1">Harapan Terhadap Muhammadiyah</label>
+                  <textarea id="edit-harapan" rows="2" class="glass-textarea w-full rounded-xl px-3 py-2"></textarea>
+                </div>
+                <div>
+                  <label class="block font-semibold mb-1">Kontribusi di Persyarikatan</label>
+                  <textarea id="edit-kontribusi" rows="2" class="glass-textarea w-full rounded-xl px-3 py-2"></textarea>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex justify-end gap-2 pt-2">
+            <button type="button" onclick="closeAdminEditPanel()" class="nav-btn-inactive px-4 py-2.5 rounded-xl text-xs font-bold">
+              Batal
+            </button>
+            <button type="button" onclick="saveAdminEdit()" class="cta-shimmer px-6 py-2.5 rounded-xl text-xs font-bold">
+              Simpan Perubahan Data
+            </button>
           </div>
         </div>
 
@@ -867,15 +1010,37 @@
       "Yunita Sulistiani, S.Pd."
     ];
 
-    const STORAGE_KEY_RECORDS = 'ba2026_participants_v7';
-    const STORAGE_KEY_LOGO = 'ba2026_brand_logo_v7';
-    const STORAGE_KEY_ADMIN_PHOTO = 'ba2026_admin_photo_v7';
-    const STORAGE_KEY_SCRIPT_URL = 'ba2026_apps_script_url_v7';
-    const STORAGE_KEY_UI_STATE = 'ba2026_ui_state_v7';
-    const STORAGE_KEY_DRAFT = 'ba2026_form_draft_v7';
+    const STORAGE_KEY_RECORDS = 'ba2026_participants_v8';
+    const STORAGE_KEY_LOGO = 'ba2026_brand_logo_v8';
+    const STORAGE_KEY_ADMIN_PHOTO = 'ba2026_admin_photo_v8';
+    const STORAGE_KEY_SCRIPT_URL = 'ba2026_apps_script_url_v8';
+    const STORAGE_KEY_UI_STATE = 'ba2026_ui_state_v8';
+    const STORAGE_KEY_DRAFT = 'ba2026_form_draft_v8';
 
     let currentPesertaPhotoBase64 = '';
     let currentPesertaPhotoMime = 'image/jpeg';
+    let editNewPhotoBase64 = '';
+    let editNewPhotoMime = 'image/jpeg';
+
+    function normalizePhoneText(val) {
+      if (!val) return '';
+      let s = String(val).trim();
+      if (!s) return '';
+      s = s.replace(/^'+/, '').replace(/[^\d+]/g, '');
+      if (s.startsWith('+62')) {
+        s = '0' + s.slice(3);
+      } else if (/^62\d{8,}$/.test(s)) {
+        s = '0' + s.slice(2);
+      } else if (/^8\d{7,}$/.test(s)) {
+        s = '0' + s;
+      }
+      return s;
+    }
+
+    function formatPhoneInput(inputEl) {
+      if (!inputEl) return;
+      inputEl.value = normalizePhoneText(inputEl.value);
+    }
 
     function formatTanggalIndonesia(val) {
       if (!val) return '';
@@ -1333,6 +1498,7 @@
       const tglFormatted = formatTanggalIndonesia(
         document.getElementById('tanggalLahirManual').value.trim() || document.getElementById('tanggalLahirPicker').value
       );
+      const phoneFormatted = normalizePhoneText(document.getElementById('noHp').value);
 
       const record = {
         timestamp: new Date().toLocaleString('id-ID'),
@@ -1346,7 +1512,7 @@
         tempatLahir: document.getElementById('tempatLahir').value.trim(),
         tanggalLahir: tglFormatted,
         alamat: document.getElementById('alamatRumah').value.trim(),
-        noHp: document.getElementById('noHp').value.trim(),
+        noHp: phoneFormatted,
         kesiapan: document.getElementById('kesiapan').value,
         bacaQuran: document.getElementById('bacaQuran').value,
         pahamQuran: document.getElementById('pahamQuran').value,
@@ -1440,6 +1606,7 @@
       saveUiState({ adminLoggedIn: false });
       document.getElementById('admin-dashboard').classList.add('hidden');
       document.getElementById('admin-login-box').classList.remove('hidden');
+      closeAdminEditPanel();
       closeCvPreview();
       showToast('Sesi admin ditutup.');
     }
@@ -1482,26 +1649,17 @@
           document.getElementById('admin-avatar-img').src = json.adminPhotoDataUrl;
         }
         if (json.status === 'ok' && Array.isArray(json.data)) {
-          const localList = getRecords();
-          const remoteMap = new Map(json.data.map((row) => [row.namaLengkap, row]));
-          const mergedMap = new Map();
+          const merged = json.data.map((row) => ({
+            ...row,
+            noHp: normalizePhoneText(row.noHp || ''),
+            tanggalLahir: formatTanggalIndonesia(row.tanggalLahir || ''),
+            photoData: row.photoUrl || '',
+          }));
 
-          localList.forEach((item) => mergedMap.set(item.namaLengkap, item));
-          remoteMap.forEach((row, key) => {
-            const prev = mergedMap.get(key) || {};
-            mergedMap.set(key, {
-              ...prev,
-              ...row,
-              tanggalLahir: formatTanggalIndonesia(row.tanggalLahir || prev.tanggalLahir || ''),
-              photoData: row.photoUrl || prev.photoData || '',
-            });
-          });
-
-          const merged = Array.from(mergedMap.values());
           saveRecords(merged);
           renderAdminTable();
-          if (statusLabel) statusLabel.textContent = `Terhubung (${json.data.length} data di Sheets)`;
-          if (!silent) showToast(`Sinkronisasi berhasil (${json.data.length} peserta di Sheets).`);
+          if (statusLabel) statusLabel.textContent = `Terhubung (${merged.length} data di Sheets)`;
+          if (!silent) showToast(`Sinkronisasi berhasil (${merged.length} peserta di Sheets).`);
         }
       } catch (err) {
         if (statusLabel) statusLabel.textContent = 'Gagal terhubung — pastikan Deployment Apps Script "New version" & "Anyone"';
@@ -1531,22 +1689,25 @@
       filtered.forEach(({ r: rec, originalIdx }) => {
         const tr = document.createElement('tr');
         const thumb = rec.photoData || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='48'%3E%3Crect width='40' height='48' rx='6' fill='%2364748b'/%3E%3C/svg%3E";
+        const phoneDisplay = normalizePhoneText(rec.noHp) || '-';
         tr.innerHTML = `
           <td class="py-2.5 px-3">
             <img src="${thumb}" alt="${rec.namaLengkap}" class="w-10 h-12 rounded-lg object-cover border border-slate-400/30" />
           </td>
           <td class="py-2.5 px-3 font-bold">${rec.namaLengkap}</td>
           <td class="py-2.5 px-3">${rec.jabatan || '-'}</td>
-          <td class="py-2.5 px-3">${rec.noHp || '-'}</td>
+          <td class="py-2.5 px-3">${phoneDisplay}</td>
           <td class="py-2.5 px-3">
-            <div class="flex flex-wrap items-center gap-2">
-              <button type="button" onclick="openCvByIndex(${originalIdx})" class="px-3 py-1.5 rounded-lg bg-indigo-600 text-white hover:bg-indigo-500 font-semibold">
+            <div class="flex flex-wrap items-center gap-1.5">
+              <button type="button" onclick="openCvByIndex(${originalIdx})" class="px-2.5 py-1.5 rounded-lg bg-indigo-600 text-white hover:bg-indigo-500 font-semibold">
                 Lihat &amp; Cetak CV
               </button>
-              <label class="cursor-pointer px-3 py-1.5 rounded-lg bg-amber-500/20 sub-accent border border-amber-500/30 hover:bg-amber-500/30 font-semibold">
-                Ganti Foto
-                <input type="file" accept="image/*" class="hidden" onchange="adminUploadParticipantPhoto(event, ${originalIdx})" />
-              </label>
+              <button type="button" onclick="openAdminEditPanel(${originalIdx})" class="px-2.5 py-1.5 rounded-lg bg-amber-500/20 sub-accent border border-amber-500/30 hover:bg-amber-500/30 font-semibold">
+                Edit Data
+              </button>
+              <button type="button" onclick="deleteParticipantByIndex(${originalIdx})" class="px-2.5 py-1.5 rounded-lg bg-rose-600/20 text-rose-400 border border-rose-500/30 hover:bg-rose-600/30 font-semibold">
+                Hapus
+              </button>
             </div>
           </td>
         `;
@@ -1554,30 +1715,168 @@
       });
     }
 
-    async function adminUploadParticipantPhoto(e, idx) {
+    function openAdminEditPanel(idx) {
+      const records = getRecords();
+      const rec = records[idx];
+      if (!rec) return;
+
+      editNewPhotoBase64 = '';
+      editNewPhotoMime = 'image/jpeg';
+
+      document.getElementById('edit-record-index').value = String(idx);
+      document.getElementById('edit-original-nama').value = rec.namaLengkap || '';
+      document.getElementById('edit-target-title').textContent = rec.namaLengkap || '';
+      document.getElementById('edit-photo-preview').src = rec.photoData || "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='112' height='144'%3E%3Crect width='112' height='144' rx='10' fill='%2364748b'/%3E%3C/svg%3E";
+
+      const joinVal = (v) => Array.isArray(v) ? v.join(', ') : (v || '');
+
+      document.getElementById('edit-namaLengkap').value = rec.namaLengkap || '';
+      document.getElementById('edit-jenisKelamin').value = rec.jenisKelamin || 'Laki-Laki';
+      document.getElementById('edit-status').value = rec.status || '';
+      document.getElementById('edit-jabatan').value = rec.jabatan || '';
+      document.getElementById('edit-tempatLahir').value = rec.tempatLahir || '';
+      document.getElementById('edit-tanggalLahir').value = formatTanggalIndonesia(rec.tanggalLahir || '');
+      document.getElementById('edit-noHp').value = normalizePhoneText(rec.noHp || '');
+      document.getElementById('edit-nktam').value = rec.nktam || '';
+      document.getElementById('edit-kesiapan').value = rec.kesiapan || '';
+      document.getElementById('edit-alamat').value = rec.alamat || '';
+      document.getElementById('edit-bacaQuran').value = rec.bacaQuran || '';
+      document.getElementById('edit-pahamQuran').value = rec.pahamQuran || '';
+      document.getElementById('edit-aktivitasQuran').value = rec.aktivitasQuran || '';
+      document.getElementById('edit-koleksiBuku').value = rec.koleksiBuku || '';
+      document.getElementById('edit-waktuBacaBuku').value = rec.waktuBacaBuku || '';
+      document.getElementById('edit-backgroundKeluarga').value = rec.backgroundKeluarga || '';
+      document.getElementById('edit-majalah').value = rec.majalah || '';
+      document.getElementById('edit-tokohBerpengaruh').value = rec.tokohBerpengaruh || '';
+      document.getElementById('edit-lamaAktif').value = rec.lamaAktif || '';
+      document.getElementById('edit-sumberInfo').value = joinVal(rec.sumberInfo);
+      document.getElementById('edit-ortom').value = joinVal(rec.ortom);
+      document.getElementById('edit-aumAktif').value = joinVal(rec.aumAktif);
+      document.getElementById('edit-pelatihan').value = joinVal(rec.pelatihan);
+      document.getElementById('edit-harapan').value = rec.harapan || '';
+      document.getElementById('edit-kontribusi').value = rec.kontribusi || '';
+
+      const panel = document.getElementById('admin-edit-panel');
+      panel.classList.remove('hidden');
+      panel.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function closeAdminEditPanel() {
+      editNewPhotoBase64 = '';
+      document.getElementById('admin-edit-panel').classList.add('hidden');
+    }
+
+    async function handleEditPhotoChange(e) {
       const file = e.target.files && e.target.files[0];
       if (!file) return;
+      try {
+        const compressed = await compressImageFile(file, 600, 0.72);
+        editNewPhotoBase64 = compressed.dataUrl;
+        editNewPhotoMime = compressed.mimeType;
+        document.getElementById('edit-photo-preview').src = compressed.dataUrl;
+      } catch (err) {
+        showToast('Gagal memproses foto.');
+      }
+    }
+
+    async function saveAdminEdit() {
+      const idx = parseInt(document.getElementById('edit-record-index').value, 10);
+      const originalNama = document.getElementById('edit-original-nama').value;
+      const records = getRecords();
+      if (isNaN(idx) || !records[idx]) return;
+
+      const currentRec = records[idx];
+      const namaBaru = document.getElementById('edit-namaLengkap').value.trim() || currentRec.namaLengkap;
+      const cleanName = sanitizeDriveFileName(namaBaru);
+      const phoneBaru = normalizePhoneText(document.getElementById('edit-noHp').value);
+      const tglBaru = formatTanggalIndonesia(document.getElementById('edit-tanggalLahir').value);
+
+      const updated = {
+        ...currentRec,
+        namaLengkap: namaBaru,
+        jenisKelamin: document.getElementById('edit-jenisKelamin').value,
+        status: document.getElementById('edit-status').value.trim(),
+        jabatan: document.getElementById('edit-jabatan').value.trim(),
+        tempatLahir: document.getElementById('edit-tempatLahir').value.trim(),
+        tanggalLahir: tglBaru,
+        noHp: phoneBaru,
+        nktam: document.getElementById('edit-nktam').value.trim(),
+        kesiapan: document.getElementById('edit-kesiapan').value.trim(),
+        alamat: document.getElementById('edit-alamat').value.trim(),
+        bacaQuran: document.getElementById('edit-bacaQuran').value.trim(),
+        pahamQuran: document.getElementById('edit-pahamQuran').value.trim(),
+        aktivitasQuran: document.getElementById('edit-aktivitasQuran').value.trim(),
+        koleksiBuku: document.getElementById('edit-koleksiBuku').value.trim(),
+        waktuBacaBuku: document.getElementById('edit-waktuBacaBuku').value.trim(),
+        backgroundKeluarga: document.getElementById('edit-backgroundKeluarga').value.trim(),
+        majalah: document.getElementById('edit-majalah').value.trim(),
+        tokohBerpengaruh: document.getElementById('edit-tokohBerpengaruh').value.trim(),
+        lamaAktif: document.getElementById('edit-lamaAktif').value.trim(),
+        sumberInfo: document.getElementById('edit-sumberInfo').value.trim(),
+        ortom: document.getElementById('edit-ortom').value.trim(),
+        aumAktif: document.getElementById('edit-aumAktif').value.trim(),
+        pelatihan: document.getElementById('edit-pelatihan').value.trim(),
+        harapan: document.getElementById('edit-harapan').value.trim(),
+        kontribusi: document.getElementById('edit-kontribusi').value.trim(),
+        photoData: editNewPhotoBase64 || currentRec.photoData || '',
+        fileName: cleanName,
+        mimeType: editNewPhotoMime,
+      };
+
+      records[idx] = updated;
+      saveRecords(records);
+      renderAdminTable();
+      closeAdminEditPanel();
+      showToast(`Menyimpan perubahan data ${namaBaru}...`);
+
+      try {
+        const resJson = await postToAppsScript({
+          action: 'updateParticipant',
+          originalNamaLengkap: originalNama,
+          ...updated,
+          fileName: cleanName,
+          photoBase64: editNewPhotoBase64 || '',
+        });
+        if (resJson && resJson.status === 'ok') {
+          showToast(`Data ${namaBaru} berhasil diperbarui di Sheets & Drive!`);
+          await fetchRemoteConfigAndData(getScriptUrl(), true);
+        } else {
+          showToast('Gagal update di Sheets: ' + (resJson.message || 'Cek deployment'));
+        }
+      } catch (err) {
+        showToast('Gagal terhubung ke server Apps Script.');
+      }
+    }
+
+    async function deleteParticipantByIndex(idx) {
       const records = getRecords();
       const target = records[idx];
       if (!target) return;
 
-      try {
-        const compressed = await compressImageFile(file, 600, 0.72);
-        target.photoData = compressed.dataUrl;
-        records[idx] = target;
-        saveRecords(records);
-        renderAdminTable();
-        showToast(`Foto ${target.namaLengkap} diperbarui.`);
+      const yakin = confirm(`Hapus permanen data & foto peserta "${target.namaLengkap}" dari aplikasi, Google Sheets, dan Google Drive?`);
+      if (!yakin) return;
 
-        const cleanName = sanitizeDriveFileName(target.namaLengkap);
-        await postToAppsScript({
-          action: 'updatePhoto',
+      const cleanName = sanitizeDriveFileName(target.namaLengkap);
+      records.splice(idx, 1);
+      saveRecords(records);
+      renderAdminTable();
+      closeAdminEditPanel();
+      showToast(`Menghapus ${target.namaLengkap}...`);
+
+      try {
+        const resJson = await postToAppsScript({
+          action: 'deleteParticipant',
           namaLengkap: target.namaLengkap,
           fileName: cleanName,
-          mimeType: compressed.mimeType,
-          photoBase64: compressed.dataUrl,
         });
-      } catch (err) {}
+        if (resJson && resJson.status === 'ok') {
+          showToast(`Data ${target.namaLengkap} berhasil dihapus dari Sheets & Drive.`);
+        } else {
+          showToast('Gagal hapus di Sheets: ' + (resJson.message || 'Cek deployment'));
+        }
+      } catch (err) {
+        showToast('Gagal terhubung ke server Apps Script.');
+      }
     }
 
     function openCvByIndex(idx) {
@@ -1592,6 +1891,7 @@
       document.getElementById('cv-photo-caption').textContent = `${rec.namaLengkap} • ${rec.jabatan || ''}`;
 
       const tglLahirFix = formatTanggalIndonesia(rec.tanggalLahir) || '-';
+      const phoneFix = normalizePhoneText(rec.noHp) || '-';
 
       const bioRows = [
         ['Nama Lengkap', rec.namaLengkap],
@@ -1601,7 +1901,7 @@
         ['Jabatan di AUM', rec.jabatan],
         ['Tempat, Tanggal Lahir', `${rec.tempatLahir || '-'}, ${tglLahirFix}`],
         ['Alamat Rumah', rec.alamat],
-        ['No. HP / WhatsApp', rec.noHp],
+        ['No. HP / WhatsApp', phoneFix],
         ['Kesiapan Baitul Arqam', rec.kesiapan],
         ['Membaca Al-Qur\'an', rec.bacaQuran],
         ['Memahami Bacaan', rec.pahamQuran],
