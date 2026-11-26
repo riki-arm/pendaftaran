@@ -644,7 +644,7 @@
         </div>
         <h3 class="text-xl font-extrabold">Biodata &amp; Foto Berhasil Disimpan</h3>
         <p class="text-xs sm:text-sm muted-text max-w-lg mx-auto">
-          Terima kasih, <strong id="saved-participant-name"></strong>. Data biodata dan pas foto Anda telah tersimpan untuk keperluan Baitul Arqam Pegawai 2026.
+          Terima kasih, <strong id="saved-participant-name"></strong>. Data biodata dan pas foto Anda telah tersimpan ke Google Drive &amp; Spreadsheet untuk keperluan Baitul Arqam Pegawai 2026.
         </p>
         <div class="pt-2">
           <button type="button" onclick="resetFormForNextParticipant()" class="px-5 py-2.5 rounded-2xl text-xs font-bold bg-indigo-600 text-white hover:bg-indigo-500 transition">
@@ -867,17 +867,17 @@
       "Yunita Sulistiani, S.Pd."
     ];
 
-    const STORAGE_KEY_RECORDS = 'ba2026_participants_v5';
-    const STORAGE_KEY_LOGO = 'ba2026_brand_logo_v5';
-    const STORAGE_KEY_ADMIN_PHOTO = 'ba2026_admin_photo_v5';
-    const STORAGE_KEY_SCRIPT_URL = 'ba2026_apps_script_url_v5';
-    const STORAGE_KEY_UI_STATE = 'ba2026_ui_state_v5';
-    const STORAGE_KEY_DRAFT = 'ba2026_form_draft_v5';
+    const STORAGE_KEY_RECORDS = 'ba2026_participants_v6';
+    const STORAGE_KEY_LOGO = 'ba2026_brand_logo_v6';
+    const STORAGE_KEY_ADMIN_PHOTO = 'ba2026_admin_photo_v6';
+    const STORAGE_KEY_SCRIPT_URL = 'ba2026_apps_script_url_v6';
+    const STORAGE_KEY_UI_STATE = 'ba2026_ui_state_v6';
+    const STORAGE_KEY_DRAFT = 'ba2026_form_draft_v6';
 
     let currentPesertaPhotoBase64 = '';
     let currentPesertaPhotoMime = 'image/jpeg';
 
-    function compressImageFile(file, maxDim = 640, quality = 0.72) {
+    function compressImageFile(file, maxDim = 600, quality = 0.72) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = (ev) => {
@@ -985,7 +985,7 @@
       box.textContent = msg;
       box.classList.remove('hidden');
       clearTimeout(window._toastTimer);
-      window._toastTimer = setTimeout(() => box.classList.add('hidden'), 3600);
+      window._toastTimer = setTimeout(() => box.classList.add('hidden'), 3800);
     }
 
     function toggleTheme() {
@@ -1024,15 +1024,19 @@
         localStorage.setItem(STORAGE_KEY_LOGO, compressed.dataUrl);
         applyBrandLogo(compressed.dataUrl);
         showToast('Mengunggah logo ke Drive...');
-        await postToAppsScript({
+        const json = await postToAppsScript({
           action: 'saveLogo',
           fileName: 'LOGO_BAITUL_ARQAM_2026',
           mimeType: compressed.mimeType,
           photoBase64: compressed.dataUrl,
         });
-        showToast('Logo tersimpan di Drive & siap di semua perangkat.');
+        if (json && json.status === 'ok') {
+          showToast('Logo tersimpan di Drive & siap di semua perangkat.');
+        } else {
+          showToast('Error Drive: ' + (json.message || 'Gagal simpan logo'));
+        }
       } catch (err) {
-        showToast('Logo tersimpan lokal.');
+        showToast('Gagal terhubung ke Apps Script. Pastikan sudah Deploy New Version.');
       }
     }
 
@@ -1044,15 +1048,19 @@
         localStorage.setItem(STORAGE_KEY_ADMIN_PHOTO, compressed.dataUrl);
         document.getElementById('admin-avatar-img').src = compressed.dataUrl;
         showToast('Mengunggah foto admin ke Drive...');
-        await postToAppsScript({
+        const json = await postToAppsScript({
           action: 'saveAdminPhoto',
           fileName: 'FOTO_ADMIN_BAITUL_ARQAM_2026',
           mimeType: compressed.mimeType,
           photoBase64: compressed.dataUrl,
         });
-        showToast('Foto admin tersimpan di Drive & siap di semua perangkat.');
+        if (json && json.status === 'ok') {
+          showToast('Foto admin tersimpan di Drive & siap di semua perangkat.');
+        } else {
+          showToast('Error Drive: ' + (json.message || 'Gagal simpan foto admin'));
+        }
       } catch (err) {
-        showToast('Foto admin tersimpan lokal.');
+        showToast('Gagal terhubung ke Apps Script. Pastikan sudah Deploy New Version.');
       }
     }
 
@@ -1066,6 +1074,11 @@
         ? 'px-3.5 py-2 rounded-xl text-xs font-bold bg-indigo-600 text-white shadow-md transition'
         : 'nav-btn-inactive px-3.5 py-2 rounded-xl text-xs font-semibold transition';
       if (persist) saveUiState({ view });
+      if (view === 'admin') {
+        renderAdminTable();
+        const url = getScriptUrl();
+        if (url) fetchRemoteConfigAndData(url, true);
+      }
     }
 
     function goToStep(step, persist = true) {
@@ -1196,7 +1209,7 @@
       const file = e.target.files && e.target.files[0];
       if (!file) return;
       try {
-        const compressed = await compressImageFile(file, 640, 0.72);
+        const compressed = await compressImageFile(file, 600, 0.72);
         currentPesertaPhotoBase64 = compressed.dataUrl;
         currentPesertaPhotoMime = compressed.mimeType;
         document.getElementById('fotoPesertaPreview').src = compressed.dataUrl;
@@ -1269,6 +1282,9 @@
       e.preventDefault();
       const namaLengkap = getActiveParticipantName();
       const cleanName = sanitizeDriveFileName(namaLengkap);
+      const photoSnapshot = currentPesertaPhotoBase64;
+      const mimeSnapshot = currentPesertaPhotoMime;
+
       const submitBtn = document.getElementById('submit-biodata-btn');
       submitBtn.disabled = true;
       submitBtn.textContent = 'Menyimpan...';
@@ -1303,12 +1319,11 @@
         pelatihan: collectChecked('pelatihanGroup', 'pelatihanLainnya'),
         harapan: document.getElementById('harapanMuhammadiyah').value.trim(),
         kontribusi: document.getElementById('kontribusiMuhammadiyah').value.trim(),
-        photoData: currentPesertaPhotoBase64 || '',
+        photoData: photoSnapshot || '',
         fileName: cleanName,
-        mimeType: currentPesertaPhotoMime,
+        mimeType: mimeSnapshot,
       };
 
-      // Simpan lokal terlebih dahulu agar respons instan bagi pengguna PC
       const records = getRecords();
       const existingIdx = records.findIndex((r) => r.namaLengkap === record.namaLengkap);
       if (existingIdx >= 0) {
@@ -1331,17 +1346,22 @@
       document.getElementById('form-progress-card').classList.add('hidden');
       document.getElementById('saved-participant-name').textContent = namaLengkap;
       document.getElementById('peserta-saved-card').classList.remove('hidden');
-      showToast('Biodata tersimpan. Sinkronisasi ke Drive & Sheets berjalan...');
 
-      // Kirim ke Google Apps Script di latar belakang tanpa menahan antrean peserta berikutnya
-      postToAppsScript({
-        action: 'save',
-        ...record,
-        fileName: cleanName,
-        photoBase64: currentPesertaPhotoBase64,
-      }).then(() => {
-        showToast(`Sinkronisasi Drive & Sheets selesai untuk ${namaLengkap}.`);
-      }).catch(() => {});
+      try {
+        const resJson = await postToAppsScript({
+          action: 'save',
+          ...record,
+          fileName: cleanName,
+          photoBase64: photoSnapshot,
+        });
+        if (resJson && resJson.status === 'ok') {
+          showToast(`Biodata & foto ${namaLengkap} masuk ke Sheets & Drive!`);
+        } else {
+          showToast('Gagal menyimpan ke Sheets: ' + (resJson.message || 'Cek deployment Apps Script'));
+        }
+      } catch (err) {
+        showToast('Gagal terhubung ke server Sheets. Pastikan Code.gs sudah di-deploy New Version.');
+      }
     }
 
     function resetFormForNextParticipant() {
@@ -1417,22 +1437,28 @@
           document.getElementById('admin-avatar-img').src = json.adminPhotoDataUrl;
         }
         if (json.status === 'ok' && Array.isArray(json.data)) {
-          const localMap = new Map(getRecords().map((item) => [item.namaLengkap, item]));
-          const merged = json.data.map((row) => {
-            const prev = localMap.get(row.namaLengkap) || {};
-            return {
+          const localList = getRecords();
+          const remoteMap = new Map(json.data.map((row) => [row.namaLengkap, row]));
+          const mergedMap = new Map();
+
+          localList.forEach((item) => mergedMap.set(item.namaLengkap, item));
+          remoteMap.forEach((row, key) => {
+            const prev = mergedMap.get(key) || {};
+            mergedMap.set(key, {
               ...prev,
               ...row,
-              photoData: row.photoDataUrl || prev.photoData || '',
-            };
+              photoData: row.photoUrl || prev.photoData || '',
+            });
           });
+
+          const merged = Array.from(mergedMap.values());
           saveRecords(merged);
           renderAdminTable();
-          if (statusLabel) statusLabel.textContent = `Terhubung (${merged.length} data peserta dimuat)`;
-          if (!silent) showToast(`Sinkronisasi berhasil (${merged.length} peserta).`);
+          if (statusLabel) statusLabel.textContent = `Terhubung (${json.data.length} data di Sheets)`;
+          if (!silent) showToast(`Sinkronisasi berhasil (${json.data.length} peserta di Sheets).`);
         }
       } catch (err) {
-        if (statusLabel) statusLabel.textContent = 'Gagal terhubung — cek akses Web App Apps Script (Anyone)';
+        if (statusLabel) statusLabel.textContent = 'Gagal terhubung — pastikan Deployment Apps Script "New version" & "Anyone"';
         if (!silent) showToast('Gagal terhubung ke Google Apps Script.');
       }
     }
@@ -1490,7 +1516,7 @@
       if (!target) return;
 
       try {
-        const compressed = await compressImageFile(file, 640, 0.72);
+        const compressed = await compressImageFile(file, 600, 0.72);
         target.photoData = compressed.dataUrl;
         records[idx] = target;
         saveRecords(records);
