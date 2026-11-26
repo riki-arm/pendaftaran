@@ -161,38 +161,19 @@
       color: var(--text-main);
     }
 
-    .nav-btn-inactive:hover {
-      border-color: #6366f1;
-    }
-
     .cta-shimmer {
-      position: relative;
-      overflow: hidden;
       background: linear-gradient(135deg, #4338ca 0%, #0369a1 55%, #b45309 100%);
       color: #ffffff;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
     }
 
-    .cta-shimmer::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -120%;
-      width: 65%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.34), transparent);
-      transform: skewX(-22deg);
-      animation: shimmerSweep 3.8s infinite;
+    .cta-shimmer:active {
+      transform: scale(0.98);
     }
 
-    .cta-shimmer:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 12px 28px -6px rgba(67, 56, 202, 0.45);
-    }
-
-    @keyframes shimmerSweep {
-      0% { left: -120%; }
-      55%, 100% { left: 160%; }
+    .cta-shimmer:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
     }
 
     @media print {
@@ -227,7 +208,7 @@
     <div class="aurora-orb orb-champagne"></div>
   </div>
 
-  <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 py-6">
+  <div class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 py-5">
     <!-- Top Header -->
     <header class="neo-glass rounded-3xl p-4 sm:p-5 mb-6 flex flex-wrap items-center justify-between gap-4">
       <div class="flex items-center gap-3.5">
@@ -257,7 +238,7 @@
     </header>
 
     <!-- Toast Notification -->
-    <div id="toast-box" class="hidden fixed bottom-5 right-5 z-50 neo-glass px-4 py-3 rounded-2xl border border-indigo-500/40 text-xs sm:text-sm font-semibold shadow-2xl"></div>
+    <div id="toast-box" class="hidden fixed bottom-5 left-4 right-4 sm:left-auto sm:right-5 sm:max-w-md z-50 neo-glass px-4 py-3 rounded-2xl border border-indigo-500/50 text-xs sm:text-sm font-semibold shadow-2xl"></div>
 
     <!-- VIEW 1: FORM PESERTA -->
     <main id="view-form" class="space-y-6">
@@ -288,7 +269,7 @@
         </div>
       </section>
 
-      <form id="biodata-form" onsubmit="handleFormSubmit(event)" oninput="saveFormDraft()" onchange="saveFormDraft()" class="neo-glass rounded-3xl p-5 sm:p-8 space-y-6">
+      <form id="biodata-form" onsubmit="event.preventDefault(); handleFormSubmit();" oninput="saveFormDraft()" onchange="saveFormDraft()" class="neo-glass rounded-3xl p-5 sm:p-8 space-y-6">
         <!-- STEP 1 -->
         <div id="step-panel-1" class="space-y-5">
           <div class="border-b border-slate-400/20 pb-3">
@@ -320,8 +301,8 @@
 
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             <div>
-              <label class="block text-xs font-semibold mb-1.5">Jenis Kelamin</label>
-              <select id="jenisKelamin" required class="glass-select w-full rounded-2xl px-3.5 py-2.5 text-sm">
+              <label class="block text-xs font-semibold mb-1.5">Jenis Kelamin *</label>
+              <select id="jenisKelamin" class="glass-select w-full rounded-2xl px-3.5 py-2.5 text-sm">
                 <option value="">-- Pilih Jenis Kelamin --</option>
                 <option value="Laki-Laki">Laki-Laki</option>
                 <option value="Perempuan">Perempuan</option>
@@ -329,8 +310,8 @@
             </div>
 
             <div>
-              <label class="block text-xs font-semibold mb-1.5">Status</label>
-              <select id="statusNikah" required class="glass-select w-full rounded-2xl px-3.5 py-2.5 text-sm">
+              <label class="block text-xs font-semibold mb-1.5">Status *</label>
+              <select id="statusNikah" class="glass-select w-full rounded-2xl px-3.5 py-2.5 text-sm">
                 <option value="">-- Pilih Status --</option>
                 <option value="Belum Menikah">Belum Menikah</option>
                 <option value="Menikah">Menikah</option>
@@ -364,27 +345,27 @@
             </div>
 
             <div>
-              <label class="block text-xs font-semibold mb-1.5">Tempat Lahir (Tulis Sendiri)</label>
-              <input type="text" id="tempatLahir" required placeholder="Contoh: Garut" class="glass-input w-full rounded-2xl px-3.5 py-2.5 text-sm" />
+              <label class="block text-xs font-semibold mb-1.5">Tempat Lahir *</label>
+              <input type="text" id="tempatLahir" placeholder="Contoh: Garut" class="glass-input w-full rounded-2xl px-3.5 py-2.5 text-sm" />
             </div>
 
             <div>
               <label class="block text-xs font-semibold mb-1.5">Tanggal Lahir (Klik Tanggal / Manual)</label>
               <div class="flex gap-2">
                 <input type="date" id="tanggalLahirPicker" onchange="syncDateFromPicker()" class="glass-input rounded-2xl px-3 py-2 text-xs" />
-                <input type="text" id="tanggalLahirManual" placeholder="06 Maret 1987 / 06-03-1987" class="glass-input flex-1 rounded-2xl px-3.5 py-2.5 text-sm" />
+                <input type="text" id="tanggalLahirManual" placeholder="06 Maret 1987" class="glass-input flex-1 rounded-2xl px-3.5 py-2.5 text-sm" />
               </div>
             </div>
 
             <div>
-              <label class="block text-xs font-semibold mb-1.5">No. HP / WhatsApp (Tulis Sendiri)</label>
-              <input type="tel" id="noHp" required onblur="formatPhoneInput(this)" placeholder="081234567890" class="glass-input w-full rounded-2xl px-3.5 py-2.5 text-sm" />
+              <label class="block text-xs font-semibold mb-1.5">No. HP / WhatsApp *</label>
+              <input type="tel" id="noHp" onblur="formatPhoneInput(this)" placeholder="081234567890" class="glass-input w-full rounded-2xl px-3.5 py-2.5 text-sm" />
             </div>
           </div>
 
           <div>
-            <label class="block text-xs font-semibold mb-1.5">Alamat Rumah (Tulis Sendiri)</label>
-            <textarea id="alamatRumah" rows="2" required placeholder="Alamat lengkap tempat tinggal..." class="glass-textarea w-full rounded-2xl px-3.5 py-2.5 text-sm"></textarea>
+            <label class="block text-xs font-semibold mb-1.5">Alamat Rumah *</label>
+            <textarea id="alamatRumah" rows="2" placeholder="Alamat lengkap tempat tinggal..." class="glass-textarea w-full rounded-2xl px-3.5 py-2.5 text-sm"></textarea>
           </div>
 
           <div class="border-t border-slate-400/20 pt-4">
@@ -467,7 +448,7 @@
           </div>
 
           <div class="flex justify-end pt-2">
-            <button type="button" onclick="goToStep(2)" class="cta-shimmer px-6 py-3 rounded-2xl text-sm font-bold">
+            <button type="button" onclick="nextFromStep1()" class="cta-shimmer px-6 py-3 rounded-2xl text-sm font-bold">
               Lanjut ke Tentang Muhammadiyah &rarr;
             </button>
           </div>
@@ -610,13 +591,13 @@
         <div id="step-panel-3" class="hidden space-y-5">
           <div class="border-b border-slate-400/20 pb-3">
             <h3 class="text-base font-bold heading-accent">Upload Foto Peserta Baitul Arqam Pegawai 2026</h3>
-            <p class="text-xs muted-text mt-0.5">Foto dikompresi otomatis agar cepat terkirim dan tersimpan dengan nama lengkap peserta.</p>
+            <p class="text-xs muted-text mt-0.5">Foto dikompresi otomatis agar cepat terkirim dari HP maupun PC dan tersimpan sesuai nama peserta.</p>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
             <div class="subtle-panel p-5 rounded-2xl border-dashed border-2 text-center space-y-3">
-              <p class="text-xs font-bold">Pilih Pas Foto Peserta (JPG / PNG)</p>
-              <input type="file" id="fotoPesertaInput" accept="image/*" onchange="handlePesertaPhotoUpload(event)" class="block w-full text-xs file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-indigo-600 file:text-white hover:file:bg-indigo-500 cursor-pointer" />
+              <p class="text-xs font-bold">Pilih Pas Foto Peserta (JPG / PNG / Kamera HP)</p>
+              <input type="file" id="fotoPesertaInput" accept="image/*" onchange="handlePesertaPhotoUpload(event)" class="block w-full text-xs file:mr-3 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-bold file:bg-indigo-600 file:text-white hover:file:bg-indigo-500 cursor-pointer" />
               <p id="autoFileNameInfo" class="text-xs sub-accent font-semibold">Nama file otomatis di Drive: Belum dipilih</p>
             </div>
 
@@ -630,7 +611,7 @@
             <button type="button" onclick="goToStep(2)" class="nav-btn-inactive px-5 py-3 rounded-2xl text-xs font-bold transition">
               &larr; Kembali
             </button>
-            <button type="submit" id="submit-biodata-btn" class="cta-shimmer px-7 py-3 rounded-2xl text-sm font-bold">
+            <button type="button" id="submit-biodata-btn" onclick="handleFormSubmit()" class="cta-shimmer px-7 py-3.5 rounded-2xl text-sm font-bold shadow-lg">
               Simpan Biodata Peserta
             </button>
           </div>
@@ -1010,17 +991,30 @@
       "Yunita Sulistiani, S.Pd."
     ];
 
-    const STORAGE_KEY_RECORDS = 'ba2026_participants_v8';
-    const STORAGE_KEY_LOGO = 'ba2026_brand_logo_v8';
-    const STORAGE_KEY_ADMIN_PHOTO = 'ba2026_admin_photo_v8';
-    const STORAGE_KEY_SCRIPT_URL = 'ba2026_apps_script_url_v8';
-    const STORAGE_KEY_UI_STATE = 'ba2026_ui_state_v8';
-    const STORAGE_KEY_DRAFT = 'ba2026_form_draft_v8';
+    const STORAGE_KEY_LOGO = 'ba2026_brand_logo_v9';
+    const STORAGE_KEY_ADMIN_PHOTO = 'ba2026_admin_photo_v9';
+    const STORAGE_KEY_SCRIPT_URL = 'ba2026_apps_script_url_v9';
+    const STORAGE_KEY_UI_STATE = 'ba2026_ui_state_v9';
+    const STORAGE_KEY_DRAFT = 'ba2026_form_draft_v9';
 
+    let cachedRecords = [];
     let currentPesertaPhotoBase64 = '';
     let currentPesertaPhotoMime = 'image/jpeg';
     let editNewPhotoBase64 = '';
     let editNewPhotoMime = 'image/jpeg';
+
+    function safeSetLocalStorage(key, value) {
+      try {
+        localStorage.setItem(key, value);
+      } catch (e) {}
+    }
+
+    function cleanupLegacyStorage() {
+      try {
+        localStorage.removeItem('ba2026_participants_v8');
+        localStorage.removeItem('ba2026_participants_v7');
+      } catch (e) {}
+    }
 
     function normalizePhoneText(val) {
       if (!val) return '';
@@ -1084,7 +1078,7 @@
       return str;
     }
 
-    function compressImageFile(file, maxDim = 600, quality = 0.72) {
+    function compressImageFile(file, maxDim = 480, quality = 0.68) {
       return new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = (ev) => {
@@ -1133,7 +1127,7 @@
 
     function saveUiState(patch) {
       const next = { ...getUiState(), ...patch };
-      localStorage.setItem(STORAGE_KEY_UI_STATE, JSON.stringify(next));
+      safeSetLocalStorage(STORAGE_KEY_UI_STATE, JSON.stringify(next));
     }
 
     function resetAllDropdownsToPlaceholder() {
@@ -1143,6 +1137,8 @@
     }
 
     async function initApp() {
+      cleanupLegacyStorage();
+
       const selectEl = document.getElementById('namaDropdown');
       PARTICIPANT_NAMES.forEach((name) => {
         const opt = document.createElement('option');
@@ -1192,7 +1188,7 @@
       box.textContent = msg;
       box.classList.remove('hidden');
       clearTimeout(window._toastTimer);
-      window._toastTimer = setTimeout(() => box.classList.add('hidden'), 3800);
+      window._toastTimer = setTimeout(() => box.classList.add('hidden'), 4200);
     }
 
     function toggleTheme() {
@@ -1226,8 +1222,8 @@
       const file = e.target.files && e.target.files[0];
       if (!file) return;
       try {
-        const compressed = await compressImageFile(file, 360, 0.82);
-        localStorage.setItem(STORAGE_KEY_LOGO, compressed.dataUrl);
+        const compressed = await compressImageFile(file, 320, 0.8);
+        safeSetLocalStorage(STORAGE_KEY_LOGO, compressed.dataUrl);
         applyBrandLogo(compressed.dataUrl);
         showToast('Mengunggah logo ke Drive...');
         const json = await postToAppsScript({
@@ -1250,8 +1246,8 @@
       const file = e.target.files && e.target.files[0];
       if (!file) return;
       try {
-        const compressed = await compressImageFile(file, 360, 0.78);
-        localStorage.setItem(STORAGE_KEY_ADMIN_PHOTO, compressed.dataUrl);
+        const compressed = await compressImageFile(file, 320, 0.78);
+        safeSetLocalStorage(STORAGE_KEY_ADMIN_PHOTO, compressed.dataUrl);
         document.getElementById('admin-avatar-img').src = compressed.dataUrl;
         showToast('Mengunggah foto admin ke Drive...');
         const json = await postToAppsScript({
@@ -1284,6 +1280,47 @@
         renderAdminTable();
         const url = getScriptUrl();
         if (url) fetchRemoteConfigAndData(url, true);
+      }
+    }
+
+    function validateStep1() {
+      const drop = document.getElementById('namaDropdown').value.trim();
+      const manual = document.getElementById('namaManual').value.trim();
+      const koreksi = document.getElementById('namaKoreksi').value.trim();
+      const ganti = document.getElementById('gantiNamaCheck').checked;
+      const hasName = (ganti && koreksi) || manual || drop;
+
+      if (!hasName) {
+        goToStep(1);
+        showToast('Silakan pilih Nama Lengkap atau ketik nama Anda terlebih dahulu.');
+        document.getElementById('namaDropdown').focus();
+        return false;
+      }
+
+      const requiredFields = [
+        { id: 'jenisKelamin', label: 'Jenis Kelamin' },
+        { id: 'statusNikah', label: 'Status' },
+        { id: 'tempatLahir', label: 'Tempat Lahir' },
+        { id: 'noHp', label: 'No. HP / WhatsApp' },
+        { id: 'alamatRumah', label: 'Alamat Rumah' },
+      ];
+
+      for (const field of requiredFields) {
+        const el = document.getElementById(field.id);
+        if (!el || !el.value.trim()) {
+          goToStep(1);
+          showToast(`Kolom "${field.label}" wajib diisi terlebih dahulu.`);
+          if (el) el.focus();
+          return false;
+        }
+      }
+      return true;
+    }
+
+    function nextFromStep1() {
+      if (validateStep1()) {
+        goToStep(2);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
       }
     }
 
@@ -1330,7 +1367,7 @@
         const el = document.getElementById(id);
         if (el) draft.values[id] = el.value;
       });
-      localStorage.setItem(STORAGE_KEY_DRAFT, JSON.stringify(draft));
+      safeSetLocalStorage(STORAGE_KEY_DRAFT, JSON.stringify(draft));
     }
 
     function restoreFormDraft() {
@@ -1413,21 +1450,23 @@
     async function handlePesertaPhotoUpload(e) {
       const file = e.target.files && e.target.files[0];
       if (!file) return;
+      showToast('Memproses foto peserta...');
       try {
-        const compressed = await compressImageFile(file, 600, 0.72);
+        const compressed = await compressImageFile(file, 480, 0.68);
         currentPesertaPhotoBase64 = compressed.dataUrl;
         currentPesertaPhotoMime = compressed.mimeType;
         document.getElementById('fotoPesertaPreview').src = compressed.dataUrl;
         updateAutoFileNameLabel();
+        showToast('Foto siap dikirim.');
       } catch (err) {
-        showToast('Gagal memproses foto.');
+        showToast('Gagal memproses foto. Silakan pilih ulang.');
       }
     }
 
     async function registerWithPasskey() {
       const name = getActiveParticipantName();
       if (!window.PublicKeyCredential || !navigator.credentials) {
-        localStorage.setItem('ba2026_quick_profile', JSON.stringify({ name, savedAt: new Date().toISOString() }));
+        safeSetLocalStorage('ba2026_quick_profile', JSON.stringify({ name, savedAt: new Date().toISOString() }));
         showToast(`Profil cepat tersimpan untuk ${name}.`);
         return;
       }
@@ -1446,10 +1485,10 @@
             timeout: 60000,
           },
         });
-        localStorage.setItem('ba2026_quick_profile', JSON.stringify({ name, passkey: true }));
+        safeSetLocalStorage('ba2026_quick_profile', JSON.stringify({ name, passkey: true }));
         showToast(`Biometrik / Passkey aktif untuk ${name}.`);
       } catch (err) {
-        localStorage.setItem('ba2026_quick_profile', JSON.stringify({ name, savedAt: new Date().toISOString() }));
+        safeSetLocalStorage('ba2026_quick_profile', JSON.stringify({ name, savedAt: new Date().toISOString() }));
         showToast(`Mode cepat aktif untuk ${name}.`);
       }
     }
@@ -1472,19 +1511,16 @@
     }
 
     function getRecords() {
-      try {
-        return JSON.parse(localStorage.getItem(STORAGE_KEY_RECORDS) || '[]');
-      } catch (e) {
-        return [];
-      }
+      return cachedRecords;
     }
 
     function saveRecords(list) {
-      localStorage.setItem(STORAGE_KEY_RECORDS, JSON.stringify(list));
+      cachedRecords = Array.isArray(list) ? list : [];
     }
 
-    async function handleFormSubmit(e) {
-      e.preventDefault();
+    async function handleFormSubmit() {
+      if (!validateStep1()) return;
+
       const namaLengkap = getActiveParticipantName();
       const cleanName = sanitizeDriveFileName(namaLengkap);
       const photoSnapshot = currentPesertaPhotoBase64;
@@ -1492,7 +1528,8 @@
 
       const submitBtn = document.getElementById('submit-biodata-btn');
       submitBtn.disabled = true;
-      submitBtn.textContent = 'Menyimpan...';
+      submitBtn.textContent = 'Mengirim ke Server...';
+      showToast('Sedang mengirim biodata & foto, mohon tunggu...');
 
       const tglFormatted = formatTanggalIndonesia(
         document.getElementById('tanggalLahirManual').value.trim() || document.getElementById('tanggalLahirPicker').value
@@ -1534,29 +1571,6 @@
         mimeType: mimeSnapshot,
       };
 
-      const records = getRecords();
-      const existingIdx = records.findIndex((r) => r.namaLengkap === record.namaLengkap);
-      if (existingIdx >= 0) {
-        if (!record.photoData && records[existingIdx].photoData) {
-          record.photoData = records[existingIdx].photoData;
-        }
-        records[existingIdx] = record;
-      } else {
-        records.push(record);
-      }
-      saveRecords(records);
-      localStorage.removeItem(STORAGE_KEY_DRAFT);
-      saveUiState({ step: 1 });
-      renderAdminTable();
-
-      submitBtn.disabled = false;
-      submitBtn.textContent = 'Simpan Biodata Peserta';
-
-      document.getElementById('biodata-form').classList.add('hidden');
-      document.getElementById('form-progress-card').classList.add('hidden');
-      document.getElementById('saved-participant-name').textContent = namaLengkap;
-      document.getElementById('peserta-saved-card').classList.remove('hidden');
-
       try {
         const resJson = await postToAppsScript({
           action: 'save',
@@ -1564,20 +1578,39 @@
           fileName: cleanName,
           photoBase64: photoSnapshot,
         });
+
         if (resJson && resJson.status === 'ok') {
-          showToast(`Biodata & foto ${namaLengkap} masuk ke Sheets & Drive!`);
+          const existingIdx = cachedRecords.findIndex((r) => r.namaLengkap === record.namaLengkap);
+          if (existingIdx >= 0) {
+            cachedRecords[existingIdx] = record;
+          } else {
+            cachedRecords.push(record);
+          }
+          try { localStorage.removeItem(STORAGE_KEY_DRAFT); } catch (e) {}
+          saveUiState({ step: 1 });
+          renderAdminTable();
+
+          document.getElementById('biodata-form').classList.add('hidden');
+          document.getElementById('form-progress-card').classList.add('hidden');
+          document.getElementById('saved-participant-name').textContent = namaLengkap;
+          document.getElementById('peserta-saved-card').classList.remove('hidden');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          showToast(`Biodata & foto ${namaLengkap} berhasil masuk ke Sheets & Drive!`);
         } else {
-          showToast('Gagal menyimpan ke Sheets: ' + (resJson.message || 'Cek deployment Apps Script'));
+          showToast('Gagal menyimpan ke server: ' + ((resJson && resJson.message) || 'Cek deployment Apps Script'));
         }
       } catch (err) {
-        showToast('Gagal terhubung ke server Sheets: ' + err.message);
+        showToast('Gagal mengirim data: ' + err.message);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Simpan Biodata Peserta';
       }
     }
 
     function resetFormForNextParticipant() {
       document.getElementById('biodata-form').reset();
       resetAllDropdownsToPlaceholder();
-      localStorage.removeItem(STORAGE_KEY_DRAFT);
+      try { localStorage.removeItem(STORAGE_KEY_DRAFT); } catch (e) {}
       currentPesertaPhotoBase64 = '';
       document.getElementById('fotoPesertaPreview').src = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='200' viewBox='0 0 160 200'%3E%3Crect width='160' height='200' rx='14' fill='%23334155'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%23e2e8f0' font-size='13' font-family='sans-serif'%3EFoto 3x4 / 4x6%3C/text%3E%3C/svg%3E";
       document.getElementById('peserta-saved-card').classList.add('hidden');
@@ -1612,7 +1645,7 @@
 
     function saveScriptUrl() {
       const url = document.getElementById('apps-script-url').value.trim();
-      localStorage.setItem(STORAGE_KEY_SCRIPT_URL, url);
+      safeSetLocalStorage(STORAGE_KEY_SCRIPT_URL, url);
       showToast('Web App URL disimpan.');
       if (url) fetchRemoteConfigAndData(url, false);
     }
@@ -1639,11 +1672,11 @@
         const json = JSON.parse(text);
 
         if (json.logoDataUrl) {
-          localStorage.setItem(STORAGE_KEY_LOGO, json.logoDataUrl);
+          safeSetLocalStorage(STORAGE_KEY_LOGO, json.logoDataUrl);
           applyBrandLogo(json.logoDataUrl);
         }
         if (json.adminPhotoDataUrl) {
-          localStorage.setItem(STORAGE_KEY_ADMIN_PHOTO, json.adminPhotoDataUrl);
+          safeSetLocalStorage(STORAGE_KEY_ADMIN_PHOTO, json.adminPhotoDataUrl);
           document.getElementById('admin-avatar-img').src = json.adminPhotoDataUrl;
         }
         if (json.status === 'ok' && Array.isArray(json.data)) {
@@ -1768,7 +1801,7 @@
       const file = e.target.files && e.target.files[0];
       if (!file) return;
       try {
-        const compressed = await compressImageFile(file, 600, 0.72);
+        const compressed = await compressImageFile(file, 480, 0.68);
         editNewPhotoBase64 = compressed.dataUrl;
         editNewPhotoMime = compressed.mimeType;
         document.getElementById('edit-photo-preview').src = compressed.dataUrl;
